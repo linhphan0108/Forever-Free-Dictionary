@@ -1,13 +1,13 @@
-package com.example.foreverfreedictionary.ui.tools
+package com.example.foreverfreedictionary.ui.screen.share
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ToolsViewModel : ViewModel() {
+class ShareViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is tools Fragment"
+        value = "This is share Fragment"
     }
     val text: LiveData<String> = _text
 }
