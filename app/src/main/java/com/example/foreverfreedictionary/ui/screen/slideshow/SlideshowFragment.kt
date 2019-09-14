@@ -1,4 +1,4 @@
-package com.example.foreverfreedictionary.ui.slideshow
+package com.example.foreverfreedictionary.ui.screen.slideshow
 
 import android.os.Bundle
 import android.view.LayoutInflater

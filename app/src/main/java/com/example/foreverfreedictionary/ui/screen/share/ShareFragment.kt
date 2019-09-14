@@ -1,4 +1,4 @@
-package com.example.foreverfreedictionary.ui.share
+package com.example.foreverfreedictionary.ui.screen.share
 
 import android.os.Bundle
 import android.view.LayoutInflater
