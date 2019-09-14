@@ -5,7 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     /**
      * This is the job for all coroutines started by this ViewModel.
      *
@@ -18,7 +18,7 @@ class BaseViewModel : ViewModel() {
      * Since we pass viewModelJob, you can cancel all coroutines launched by uiScope by calling
      * viewModelJob.cancel()
      */
-    private val uiScope: CoroutineScope by lazy { CoroutineScope(
+    protected val uiScope: CoroutineScope by lazy { CoroutineScope(
         Dispatchers.Main + viewModelJob) }
 
     override fun onCleared() {

@@ -13,4 +13,8 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="default_snack_bar_action">Ok</string>
+
+    <string name="menu_pre">Pre</string>
+    <string name="menu_next">Next</string>
 </resources>
