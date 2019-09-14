@@ -23,3 +23,7 @@
 
 ######### dagger 2
 # No special ProGuard rules required.
+
+#Jsoup
+#No need to keep everything. This is enough
+-keeppackagenames org.jsoup.nodes

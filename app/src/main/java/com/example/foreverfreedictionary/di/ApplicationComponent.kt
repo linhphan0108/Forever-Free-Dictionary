@@ -2,6 +2,7 @@ package com.example.foreverfreedictionary.di
 
 import android.app.Application
 import com.example.foreverfreedictionary.di.module.AppModule
+import com.example.foreverfreedictionary.ui.screen.result.ResultActivityViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -11,7 +12,7 @@ import javax.inject.Singleton
  * simple (even though it doesn't look that bad either) and it doesn't get much better than that.
  */
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [])
 interface ApplicationComponent {
     @Component.Builder
     interface Builder {
@@ -24,4 +25,5 @@ interface ApplicationComponent {
      * We could've chosen to create an inject() method instead and do field injection in the
      * Activity, but for this case this seems less verbose to me in the end.
      */
+    val resultActivityViewModel: ResultActivityViewModel
 }
