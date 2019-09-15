@@ -1,7 +1,8 @@
 package com.example.foreverfreedictionary.util
 
-const val DOMAIN = "https://www.ldoceonline.com/dictionary/"
-const val QUERY = DOMAIN + "count"
+const val DOMAIN = "https://www.ldoceonline.com/"
+const val DICTIONARY_URL = DOMAIN + "dictionary/"
+const val AUTOCOMPLETE_URL = "https://www.ldoceonline.com/autocomplete/english/?q=%s&contentType=application/json;+charset=utf-8"
 const val CSS = "<link rel=\"preconnect\" href=\"https://d27ucmmhxk51xv.cloudfront.net/\">\n" +
         "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com/\">\n" +
         "<link rel=\"preconnect\" href=\"https://secure.quantserve.com/\">\n" +
