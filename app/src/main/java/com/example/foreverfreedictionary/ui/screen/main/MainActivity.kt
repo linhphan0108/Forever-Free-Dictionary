@@ -1,4 +1,4 @@
-package com.example.foreverfreedictionary.ui.screen
+package com.example.foreverfreedictionary.ui.screen.main
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,11 +15,14 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.inputmethod.EditorInfo
 import com.example.foreverfreedictionary.R
+import com.example.foreverfreedictionary.di.injector
+import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: MainActivityViewModel by viewModel(this){injector.mainActivityViewModel}
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,8 @@ class MainActivity : AppCompatActivity() {
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        viewModel.autocompleteQuery("lear")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
