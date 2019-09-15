@@ -13,7 +13,10 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.inputmethod.EditorInfo
 import com.example.foreverfreedictionary.R
+import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        setSearchBox()
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
@@ -58,6 +62,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateResultScreen(){
-        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
+            ResultActivity.createBundle(edtSearch.text.toString()))
+    }
+
+    private fun setSearchBox(){
+        edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            when(actionId){
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    navigateResultScreen()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

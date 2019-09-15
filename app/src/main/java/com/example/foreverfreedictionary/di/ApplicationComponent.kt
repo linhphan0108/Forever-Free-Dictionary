@@ -2,6 +2,7 @@ package com.example.foreverfreedictionary.di
 
 import android.app.Application
 import com.example.foreverfreedictionary.di.module.AppModule
+import com.example.foreverfreedictionary.ui.screen.home.HomeViewModel
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivityViewModel
 import dagger.BindsInstance
 import dagger.Component
@@ -26,4 +27,5 @@ interface ApplicationComponent {
      * Activity, but for this case this seems less verbose to me in the end.
      */
     val resultActivityViewModel: ResultActivityViewModel
+    val homeViewModel: HomeViewModel
 }
