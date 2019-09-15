@@ -16,7 +16,7 @@ import android.view.Menu
 import android.view.inputmethod.EditorInfo
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity() {
 

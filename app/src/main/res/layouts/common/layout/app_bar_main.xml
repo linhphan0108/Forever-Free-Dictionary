@@ -10,7 +10,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -18,6 +19,85 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_box_background"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/search_box_margin_top"
+            android:layout_marginBottom="@dimen/search_box_margin_bottom"
+            android:layout_marginStart="@dimen/search_box_margin_start"
+            android:layout_marginLeft="@dimen/search_box_margin_start"
+            android:layout_marginEnd="@dimen/search_box_margin_end"
+            android:layout_marginRight="@dimen/search_box_margin_end"
+            android:paddingTop="@dimen/search_box_padding_top"
+            android:paddingBottom="@dimen/search_box_padding_bottom"
+            android:paddingStart="@dimen/search_box_padding_start"
+            android:paddingLeft="@dimen/search_box_padding_start"
+            android:paddingEnd="@dimen/search_box_padding_end"
+            android:paddingRight="@dimen/search_box_padding_end">
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iBtnMic"
+                android:imeOptions="actionSearch"
+                android:background="@android:color/transparent"
+                android:inputType="text"
+                android:textColor="@color/color_search_Box_text"
+                android:textColorHint="@color/color_search_Box_text_hint"
+                android:textSize="@dimen/text_size_search_box"
+                android:hint="@string/search_box_hint"
+                android:drawableLeft="@drawable/outline_search_black_24"
+                android:drawableStart="@drawable/outline_search_black_24"
+                android:drawablePadding="@dimen/search_box_search_icon_padding"
+                android:drawableTint="@color/colorPrimary"
+                android:drawableTintMode="src_in"
+                android:maxLines="1" />
+            <ImageButton
+                android:id="@+id/iBtnMic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/edtSearch"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iBtnCamera"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/outline_mic_black_24"
+                android:tint="@color/colorPrimary"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_gravity="center_vertical|end"/>
+
+            <ImageButton
+                android:id="@+id/iBtnCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toEndOf="@id/iBtnMic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/baseline_photo_camera_black_24"
+                android:tint="@color/colorPrimary"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_gravity="center_vertical|end"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/search_box_margin_end"
+            android:layout_marginRight="@dimen/search_box_margin_end"
+            android:layout_marginBottom="@dimen/search_box_margin_bottom"
+            android:text="@string/switch_dark_mode"
+            app:switchPadding="@dimen/horizontal_padding_half"
+            android:layout_gravity="end"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

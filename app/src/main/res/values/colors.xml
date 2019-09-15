@@ -3,4 +3,17 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#fff</color>
+
+    <color name="colorError">#ff9800</color>
+
+
+    <color name="textPrimary">#757575</color>
+    <color name="textSecondary">#9f9f9f</color>
+    <color name="textError">@color/colorError</color>
+
+<!--    search box-->
+    <color name="color_search_box_background">@color/colorWhite</color>
+    <color name="color_search_Box_text">@color/textPrimary</color>
+    <color name="color_search_Box_text_hint">@color/textSecondary</color>
 </resources>
