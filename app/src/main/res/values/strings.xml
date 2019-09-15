@@ -17,4 +17,8 @@
 
     <string name="menu_pre">Pre</string>
     <string name="menu_next">Next</string>
+
+<!--    search box-->
+    <string name="search_box_hint">Search…</string>
+    <string name="switch_dark_mode">Dark Mode</string>
 </resources>
