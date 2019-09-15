@@ -1,8 +1,10 @@
 package com.example.foreverfreedictionary.di
 
 import android.app.Application
-import com.example.foreverfreedictionary.di.module.AppModule
+import com.example.foreverfreedictionary.di.module.DataSourceModule
+import com.example.foreverfreedictionary.di.module.RetrofitModule
 import com.example.foreverfreedictionary.ui.screen.home.HomeViewModel
+import com.example.foreverfreedictionary.ui.screen.main.MainActivityViewModel
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivityViewModel
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +15,7 @@ import javax.inject.Singleton
  * simple (even though it doesn't look that bad either) and it doesn't get much better than that.
  */
 @Singleton
-@Component(modules = [])
+@Component(modules = [RetrofitModule::class, DataSourceModule::class])
 interface ApplicationComponent {
     @Component.Builder
     interface Builder {
@@ -26,6 +28,7 @@ interface ApplicationComponent {
      * We could've chosen to create an inject() method instead and do field injection in the
      * Activity, but for this case this seems less verbose to me in the end.
      */
+    val mainActivityViewModel: MainActivityViewModel
     val resultActivityViewModel: ResultActivityViewModel
     val homeViewModel: HomeViewModel
 }
