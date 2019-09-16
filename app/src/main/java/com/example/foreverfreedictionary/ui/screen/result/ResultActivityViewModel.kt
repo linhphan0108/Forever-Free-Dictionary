@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
 import com.example.foreverfreedictionary.util.CSS
-import com.example.foreverfreedictionary.util.DOMAIN
+import com.example.foreverfreedictionary.util.DICTIONARY_URL
 import com.example.foreverfreedictionary.util.JAVASCRIPT
 import com.example.foreverfreedictionary.vo.Resource
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +26,7 @@ class ResultActivityViewModel  @Inject constructor() : BaseViewModel(){
             //Use dispatcher to switch between context
             val deferred = async(Dispatchers.Default) {
                 //Working on background thread
-                val url = DOMAIN + query
+                val url = DICTIONARY_URL + query
                 Jsoup.connect(url).get()
             }
             //Working on UI thread
