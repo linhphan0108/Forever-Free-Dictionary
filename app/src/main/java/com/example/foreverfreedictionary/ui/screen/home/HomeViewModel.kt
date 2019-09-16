@@ -30,6 +30,7 @@ class HomeViewModel@Inject constructor() : BaseViewModel() {
             //remove unnecessary elements
             document.select(".header").remove()
             document.select(".text_welcome").remove()
+            document.select("#ad_topslot").remove()
             document.select(".right_col").remove()
             document.select(".carousel").remove()
             document.select(".footer").remove()
@@ -39,7 +40,8 @@ class HomeViewModel@Inject constructor() : BaseViewModel() {
             val middleColElement = document.selectFirst(".middle_col")
             val pictureOfTheDayElement = document.selectFirst("#iotd")
             val tcotw = document.selectFirst("#tcotw")
-            pictureOfTheDayElement.attr("style", "border:none; border-bottom: 1px solid lightgray")
+            pictureOfTheDayElement.attr("style",
+                "border:none; border-bottom: 1px solid lightgray; margin-top:0px")
             pictureOfTheDayElement.selectFirst(".pictures").attr("style", "border:none")
             tcotw.attr("style", "border:none")
             leftColElement.selectFirst("#wotd").attr("style", "border:none; border-bottom: 1px solid lightgray")
