@@ -11,12 +11,13 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseFragment
-import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import com.example.foreverfreedictionary.ui.screen.main.MainActivity
+import com.example.foreverfreedictionary.util.DICTIONARY_URL
+import com.example.foreverfreedictionary.util.DOMAIN
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -47,6 +48,7 @@ class HomeFragment : BaseFragment() {
         wvWotd.webViewClient = object : WebViewClient(){
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
+//                view.query(url)
                 return true
             }
 
@@ -55,6 +57,17 @@ class HomeFragment : BaseFragment() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): Boolean {
+                request?.url?.let {
+                    val stringUri = it.toString()
+                    val query = when {
+                        stringUri.startsWith(DICTIONARY_URL) -> stringUri.substringAfterLast('/')
+                        stringUri.startsWith(DOMAIN) -> stringUri.substringAfterLast(DOMAIN)
+                        else -> ""
+                    }
+                    if (query.isNotBlank()){
+                        (activity as MainActivity).openResultScreen(query)
+                    }
+                }
                 return true
             }
         }

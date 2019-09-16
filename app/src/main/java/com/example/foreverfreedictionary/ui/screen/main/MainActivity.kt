@@ -91,17 +91,23 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         }
     }
 
-    //callback listeners
-    override fun onItemClick(item: AutoCompletionEntity) {
-        edtSearch.setText(item.value)
-        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
-            ResultActivity.createBundle(item.value))
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    //callback listeners
+    override fun onItemClick(item: AutoCompletionEntity) {
+        edtSearch.setText(item.value)
+        openResultScreen(item.value)
+    }
+
+//    navigation section
+    fun openResultScreen(query: String){
+        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
+        ResultActivity.createBundle(query))
+    }
+
 
     private fun setSearchBox(){
         edtSearch.addTextChangedListener(object :TextWatcher{

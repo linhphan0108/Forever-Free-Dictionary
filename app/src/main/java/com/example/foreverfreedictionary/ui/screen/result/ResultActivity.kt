@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +16,8 @@ import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
+import com.example.foreverfreedictionary.util.LOCAL_DICTIONARY_URL
+import com.example.foreverfreedictionary.util.LOCAL_DOMAIN
 import com.example.foreverfreedictionary.vo.Status
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_result_screen.*
@@ -99,9 +100,13 @@ class ResultActivity : BaseActivity() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): Boolean {
-                Log.d("tag", request.toString())
                 request?.url?.let {
-                    val query = it.toString().substringAfterLast('/')
+                    val stringUri = it.toString()
+                    val query = when {
+                        stringUri.startsWith(LOCAL_DICTIONARY_URL) -> stringUri.substringAfterLast('/')
+                        stringUri.startsWith(LOCAL_DOMAIN) -> stringUri.substringAfterLast(LOCAL_DOMAIN)
+                        else -> ""
+                    }
                     if (query.isNotBlank()){
                         viewModel.query(query)
                     }
