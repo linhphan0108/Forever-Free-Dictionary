@@ -87,6 +87,23 @@
                 android:theme="@style/AppTheme.GreenRipple"
                 android:background="?selectableItemBackgroundBorderless"
                 android:layout_gravity="center_vertical|end"/>
+
+            <ImageButton
+                android:id="@+id/iBtnEmptySearchBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toEndOf="@id/iBtnMic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/outline_close_black_24"
+                android:tint="@color/colorPrimary"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_gravity="center_vertical|end"
+                android:visibility="gone"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.SwitchCompat

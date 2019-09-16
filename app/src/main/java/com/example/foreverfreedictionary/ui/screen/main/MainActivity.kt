@@ -93,35 +93,22 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun navigateResultScreen(){
-        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
-            ResultActivity.createBundle(edtSearch.text.toString().trim()))
-    }
-
     private fun setSearchBox(){
-        edtSearch.setOnEditorActionListener { _, actionId, _ ->
-            when(actionId){
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    navigateResultScreen()
-                    true
-                }
-                else -> false
-            }
-        }
-
         edtSearch.addTextChangedListener(object :TextWatcher{
             private var searchFor = ""
-            override fun afterTextChanged(s: Editable?) {
+            override fun afterTextChanged(s: Editable) {
+                onSearchBoxInputChanged(s.isNullOrEmpty())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchText = s.toString().trim()
-                if (searchText == searchFor)
-                    return
+                if (searchText == searchFor) return
 
                 searchFor = searchText
+
+                if (searchText.isEmpty()) return
 
                 launch {
                     delay(600)  //debounce timeOut
@@ -134,6 +121,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             }
 
         })
+
+        iBtnEmptySearchBox.setOnClickListener {
+            edtSearch.setText("")
+        }
     }
 
     private fun registerViewModelListeners(){
@@ -161,5 +152,11 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
 //        rcvAutoCompletion.addItemDecoration(VerticalStaggeredSpaceItemDecoration(margin, margin, margin))
         rcvAutoCompletion.adapter = autoCompletionAdapter
         txtEmpty.visibility = if (data.isEmpty()) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun onSearchBoxInputChanged(isEmpty: Boolean) {
+        iBtnEmptySearchBox.visibility = if(isEmpty) View.GONE else View.VISIBLE
+        iBtnMic.visibility = if (isEmpty) View.VISIBLE else View.INVISIBLE
+        iBtnCamera.visibility = if (isEmpty) View.VISIBLE else View.INVISIBLE
     }
 }
