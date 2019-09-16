@@ -3,7 +3,7 @@ package com.example.foreverfreedictionary.ui.adapter.delegate
 import android.view.ViewGroup
 import com.example.foreverfreedictionary.ui.adapter.viewholder.AutoCompletionViewHolder
 import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
-import com.example.linh.vietkitchen.ui.model.Entity
+import com.example.foreverfreedictionary.ui.model.Entity
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class AutoCompletionDelegate(val listener: AutoCompletionViewHolder.OnItemListeners):

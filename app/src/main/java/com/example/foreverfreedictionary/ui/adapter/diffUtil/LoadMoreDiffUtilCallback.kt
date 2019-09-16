@@ -1,7 +1,7 @@
 package com.example.foreverfreedictionary.ui.adapter.diffUtil
 
 import com.example.foreverfreedictionary.ui.adapter.base.AbsDiffUtilEntityItemCallbackDelegate
-import com.example.linh.vietkitchen.ui.model.Entity
+import com.example.foreverfreedictionary.ui.model.Entity
 import com.example.linh.vietkitchen.ui.model.LoadMoreItem
 
 class LoadMoreDiffUtilCallback : AbsDiffUtilEntityItemCallbackDelegate<LoadMoreItem>() {
