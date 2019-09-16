@@ -43,7 +43,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     private val viewModel: MainActivityViewModel by viewModel(this){injector.mainActivityViewModel}
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private var searchBoxGainedFocusMoreThanOnce = false
+    private lateinit var autoCompletionAdapter: AutoCompletionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +80,15 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onBackPressed() {
+        if (llAutocompletionContainer != null && llAutocompletionContainer.visibility == View.VISIBLE){
+            edtSearch.clearFocus()
+            llAutocompletionContainer.visibility = View.GONE
+        }else {
+            super.onBackPressed()
+        }
     }
 
     //callback listeners
@@ -124,9 +133,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         })
 
         edtSearch.setOnFocusChangeListener { _, hasFocus ->
-            if (!searchBoxGainedFocusMoreThanOnce && hasFocus) {
+            if (hasFocus) {
                 showAutoCompletion(listOf())
-                searchBoxGainedFocusMoreThanOnce = true
+            }else{
+                hideAutoCompletion()
             }
         }
 
@@ -154,14 +164,22 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     }
 
     private fun showAutoCompletion(data: List<AutoCompletionEntity>) {
-        if(viewStubAutoCompletion != null) viewStubAutoCompletion.inflate()
-        val autoCompletionAdapter = AutoCompletionAdapter(data, this)
-        rcvAutoCompletion.layoutManager = LinearLayoutManager(this)
-//        rcvAutoCompletion.addItemDecoration(VerticalStaggeredSpaceItemDecoration(margin, margin, margin))
-        rcvAutoCompletion.adapter = autoCompletionAdapter
-        txtEmpty.visibility = if (searchBoxGainedFocusMoreThanOnce && data.isEmpty()) {
+        if(viewStubAutoCompletion != null) {
+            viewStubAutoCompletion.inflate()
+            autoCompletionAdapter = AutoCompletionAdapter(data, this)
+            rcvAutoCompletion.layoutManager = LinearLayoutManager(this)
+            rcvAutoCompletion.adapter = autoCompletionAdapter
+        }else{
+            autoCompletionAdapter.items = data
+        }
+        llAutocompletionContainer.visibility = View.VISIBLE
+        txtEmpty.visibility = if (data.isEmpty() && edtSearch.text.isNotEmpty()) {
             View.VISIBLE
         } else View.INVISIBLE
+    }
+
+    private fun hideAutoCompletion(){
+        llAutocompletionContainer.visibility = View.GONE
     }
 
     private fun onSearchBoxInputChanged(isEmpty: Boolean) {
