@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rcvAutoCompletion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground" />
+    <TextView
+        android:id="@+id/txtEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textWarning"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:text="@string/no_result_found"
+        android:layout_gravity="center_horizontal|top"
+        android:visibility="gone"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        tools:visibility="visible"/>
+</FrameLayout>

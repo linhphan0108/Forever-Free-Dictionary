@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    primary colors-->
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorWhite">#fff</color>
+    <color name="colorPrimaryLight">#ffffff</color>
+    <color name="colorOnPrimary">#fafafa</color>
 
+<!--    secondary colors-->
+    <color name="colorSecondary">#448aff</color>
+    <color name="colorSecondaryDark">#005ecb</color>
+    <color name="colorSecondaryLight">#83b9ff</color>
+    <color name="colorOnSecondary">#fafafa</color>
+
+<!--    error colors-->
     <color name="colorError">#ff9800</color>
+    <color name="colorOnError">#fafafa</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorOnAccent">#fafafa</color>
+
+<!--    background colors-->
+    <color name="colorBackground">#fafafa</color>
+    <color name="colorOnBackground">@color/textPrimary</color>
+    <color name="colorSurface">#fafafa</color>
+    <color name="colorOnSurface">@color/textPrimary</color>
 
 
     <color name="textPrimary">#757575</color>
     <color name="textSecondary">#9f9f9f</color>
     <color name="textError">@color/colorError</color>
+    <color name="textWarning">@color/colorError</color>
 
 <!--    search box-->
-    <color name="color_search_box_background">@color/colorWhite</color>
+    <color name="color_search_box_background">@color/colorBackground</color>
     <color name="color_search_Box_text">@color/textPrimary</color>
     <color name="color_search_Box_text_hint">@color/textSecondary</color>
 </resources>

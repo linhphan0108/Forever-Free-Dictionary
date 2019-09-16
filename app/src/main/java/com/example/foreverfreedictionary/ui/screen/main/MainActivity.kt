@@ -1,6 +1,8 @@
 package com.example.foreverfreedictionary.ui.screen.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
@@ -10,17 +12,34 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
+import com.example.foreverfreedictionary.extensions.showSnackBar
+import com.example.foreverfreedictionary.ui.adapter.AutoCompletionAdapter
+import com.example.foreverfreedictionary.ui.adapter.viewholder.AutoCompletionViewHolder
+import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
+import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.layout_recycler_view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
     private val viewModel: MainActivityViewModel by viewModel(this){injector.mainActivityViewModel}
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -53,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        viewModel.autocompleteQuery("lear")
+        registerViewModelListeners()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -61,6 +80,14 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
+
+    //callback listeners
+    override fun onItemClick(item: AutoCompletionEntity) {
+        edtSearch.setText(item.value)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
+            ResultActivity.createBundle(item.value))
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -68,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateResultScreen(){
         findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
-            ResultActivity.createBundle(edtSearch.text.toString()))
+            ResultActivity.createBundle(edtSearch.text.toString().trim()))
     }
 
     private fun setSearchBox(){
@@ -81,5 +108,58 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        edtSearch.addTextChangedListener(object :TextWatcher{
+            private var searchFor = ""
+            override fun afterTextChanged(s: Editable?) {
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val searchText = s.toString().trim()
+                if (searchText == searchFor)
+                    return
+
+                searchFor = searchText
+
+                launch {
+                    delay(600)  //debounce timeOut
+                    if (searchText != searchFor)
+                        return@launch
+
+                    // do our magic here
+                    viewModel.autocompleteQuery(searchFor)
+                }
+            }
+
+        })
+    }
+
+    private fun registerViewModelListeners(){
+        viewModel.autoCompletionResponse.observe(this, Observer { resource ->
+            when(resource.status){
+                Status.LOADING -> {  }
+                Status.ERROR -> {
+                    dismissLoading()
+                    showSnackBar(rcvAutoCompletion, "Oops something went wrong", length = Snackbar.LENGTH_INDEFINITE,
+                        listener = View.OnClickListener {
+                        })
+                }
+                Status.SUCCESS -> {
+                    dismissLoading()
+                    showAutoCompletion(resource.data!!)
+                }
+            }
+        })
+    }
+
+    private fun showAutoCompletion(data: List<AutoCompletionEntity>) {
+        if(viewStubAutoCompletion != null) viewStubAutoCompletion.inflate()
+        val autoCompletionAdapter = AutoCompletionAdapter(data, this)
+        rcvAutoCompletion.layoutManager = LinearLayoutManager(this)
+//        rcvAutoCompletion.addItemDecoration(VerticalStaggeredSpaceItemDecoration(margin, margin, margin))
+        rcvAutoCompletion.adapter = autoCompletionAdapter
+        txtEmpty.visibility = if (data.isEmpty()) View.VISIBLE else View.INVISIBLE
     }
 }
