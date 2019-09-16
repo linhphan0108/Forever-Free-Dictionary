@@ -1,7 +1,7 @@
 package com.example.foreverfreedictionary.ui.adapter.diffUtil
 
 import com.example.foreverfreedictionary.ui.adapter.base.DiffUtilEntityItemCallback
-import com.example.linh.vietkitchen.ui.model.Entity
+import com.example.foreverfreedictionary.ui.model.Entity
 
 class DiffUtilEntityItemCallbackDelegateFallback: DiffUtilEntityItemCallback.DiffUtilEntityItemCallbackDelegate {
     override fun isForViewType(item: Entity): Boolean {

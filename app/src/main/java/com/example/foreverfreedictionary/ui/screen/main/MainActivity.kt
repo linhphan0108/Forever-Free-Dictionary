@@ -178,6 +178,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         } else View.INVISIBLE
     }
 
+    private fun clearAutoCompletion(){
+        autoCompletionAdapter.items = listOf()
+    }
+
     private fun hideAutoCompletion(){
         llAutocompletionContainer.visibility = View.GONE
     }
@@ -186,5 +190,6 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         iBtnEmptySearchBox.visibility = if(isEmpty) View.GONE else View.VISIBLE
         iBtnMic.visibility = if (isEmpty) View.VISIBLE else View.INVISIBLE
         iBtnCamera.visibility = if (isEmpty) View.VISIBLE else View.INVISIBLE
+        if (isEmpty) clearAutoCompletion()
     }
 }

@@ -1,6 +1,6 @@
 package com.example.foreverfreedictionary.ui.adapter.base
 
-import com.example.linh.vietkitchen.ui.model.Entity
+import com.example.foreverfreedictionary.ui.model.Entity
 
 abstract class AbsDiffUtilEntityItemCallbackDelegate<T: Entity> :
     DiffUtilEntityItemCallback.DiffUtilEntityItemCallbackDelegate {

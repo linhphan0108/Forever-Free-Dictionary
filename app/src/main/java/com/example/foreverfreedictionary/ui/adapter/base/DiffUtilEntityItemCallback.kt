@@ -1,7 +1,7 @@
 package com.example.foreverfreedictionary.ui.adapter.base
 import androidx.recyclerview.widget.DiffUtil
 import com.example.foreverfreedictionary.ui.adapter.diffUtil.DiffUtilEntityItemCallbackDelegateFallback
-import com.example.linh.vietkitchen.ui.model.Entity
+import com.example.foreverfreedictionary.ui.model.Entity
 
 class DiffUtilEntityItemCallback : DiffUtil.ItemCallback<Entity>() {
     internal val diffUtilDelegateManager: MutableList<DiffUtilEntityItemCallbackDelegate> =

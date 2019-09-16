@@ -1,4 +1,4 @@
-package com.example.linh.vietkitchen.ui.model
+package com.example.foreverfreedictionary.ui.model
 
 /**
  * Created by linh on 6/1/2016.

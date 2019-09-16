@@ -2,7 +2,6 @@ package com.example.foreverfreedictionary.ui.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.linh.vietkitchen.ui.model.Entity
 
 class AutoCompletionEntity(val value: String) : Entity(), Parcelable {
 
