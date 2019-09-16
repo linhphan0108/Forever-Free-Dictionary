@@ -15,7 +15,6 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
@@ -43,6 +42,8 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
 
     private val viewModel: MainActivityViewModel by viewModel(this){injector.mainActivityViewModel}
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private var searchBoxGainedFocusMoreThanOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +98,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         edtSearch.addTextChangedListener(object :TextWatcher{
             private var searchFor = ""
             override fun afterTextChanged(s: Editable) {
-                onSearchBoxInputChanged(s.isNullOrEmpty())
+                onSearchBoxInputChanged(s.isEmpty())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -111,7 +112,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                 if (searchText.isEmpty()) return
 
                 launch {
-                    delay(600)  //debounce timeOut
+                    delay(300)  //debounce timeOut
                     if (searchText != searchFor)
                         return@launch
 
@@ -121,6 +122,13 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             }
 
         })
+
+        edtSearch.setOnFocusChangeListener { _, hasFocus ->
+            if (!searchBoxGainedFocusMoreThanOnce && hasFocus) {
+                showAutoCompletion(listOf())
+                searchBoxGainedFocusMoreThanOnce = true
+            }
+        }
 
         iBtnEmptySearchBox.setOnClickListener {
             edtSearch.setText("")
@@ -151,7 +159,9 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         rcvAutoCompletion.layoutManager = LinearLayoutManager(this)
 //        rcvAutoCompletion.addItemDecoration(VerticalStaggeredSpaceItemDecoration(margin, margin, margin))
         rcvAutoCompletion.adapter = autoCompletionAdapter
-        txtEmpty.visibility = if (data.isEmpty()) View.VISIBLE else View.INVISIBLE
+        txtEmpty.visibility = if (searchBoxGainedFocusMoreThanOnce && data.isEmpty()) {
+            View.VISIBLE
+        } else View.INVISIBLE
     }
 
     private fun onSearchBoxInputChanged(isEmpty: Boolean) {

@@ -3,8 +3,6 @@ package com.example.foreverfreedictionary.ui.screen.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
-import com.example.foreverfreedictionary.util.CSS
-import com.example.foreverfreedictionary.util.JAVASCRIPT
 import com.example.foreverfreedictionary.vo.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
