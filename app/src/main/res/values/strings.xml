@@ -26,4 +26,10 @@
     <string name="search_box_hint">Search…</string>
     <string name="switch_dark_mode">Dark Mode</string>
     <string name="no_result_found">no result found</string>
+
+
+<!--    content description-->
+    <string name="des_mic_button">convert your speech to text</string>
+    <string name="des_camera_button">determine text through your camera</string>
+    <string name="des_empty_search_box">clear all words</string>
 </resources>

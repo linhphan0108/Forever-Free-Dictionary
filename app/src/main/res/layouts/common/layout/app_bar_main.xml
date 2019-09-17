@@ -44,7 +44,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iBtnMic"
+                app:layout_constraintEnd_toStartOf="@id/iBtnEmptySearchBox"
                 android:imeOptions="actionSearch"
                 android:background="@android:color/transparent"
                 android:inputType="text"
@@ -57,28 +57,29 @@
                 android:drawablePadding="@dimen/search_box_search_icon_padding"
                 android:drawableTint="@color/colorPrimary"
                 android:drawableTintMode="src_in"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:autofillHints="@string/search_box_hint"
+                tools:ignore="UnusedAttribute" />
             <ImageButton
                 android:id="@+id/iBtnMic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/edtSearch"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iBtnCamera"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:src="@drawable/outline_mic_black_24"
                 android:tint="@color/colorPrimary"
                 android:theme="@style/AppTheme.GreenRipple"
                 android:background="?selectableItemBackgroundBorderless"
-                android:layout_gravity="center_vertical|end"/>
+                android:layout_gravity="center_vertical|end"
+                android:contentDescription="@string/des_mic_button"/>
 
             <ImageButton
                 android:id="@+id/iBtnCamera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                app:layout_constraintStart_toEndOf="@id/iBtnMic"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +87,8 @@
                 android:tint="@color/colorPrimary"
                 android:theme="@style/AppTheme.GreenRipple"
                 android:background="?selectableItemBackgroundBorderless"
-                android:layout_gravity="center_vertical|end"/>
+                android:layout_gravity="center_vertical|end"
+                android:contentDescription="@string/des_camera_button"/>
 
             <ImageButton
                 android:id="@+id/iBtnEmptySearchBox"
@@ -94,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                app:layout_constraintStart_toEndOf="@id/iBtnMic"
+                app:layout_constraintStart_toEndOf="@id/edtSearch"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +105,8 @@
                 android:theme="@style/AppTheme.GreenRipple"
                 android:background="?selectableItemBackgroundBorderless"
                 android:layout_gravity="center_vertical|end"
-                android:visibility="gone"/>
+                android:visibility="invisible"
+                android:contentDescription="@string/des_empty_search_box"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.SwitchCompat
