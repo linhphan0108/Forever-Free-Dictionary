@@ -198,9 +198,9 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     }
 
     private fun onSearchBoxInputChanged(isEmpty: Boolean) {
-        iBtnEmptySearchBox.visibility = if(isEmpty) View.GONE else View.VISIBLE
-        iBtnMic.visibility = if (isEmpty) View.VISIBLE else View.INVISIBLE
-        iBtnCamera.visibility = if (isEmpty) View.VISIBLE else View.INVISIBLE
+        iBtnEmptySearchBox.visibility = if(isEmpty) View.INVISIBLE else View.VISIBLE
+        iBtnMic.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        iBtnCamera.visibility = if (isEmpty) View.VISIBLE else View.GONE
         if (isEmpty) clearAutoCompletion()
     }
 }
