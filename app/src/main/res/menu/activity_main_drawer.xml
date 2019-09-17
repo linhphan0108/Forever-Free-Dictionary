@@ -6,32 +6,44 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/baseline_photo_camera_black_24"
+            android:icon="@drawable/round_today_black_36"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/round_star_border_black_36"
+            android:title="@string/menu_favorite" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_history"
+            android:icon="@drawable/round_history_black_36"
+            android:title="@string/menu_history" />
         <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:id="@+id/nav_my_vocabulary"
+            android:icon="@drawable/outline_font_download_black_36"
+            android:title="@string/menu_my_vocabulary" />
+        <item
+            android:id="@+id/nav_my_reminder"
+            android:icon="@drawable/round_alarm_black_36"
+            android:title="@string/menu_my_reminder" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_36dp"
+            android:title="@string/menu_settings" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/menu_group_Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:id="@+id/nav_invite_friends"
+                android:icon="@drawable/round_people_black_36"
+                android:title="@string/menu_invite_friends" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:id="@+id/nav_rate_app"
+                android:icon="@drawable/round_rate_review_black_36"
+                android:title="@string/menu_rate_app" />
+            <item
+                android:id="@+id/nav_about_us_feedback"
+                android:icon="@drawable/round_info_black_36"
+                android:title="@string/menu_about_us_feedback" />
         </menu>
     </item>
 

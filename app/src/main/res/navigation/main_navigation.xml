@@ -12,33 +12,33 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_favorites"
         android:name="com.example.foreverfreedictionary.ui.screen.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_favorite"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_history"
         android:name="com.example.foreverfreedictionary.ui.screen.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_history"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_my_vocabulary"
         android:name="com.example.foreverfreedictionary.ui.screen.tools.ToolsFragment"
-        android:label="@string/menu_tools"
+        android:label="@string/menu_my_vocabulary"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
         android:name="com.example.foreverfreedictionary.ui.screen.share.ShareFragment"
-        android:label="@string/menu_share"
+        android:label="@string/menu_settings"
         tools:layout="@layout/fragment_share" />
 
     <fragment
-        android:id="@+id/nav_send"
+        android:id="@+id/nav_invite_friends"
         android:name="com.example.foreverfreedictionary.ui.screen.send.SendFragment"
-        android:label="@string/menu_send"
+        android:label="@string/menu_invite_friends"
         tools:layout="@layout/fragment_send" />
 
     <activity android:id="@+id/resultActivity"
