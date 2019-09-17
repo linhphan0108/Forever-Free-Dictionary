@@ -84,7 +84,6 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
 
     //callback listeners
     override fun onItemClick(item: AutoCompletionEntity) {
-        edtSearch.setText(item.value)
         openResultScreen(item.value)
     }
 
