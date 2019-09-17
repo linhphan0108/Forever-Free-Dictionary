@@ -57,22 +57,8 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home,
-            R.id.nav_gallery,
-            R.id.nav_slideshow,
-            R.id.nav_tools,
-            R.id.nav_share,
-            R.id.nav_send
-        ), drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
 
+        setupNavigator()
         registerViewModelListeners()
     }
 
@@ -102,12 +88,31 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         openResultScreen(item.value)
     }
 
-//    navigation section
+    //  navigation section
     fun openResultScreen(query: String){
         findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
         ResultActivity.createBundle(query))
     }
 
+
+    //  inner methods
+    private fun setupNavigator(){
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.nav_home,
+            R.id.nav_favorites,
+            R.id.nav_history,
+            R.id.nav_my_vocabulary,
+            R.id.nav_share,
+            R.id.nav_invite_friends
+        ), drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+    }
 
     private fun setSearchBox(){
         edtSearch.addTextChangedListener(object :TextWatcher{
