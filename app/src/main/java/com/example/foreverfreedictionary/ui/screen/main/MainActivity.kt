@@ -26,6 +26,7 @@ import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
 import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialog
 import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import com.example.foreverfreedictionary.util.SNSUtil
 import com.example.foreverfreedictionary.vo.Status
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -126,11 +127,23 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             R.id.nav_favorites,
             R.id.nav_history,
             R.id.nav_my_vocabulary,
-            R.id.nav_share,
-            R.id.nav_invite_friends
+            R.id.nav_my_reminder,
+            R.id.nav_settings,
+            R.id.nav_about_us_feedback
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.action_invite_friends -> {
+                    SNSUtil.shareThisApp(this)
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
     }
 
     private fun setSearchBox(){
