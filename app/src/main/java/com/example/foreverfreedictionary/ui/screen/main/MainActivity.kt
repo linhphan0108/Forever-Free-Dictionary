@@ -139,6 +139,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                     SNSUtil.shareThisApp(this)
                     true
                 }
+                R.id.action_rate_app -> {
+                    SNSUtil.rateThisApp(this)
+                    true
+                }
                 else -> {
                     false
                 }
