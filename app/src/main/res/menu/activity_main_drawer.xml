@@ -33,7 +33,7 @@
     <item android:title="@string/menu_group_Communicate">
         <menu>
             <item
-                android:id="@+id/nav_invite_friends"
+                android:id="@+id/action_invite_friends"
                 android:icon="@drawable/round_people_black_36"
                 android:title="@string/menu_invite_friends" />
             <item
