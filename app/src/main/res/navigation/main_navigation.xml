@@ -35,12 +35,13 @@
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_share" />
 
-    <fragment
-        android:id="@+id/nav_invite_friends"
-        android:name="com.example.foreverfreedictionary.ui.screen.send.SendFragment"
-        android:label="@string/menu_invite_friends"
-        tools:layout="@layout/fragment_send" />
+    <activity
+        android:id="@+id/nav_about_us_feedback"
+        android:name="com.example.foreverfreedictionary.ui.screen.about_us.AboutUsActivity"
+        android:label="@string/menu_about_us_feedback"
+        tools:layout="@layout/activity_about_us" />
 
     <activity android:id="@+id/resultActivity"
-        android:name="com.example.foreverfreedictionary.ui.screen.result.ResultActivity" />
+        android:name="com.example.foreverfreedictionary.ui.screen.result.ResultActivity"
+        tools:layout="@layout/activity_result_screen"/>
 </navigation>

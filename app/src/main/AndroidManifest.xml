@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.foreverfreedictionary">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".ui.ForeverFreeDictionaryApplication"
@@ -14,18 +15,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.screen.result.ResultActivity"
+        <activity
+            android:name=".ui.screen.result.ResultActivity"
             android:parentActivityName=".ui.screen.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.screen.main.MainActivity" />
         </activity>
+        <activity android:name=".ui.screen.about_us.AboutUsActivity"
+            android:parentActivityName=".ui.screen.main.MainActivity"
+            android:label="@string/menu_about_us_feedback"    >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.screen.main.MainActivity" />
+        </activity>
+
         <activity
             android:name=".ui.screen.main.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
