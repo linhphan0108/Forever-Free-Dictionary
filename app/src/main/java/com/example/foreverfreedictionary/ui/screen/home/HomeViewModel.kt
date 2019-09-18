@@ -1,5 +1,6 @@
 package com.example.foreverfreedictionary.ui.screen.home
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.domain.command.WordOfTheDayCommand
@@ -12,8 +13,9 @@ import javax.inject.Inject
 
 const val url = "https://www.ldoceonline.com/"
 class HomeViewModel@Inject constructor(
+    application: Application,
     private val wordOfTheDayCommand: WordOfTheDayCommand
-) : BaseViewModel() {
+) : BaseViewModel(application) {
 
     private val _wordOfTheDayResponse = MutableLiveData<Resource<String>>()
     val wordOfTheDay: LiveData<Resource<String>> = _wordOfTheDayResponse

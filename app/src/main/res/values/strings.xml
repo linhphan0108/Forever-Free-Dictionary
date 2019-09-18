@@ -27,7 +27,18 @@
     <string name="switch_dark_mode">Dark Mode</string>
     <string name="no_result_found">no result found</string>
 
-
+<!--    voice recognition message-->
+    <string name="voice_recognizer_hint">Try Saying Something</string>
+    <string name="voice_recognizer_error_msg">Oops! something went wrong. Try again.</string>
+    <string name="voice_recognizer_error_msg_network">Network not connected</string>
+    <string name="voice_recognizer_error_msg_network_timeout">It seems like you don\'t have a stable network connection.</string>
+    <string name="voice_recognizer_error_msg_speech_timeout">Didn\'t catch that. Try speaking again by tapping the mic icon.</string>
+    <string name="voice_recognizer_error_msg_no_match">Didn\'t catch that. Try speaking again by tapping the mic icon.</string>
+    <string name="voice_recognizer_error_msg_server">Sorry we can\'t connect to the remote server</string>
+    <string name="voice_recognizer_error_msg_recognition_service_busy">Sorry the service is busy now. Please try it late on</string>
+    <string name="voice_recognizer_error_msg_permissions">Please allow us to grant the permission to access your microphone</string>
+    <string name="voice_recognizer_error_msg_audio_error">Oops! something happened while recording audio.</string>
+    <string name="voice_recognizer_error_msg_client_error">Oops! something happened while recording audio.</string>
 <!--    content description-->
     <string name="des_mic_button">convert your speech to text</string>
     <string name="des_camera_button">determine text through your camera</string>
