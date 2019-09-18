@@ -1,5 +1,6 @@
 package com.example.foreverfreedictionary.ui.screen.result
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.domain.command.FetchDictionaryDataCommand
@@ -11,8 +12,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ResultActivityViewModel  @Inject constructor(
+    application: Application,
     private val fetchDictionaryDataCommand: FetchDictionaryDataCommand
-) : BaseViewModel(){
+) : BaseViewModel(application){
 
     private val _queryResponse = MutableLiveData<Resource<String>>()
     val queryResponse: LiveData<Resource<String>> = _queryResponse

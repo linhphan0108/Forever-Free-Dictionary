@@ -3,6 +3,7 @@ package com.example.foreverfreedictionary.di
 import android.app.Application
 import com.example.foreverfreedictionary.di.module.DataSourceModule
 import com.example.foreverfreedictionary.di.module.RetrofitModule
+import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialogViewModel
 import com.example.foreverfreedictionary.ui.screen.home.HomeViewModel
 import com.example.foreverfreedictionary.ui.screen.main.MainActivityViewModel
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivityViewModel
@@ -31,4 +32,5 @@ interface ApplicationComponent {
     val mainActivityViewModel: MainActivityViewModel
     val resultActivityViewModel: ResultActivityViewModel
     val homeViewModel: HomeViewModel
+    val voiceRecognizerDialogViewModel: VoiceRecognizerDialogViewModel
 }

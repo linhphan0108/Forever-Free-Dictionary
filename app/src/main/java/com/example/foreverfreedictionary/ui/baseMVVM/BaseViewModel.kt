@@ -1,11 +1,14 @@
 package com.example.foreverfreedictionary.ui.baseMVVM
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel constructor(application: Application) : AndroidViewModel(application) {
     /**
      * This is the job for all coroutines started by this ViewModel.
      *

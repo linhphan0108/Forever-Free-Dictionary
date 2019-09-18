@@ -3,7 +3,6 @@ package com.example.foreverfreedictionary.ui.screen.main
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,9 +23,11 @@ import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.adapter.AutoCompletionAdapter
 import com.example.foreverfreedictionary.ui.adapter.viewholder.AutoCompletionViewHolder
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
+import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialog
 import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
 import com.example.foreverfreedictionary.vo.Status
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.layout_recycler_view.*
@@ -36,7 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, CoroutineScope {
+class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, CoroutineScope, VoiceRecognizerDialog.Listener {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
@@ -44,6 +45,9 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var autoCompletionAdapter: AutoCompletionAdapter
+    private var isAutoCompletionViewSetup: Boolean = false
+
+    private var voiceRecognizerDialog: VoiceRecognizerDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
 
         setupNavigator()
         registerViewModelListeners()
+        registerEventListeners()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -87,7 +92,22 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         openResultScreen(item.value)
     }
 
+    override fun onVoiceRecognizeResult(detectedSpeech: String) {
+        edtSearch.setText(detectedSpeech)
+        edtSearch.setSelection(detectedSpeech.length)
+    }
+
     //  navigation section
+    private fun registerEventListeners(){
+        iBtnMic.setOnClickListener {
+            if (voiceRecognizerDialog == null){
+                voiceRecognizerDialog = VoiceRecognizerDialog.newInstance()
+            }
+            voiceRecognizerDialog!!.show(supportFragmentManager, MainActivity::class.java.name)
+        }
+    }
+
+//    navigation section
     fun openResultScreen(query: String){
         findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
         ResultActivity.createBundle(query))
@@ -179,6 +199,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             autoCompletionAdapter = AutoCompletionAdapter(data, this)
             rcvAutoCompletion.layoutManager = LinearLayoutManager(this)
             rcvAutoCompletion.adapter = autoCompletionAdapter
+            isAutoCompletionViewSetup = true
         }else{
             autoCompletionAdapter.items = data
         }
@@ -189,7 +210,9 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     }
 
     private fun clearAutoCompletion(){
-        autoCompletionAdapter.items = listOf()
+        if (isAutoCompletionViewSetup) {
+            autoCompletionAdapter.items = listOf()
+        }
     }
 
     private fun hideAutoCompletion(){

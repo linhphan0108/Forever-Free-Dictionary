@@ -1,6 +1,6 @@
 package com.example.foreverfreedictionary.ui.screen.main
 
-import android.util.Log
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.domain.command.FetchAutoCompletionCommand
@@ -15,8 +15,9 @@ import javax.inject.Inject
 
 
 class MainActivityViewModel @Inject constructor(
-    private val fetchAutoCompletionCommand: FetchAutoCompletionCommand
-) : BaseViewModel() {
+    private val fetchAutoCompletionCommand: FetchAutoCompletionCommand,
+    application: Application
+) : BaseViewModel(application) {
 
     private val _autoCompletionResponse = MutableLiveData<Resource<List<AutoCompletionEntity>>>()
     val autoCompletionResponse: LiveData<Resource<List<AutoCompletionEntity>>> = _autoCompletionResponse
