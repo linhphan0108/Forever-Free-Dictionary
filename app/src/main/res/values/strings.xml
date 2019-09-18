@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ForeverFreeDictionary</string>
+    <string name="app_name">Forever Free Dictionary</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -44,7 +44,7 @@
     <string name="des_camera_button">determine text through your camera</string>
     <string name="des_empty_search_box">clear all words</string>
 
-    <string name="share_message">I\'m using this app and thought you might like it too
+    <string name="share_message">I\'m using this app and thought you might like it too.
         \nhttps://play.google.com/store/apps/details?id=%s</string>
 
 <!--    about us-->

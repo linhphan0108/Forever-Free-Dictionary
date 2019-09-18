@@ -37,7 +37,7 @@
                 android:icon="@drawable/round_people_black_36"
                 android:title="@string/menu_invite_friends" />
             <item
-                android:id="@+id/nav_rate_app"
+                android:id="@+id/action_rate_app"
                 android:icon="@drawable/round_rate_review_black_36"
                 android:title="@string/menu_rate_app" />
             <item
