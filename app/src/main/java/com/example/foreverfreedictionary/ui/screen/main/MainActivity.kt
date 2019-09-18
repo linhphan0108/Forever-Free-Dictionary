@@ -36,6 +36,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, CoroutineScope, VoiceRecognizerDialog.Listener {
@@ -148,6 +149,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                 }
             }
         }
+        Timber.d("this is an example logging")
     }
 
     private fun setSearchBox(){
