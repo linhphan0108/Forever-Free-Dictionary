@@ -9,10 +9,12 @@ import org.jsoup.Jsoup
 class DictionaryDataCloud : DictionaryDataDs {
         override suspend fun queryDictionaryData(query: String): Resource<String> {
         val url = if (query.contains('/') || query.contains('?')){
-                        DOMAIN
+                        DOMAIN + query
+                    }else if(query.contains(' ')){
+                        DICTIONARY_URL + query.replace(",", "").replace(" ", "-")
                     }else {
-                        DICTIONARY_URL
-                    } + query
+                        DICTIONARY_URL + query
+                    }
         val document = Jsoup.connect(url).get()
             val hasContent = document.selectFirst("div.entry_content") != null
 
