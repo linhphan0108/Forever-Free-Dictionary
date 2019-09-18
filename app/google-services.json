@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "844585463305",
+    "firebase_url": "https://forever-free-dictionary-ad864.firebaseio.com",
+    "project_id": "forever-free-dictionary-ad864",
+    "storage_bucket": "forever-free-dictionary-ad864.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844585463305:android:0201d295576adadb7fd2d8",
+        "android_client_info": {
+          "package_name": "com.example.foreverfreedictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844585463305-uneertn0pok8s4lfris2sam9vuthsldo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foreverfreedictionary",
+            "certificate_hash": "c55b635ed5967132df242058b83c6af07419e680"
+          }
+        },
+        {
+          "client_id": "844585463305-hcna6shpeu92alspf15llljubjplst63.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7ROpW_L8q0CLtov6otX-nYLry7PTKezY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844585463305-hcna6shpeu92alspf15llljubjplst63.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
