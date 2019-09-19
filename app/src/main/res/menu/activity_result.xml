@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.screen.result.ResultActivity">
+    <item android:id="@+id/action_quick_back_search"
+        android:icon="@drawable/outline_search_white_24"
+        android:title="@string/search_box_hint"
+        app:showAsAction="always|withText"
+        tools:ignore="AlwaysShowAction" />
     <item android:id="@+id/action_pre"
-        android:icon="@drawable/outline_navigate_before_white_24"
+        android:icon="@drawable/outline_navigate_before_white_36"
         android:title="@string/menu_pre"
-        app:showAsAction="always|withText" />
+        app:showAsAction="always|withText"
+        tools:ignore="AlwaysShowAction" />
     <item android:id="@+id/action_next"
-        android:icon="@drawable/outline_navigate_next_white_24"
+        android:icon="@drawable/outline_navigate_next_white_36"
         android:title="@string/menu_next"
         app:showAsAction="always|withText"/>
 </menu>

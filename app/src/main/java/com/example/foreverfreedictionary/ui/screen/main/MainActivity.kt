@@ -1,5 +1,7 @@
 package com.example.foreverfreedictionary.ui.screen.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,16 +10,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
@@ -29,6 +27,7 @@ import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
 import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialog
 import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import com.example.foreverfreedictionary.ui.screen.result.ResultActivity.Companion.ARG_QUERY
 import com.example.foreverfreedictionary.util.SNSUtil
 import com.example.foreverfreedictionary.vo.Status
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -39,9 +38,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
+import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+import androidx.core.view.postDelayed
 
+
+const val REQUEST_CODE_RESULT_ACTIVITY = 11
 class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, CoroutineScope, VoiceRecognizerDialog.Listener {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
@@ -70,6 +74,24 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         setupNavigator()
         registerViewModelListeners()
         registerEventListeners()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            REQUEST_CODE_RESULT_ACTIVITY -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    edtSearch.setText("")
+                    edtSearch.postDelayed(200) {
+                        edtSearch.requestFocus()
+                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.showSoftInput(edtSearch, SHOW_IMPLICIT)
+                    }
+                }
+            }
+            else ->{
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -114,8 +136,11 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
 
 //    navigation section
     fun openResultScreen(query: String){
-        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
-        ResultActivity.createBundle(query))
+//        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
+//        ResultActivity.createBundle(query))
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra(ARG_QUERY, query)
+        startActivityForResult(intent, REQUEST_CODE_RESULT_ACTIVITY)
     }
 
 
