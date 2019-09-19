@@ -28,9 +28,10 @@ class ResultActivity : BaseActivity() {
     private val viewModel: ResultActivityViewModel by viewModel(this){injector.resultActivityViewModel}
 
     companion object{
+        const val ARG_QUERY = "ARG_QUERY"
         fun createBundle(query: String): Bundle{
             return Bundle().apply {
-                putString("query", query)
+                putString(ARG_QUERY, query)
             }
         }
     }
@@ -42,7 +43,7 @@ class ResultActivity : BaseActivity() {
         setupWebView()
         registerViewModelListeners()
 
-        intent.extras?.getString("query")?.let {
+        intent.extras?.getString(ARG_QUERY)?.let {
             viewModel.query(it)
         }
     }
@@ -76,6 +77,12 @@ class ResultActivity : BaseActivity() {
 
             R.id.action_next -> {
                 if (wvResult.canGoForward()) wvResult.goForward()
+                true
+            }
+
+            R.id.action_quick_back_search ->{
+                setResult(RESULT_OK)
+                onBackPressed()
                 true
             }
 
