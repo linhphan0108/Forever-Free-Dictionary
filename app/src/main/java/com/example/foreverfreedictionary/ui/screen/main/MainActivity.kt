@@ -15,6 +15,9 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph
+import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
@@ -133,23 +136,36 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             R.id.nav_about_us_feedback
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-        navView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.action_invite_friends -> {
-                    SNSUtil.shareThisApp(this)
-                    true
-                }
-                R.id.action_rate_app -> {
-                    SNSUtil.rateThisApp(this)
-                    true
-                }
-                else -> {
-                    false
+//        navView.setupWithNavController(navController)
+        navView.setNavigationItemSelectedListener {item ->
+            var handled = onNavDestinationSelected(item, navController)
+            if (!handled){
+                // handle literally select actions by ourselves
+                // without redirecting to another screen
+                handled = when(item.itemId){
+                    R.id.nav_about_us_feedback -> {
+                        navController.navigate(R.id.nav_about_us_feedback)
+                        true
+                    }
+                    R.id.action_invite_friends -> {
+                        SNSUtil.shareThisApp(this)
+                        true
+                    }
+                    R.id.action_rate_app -> {
+                        SNSUtil.rateThisApp(this)
+                        true
+                    }
+                    else -> {
+                        false
+                    }
                 }
             }
+            if(handled){
+                drawerLayout.closeDrawer(navView)
+            }
+
+            return@setNavigationItemSelectedListener handled
         }
-        Timber.d("this is an example logging")
     }
 
     private fun setSearchBox(){
