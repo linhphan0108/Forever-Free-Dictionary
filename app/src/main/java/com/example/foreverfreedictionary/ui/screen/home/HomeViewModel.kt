@@ -2,6 +2,7 @@ package com.example.foreverfreedictionary.ui.screen.home
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.domain.command.WordOfTheDayCommand
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
@@ -17,8 +18,14 @@ class HomeViewModel@Inject constructor(
     private val wordOfTheDayCommand: WordOfTheDayCommand
 ) : BaseViewModel(application) {
 
-    private val _wordOfTheDayResponse = MutableLiveData<Resource<String>>()
-    val wordOfTheDay: LiveData<Resource<String>> = _wordOfTheDayResponse
+    private val _wordOfTheDayMediatorLiveData = MediatorLiveData<Resource<String>>()
+    private var wordOfTheDayResponse: LiveData<Resource<String>>? = null
+    val wordOfTheDay: LiveData<Resource<String>> = _wordOfTheDayMediatorLiveData
+
+    override fun onCleared() {
+        clearWordOfTheDayMediatorLiveData()
+        super.onCleared()
+    }
 
     fun fetchWordOfTheDay() {
         uiScope.launch {
@@ -29,7 +36,15 @@ class HomeViewModel@Inject constructor(
                 wordOfTheDayCommand.execute()
             }
             //Working on UI thread
-            _wordOfTheDayResponse.value = deferred.await()
+            wordOfTheDayResponse = deferred.await()
+            clearWordOfTheDayMediatorLiveData()
+            _wordOfTheDayMediatorLiveData.addSource(wordOfTheDayResponse!!){
+                _wordOfTheDayMediatorLiveData.value = it
+            }
         }
+    }
+
+    private fun clearWordOfTheDayMediatorLiveData(){
+        wordOfTheDayResponse?.let { _wordOfTheDayMediatorLiveData.removeSource(it) }
     }
 }

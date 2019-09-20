@@ -2,12 +2,13 @@ package com.example.foreverfreedictionary.ui.screen.main
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Transformations
 import com.example.foreverfreedictionary.domain.command.FetchAutoCompletionCommand
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
 import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
+import com.example.foreverfreedictionary.ui.mapper.AutoCompletionMapper
 import com.example.foreverfreedictionary.vo.Resource
-import com.example.foreverfreedictionary.vo.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -16,11 +17,18 @@ import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
     private val fetchAutoCompletionCommand: FetchAutoCompletionCommand,
+    private val autoCompletionMapper: AutoCompletionMapper,
     application: Application
 ) : BaseViewModel(application) {
 
-    private val _autoCompletionResponse = MutableLiveData<Resource<List<AutoCompletionEntity>>>()
-    val autoCompletionResponse: LiveData<Resource<List<AutoCompletionEntity>>> = _autoCompletionResponse
+    private val _autoCompletionMediatorLiveData = MediatorLiveData<Resource<List<AutoCompletionEntity>>>()
+    private var autoCompletionResponse: LiveData<Resource<List<AutoCompletionEntity>>>? = null
+    val autoCompletion: LiveData<Resource<List<AutoCompletionEntity>>> = _autoCompletionMediatorLiveData
+
+    override fun onCleared() {
+        clearAutoCompletionMediatorLiveData()
+        super.onCleared()
+    }
 
     fun autocompleteQuery(query: String){
         uiScope.launch {
@@ -30,24 +38,20 @@ class MainActivityViewModel @Inject constructor(
             val deferred = async(Dispatchers.IO) {
                 //Working on background thread
                 fetchAutoCompletionCommand.query = query
-                val data = fetchAutoCompletionCommand.execute()
-                return@async when(data.status){
-                    Status.LOADING -> {
-                        Resource.loading()
-                    }
-                    Status.SUCCESS -> {
-                        val mappedData = data.data!!.map {
-                            AutoCompletionEntity(it)
-                        }
-                        Resource.success(mappedData)
-                    }
-                    Status.ERROR -> {
-                        Resource.error(data.message)
-                    }
+                return@async Transformations.map(fetchAutoCompletionCommand.execute()){resource ->
+                    autoCompletionMapper.fromDomain(resource)
                 }
             }
             //Working on UI thread
-            _autoCompletionResponse.value = deferred.await()
+            autoCompletionResponse = deferred.await()
+            clearAutoCompletionMediatorLiveData()
+            _autoCompletionMediatorLiveData.addSource(autoCompletionResponse!!){
+                _autoCompletionMediatorLiveData.value = it
+            }
         }
+    }
+
+    private fun clearAutoCompletionMediatorLiveData(){
+        autoCompletionResponse?.let { _autoCompletionMediatorLiveData.removeSource(it) }
     }
 }

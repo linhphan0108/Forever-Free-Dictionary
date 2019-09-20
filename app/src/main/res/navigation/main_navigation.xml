@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/nav_history"
-        android:name="com.example.foreverfreedictionary.ui.screen.slideshow.SlideshowFragment"
+        android:name="com.example.foreverfreedictionary.ui.screen.history.HistoryFragment"
         android:label="@string/menu_history"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/nav_my_vocabulary"
@@ -38,4 +38,8 @@
     <activity android:id="@+id/resultActivity"
         android:name="com.example.foreverfreedictionary.ui.screen.result.ResultActivity"
         tools:layout="@layout/activity_result_screen"/>
+
+    <action
+        android:id="@+id/action_nav_to_resultActivity"
+        app:destination="@id/resultActivity" />
 </navigation>
