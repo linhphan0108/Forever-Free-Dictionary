@@ -43,7 +43,6 @@ import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.postDelayed
-import androidx.navigation.ui.setupWithNavController
 
 
 const val REQUEST_CODE_RESULT_ACTIVITY = 11
@@ -190,7 +189,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             return@setNavigationItemSelectedListener handled
         }
         addOnDestinationChangedListener(navController, navView){destinationId ->
-            setAppBarLayoutVisibility(destinationId == R.id.nav_home)
+            onHomeScreenVisibilityChanged(destinationId == R.id.nav_home)
         }
     }
 
@@ -287,8 +286,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         if (isEmpty) clearAutoCompletion()
     }
 
-    private fun setAppBarLayoutVisibility(visibility: Boolean){
-        cslSearchBoxContainer.visibility = if (visibility) View.VISIBLE else View.GONE
-        swDarkMode.visibility = if (visibility) View.VISIBLE else View.GONE
+    private fun onHomeScreenVisibilityChanged(visibility: Boolean){
+        val vs = if (visibility) View.VISIBLE else View.GONE
+        cslSearchBoxContainer.visibility = vs
+        swDarkMode.visibility = vs
+        llAutocompletionContainer?.apply { this.visibility = vs }
     }
 }
