@@ -21,6 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cslSearchBoxContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/search_box_background"
@@ -110,6 +111,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/swDarkMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/search_box_margin_end"
