@@ -236,7 +236,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     }
 
     private fun registerViewModelListeners(){
-        viewModel.autoCompletionResponse.observe(this, Observer { resource ->
+        viewModel.autoCompletion.observe(this, Observer { resource ->
             when(resource.status){
                 Status.LOADING -> {  }
                 Status.ERROR -> {

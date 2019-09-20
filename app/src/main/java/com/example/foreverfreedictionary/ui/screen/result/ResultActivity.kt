@@ -138,7 +138,7 @@ class ResultActivity : BaseActivity() {
     }
 
     private fun registerViewModelListeners(){
-        viewModel.queryResponse.observe(this, Observer { resource ->
+        viewModel.dictionary.observe(this, Observer { resource ->
             when(resource.status){
                 Status.LOADING -> { showLoading() }
                 Status.ERROR -> {

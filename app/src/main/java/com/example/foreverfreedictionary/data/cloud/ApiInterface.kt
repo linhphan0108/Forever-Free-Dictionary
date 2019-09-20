@@ -1,6 +1,6 @@
 package com.example.foreverfreedictionary.data.cloud
 
-import com.example.foreverfreedictionary.data.model.AutoCompletionResponse
+import com.example.foreverfreedictionary.data.cloud.model.AutoCompletionResponse
 import retrofit2.Response
 import retrofit2.http.*
 

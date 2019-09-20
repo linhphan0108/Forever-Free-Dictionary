@@ -1,5 +1,6 @@
 package com.example.foreverfreedictionary.data.cloud
 
+import com.example.foreverfreedictionary.data.cloud.model.Dictionary
 import com.example.foreverfreedictionary.domain.datasource.DictionaryDataDs
 import com.example.foreverfreedictionary.util.DICTIONARY_URL
 import com.example.foreverfreedictionary.util.DOMAIN
@@ -7,7 +8,7 @@ import com.example.foreverfreedictionary.vo.Resource
 import org.jsoup.Jsoup
 
 class DictionaryDataCloud : DictionaryDataDs {
-        override suspend fun queryDictionaryData(query: String): Resource<String> {
+        override suspend fun queryDictionaryData(query: String): Resource<Dictionary> {
         val url = if (query.contains('/') || query.contains('?')){
                         DOMAIN + query
                     }else if(query.contains(' ')){
@@ -18,7 +19,7 @@ class DictionaryDataCloud : DictionaryDataDs {
         val document = Jsoup.connect(url).get()
             val hasContent = document.selectFirst("div.entry_content") != null
 
-        val result = if (document.selectFirst("div.page_content") !=null || hasContent){
+        val content = if (document.selectFirst("div.page_content") !=null || hasContent){
             //remove unnecessary elements
             document.select(".header").remove()
             document.select("#ad_leftslot_container").remove()
@@ -36,7 +37,11 @@ class DictionaryDataCloud : DictionaryDataDs {
         }else{
             "Oops something went wrong"
         }
-
-        return Resource.success(result)
+        val ipaBr = document.selectFirst("span.PRON").text()
+        val ipaAme = document.selectFirst("span.AMEVARPRON")?.text()
+        val soundBr = document.selectFirst("span.speaker.amefile").attr("data-src-mp3")
+        val soundAme = document.selectFirst("span.speaker.brefile").attr("data-src-mp3")
+        val dictionary = Dictionary(query, content, soundBr, soundAme, ipaBr, ipaAme, url)
+        return Resource.success(dictionary)
     }
 }
