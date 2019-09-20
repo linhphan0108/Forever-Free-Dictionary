@@ -43,6 +43,7 @@ import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.postDelayed
+import androidx.navigation.ui.setupWithNavController
 
 
 const val REQUEST_CODE_RESULT_ACTIVITY = 11
@@ -163,7 +164,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener {item ->
-            var handled = onNavDestinationSelected(item, navController)
+            var handled = onNavigationItemSelected(item, navController, navView)
             if (!handled){
                 // handle literally select actions by ourselves
                 // without redirecting to another screen
@@ -185,11 +186,11 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                     }
                 }
             }
-            if(handled){
-                drawerLayout.closeDrawer(navView)
-            }
 
             return@setNavigationItemSelectedListener handled
+        }
+        addOnDestinationChangedListener(navController, navView){destinationId ->
+            setAppBarLayoutVisibility(destinationId == R.id.nav_home)
         }
     }
 
@@ -284,5 +285,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         iBtnMic.visibility = if (isEmpty) View.VISIBLE else View.GONE
         iBtnCamera.visibility = if (isEmpty) View.VISIBLE else View.GONE
         if (isEmpty) clearAutoCompletion()
+    }
+
+    private fun setAppBarLayoutVisibility(visibility: Boolean){
+        cslSearchBoxContainer.visibility = if (visibility) View.VISIBLE else View.GONE
+        swDarkMode.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 }
