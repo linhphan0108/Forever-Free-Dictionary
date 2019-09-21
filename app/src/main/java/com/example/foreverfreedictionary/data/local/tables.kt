@@ -12,13 +12,15 @@ import java.sql.Date
     tableName = "history",
     foreignKeys = [ForeignKey(
         entity = TblDictionary::class,
-        parentColumns = arrayOf("word"),
-        childColumns = arrayOf("word"),
+        parentColumns = arrayOf("query"),
+        childColumns = arrayOf("query"),
         onDelete = CASCADE)
         ],
     indices = [Index("word")])
 data class TblHistory(
     @PrimaryKey
+    @field:SerializedName("query")
+    val query: String,
     @field:SerializedName("word")
     val word: String,
     @field:SerializedName("last_access")
@@ -28,9 +30,12 @@ data class TblHistory(
     }
 }
 
-@Entity(tableName = "dictionary")
+@Entity(tableName = "dictionary",
+    indices = [Index("word")])
 data class TblDictionary(
     @PrimaryKey
+    @field:SerializedName("query")
+    val query: String,
     @field:SerializedName("word")
     val word: String,
     @field:SerializedName("content")
@@ -40,7 +45,7 @@ data class TblDictionary(
     @field:SerializedName("sound_ame")
     val soundAme: String?,
     @field:SerializedName("ipa_br")
-    val ipaBr: String,
+    val ipaBr: String?,
     @field:SerializedName("ipa_Ame")
     val ipaAme: String?,
     @field:SerializedName("last_access")

@@ -16,7 +16,7 @@ import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseFragment
 import com.example.foreverfreedictionary.ui.screen.main.MainActivity
-import com.example.foreverfreedictionary.util.DICTIONARY_URL
+import com.example.foreverfreedictionary.util.SEARCH_FORM_SUBMIT_DIRECTION_URL
 import com.example.foreverfreedictionary.util.DOMAIN
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -60,7 +60,7 @@ class HomeFragment : BaseFragment() {
                 request?.url?.let {
                     val stringUri = it.toString()
                     val query = when {
-                        stringUri.startsWith(DICTIONARY_URL) -> stringUri.substringAfterLast('/')
+                        stringUri.startsWith(SEARCH_FORM_SUBMIT_DIRECTION_URL) -> stringUri.substringAfterLast('/')
                         stringUri.startsWith(DOMAIN) -> stringUri.substringAfterLast(DOMAIN)
                         else -> ""
                     }
