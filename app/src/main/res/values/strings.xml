@@ -43,6 +43,7 @@
     <string name="des_mic_button">convert your speech to text</string>
     <string name="des_camera_button">determine text through your camera</string>
     <string name="des_empty_search_box">clear all words</string>
+    <string name="des_favorite_button">add this word to your favorites list?</string>
 
     <string name="share_message">I\'m using this app and thought you might like it too.
         \nhttps://play.google.com/store/apps/details?id=%s</string>
