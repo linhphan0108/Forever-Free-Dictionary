@@ -36,9 +36,9 @@ data class TblDictionary(
     @field:SerializedName("content")
     val content: String,
     @field:SerializedName("sound_br")
-    val soundBr: String,
+    val soundBr: String?,
     @field:SerializedName("sound_ame")
-    val soundAme: String,
+    val soundAme: String?,
     @field:SerializedName("ipa_br")
     val ipaBr: String,
     @field:SerializedName("ipa_Ame")

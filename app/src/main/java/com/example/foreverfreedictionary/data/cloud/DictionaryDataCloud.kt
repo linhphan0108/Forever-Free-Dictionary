@@ -39,8 +39,8 @@ class DictionaryDataCloud : DictionaryDataDs {
         }
         val ipaBr = document.selectFirst("span.PRON").text()
         val ipaAme = document.selectFirst("span.AMEVARPRON")?.text()
-        val soundBr = document.selectFirst("span.speaker.amefile").attr("data-src-mp3")
-        val soundAme = document.selectFirst("span.speaker.brefile").attr("data-src-mp3")
+        val soundBr = document.selectFirst("span.speaker.amefile")?.attr("data-src-mp3")
+        val soundAme = document.selectFirst("span.speaker.brefile")?.attr("data-src-mp3")
         val dictionary = Dictionary(query, content, soundBr, soundAme, ipaBr, ipaAme, url)
         return Resource.success(dictionary)
     }
