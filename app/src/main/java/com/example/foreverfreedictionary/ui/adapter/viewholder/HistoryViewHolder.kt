@@ -13,11 +13,13 @@ class HistoryViewHolder(parent: ViewGroup, private val listener: OnItemListeners
     LayoutInflater.from(parent.context).inflate(R.layout.item_view_history, parent, false)) {
 
     fun bindView(item: HistoryEntity){
-        itemView.txtWord.text = item.word
-//        itemView.txtIpa.text = item.ipaAme
-        itemView.txtTimeElapsed.text = item.lastAccess.howLongTimeLapsedTilNow()
-        itemView.setOnClickListener { listener.onItemClicked(item) }
-        itemView.iBtnFavorite.setOnClickListener { listener.onFavoriteButtonClicked(item) }
+        with(item){
+            itemView.txtWord.text = word
+            itemView.txtIpa.text = if (ipaAme != null) itemView.context.getString(R.string.ipa_format, ipaAme) else ""
+            itemView.txtTimeElapsed.text = lastAccess.howLongTimeLapsedTilNow()
+            itemView.setOnClickListener { listener.onItemClicked(this) }
+            itemView.iBtnFavorite.setOnClickListener { listener.onFavoriteButtonClicked(this) }
+        }
     }
 
     interface OnItemListeners{
