@@ -16,13 +16,13 @@ fun Date.howLongTimeLapsedTilNow(): String{
 
     return when {
         days > 0 -> {
-            if (days == 1L) "$days day" else "$days days"
+            "$days d"
         }
         hours > 0 -> {
-            if (hours == 1L) "$hours hour" else "$hours hours"
+            "$hours h"
         }
         minutes > 0 -> {
-            if (minutes == 1L) "$minutes minute" else "$minutes minutes"
+            "$minutes min"
         }
         else -> "recently"
     }

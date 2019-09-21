@@ -38,9 +38,12 @@ class DictionaryDataCloud : DictionaryDataDs {
             "Oops something went wrong"
         }
         val ipaBr = document.selectFirst("span.PRON").text()
-        val ipaAme = document.selectFirst("span.AMEVARPRON")?.text()
+        var ipaAme = document.selectFirst("span.AMEVARPRON")?.text()
         val soundBr = document.selectFirst("span.speaker.amefile")?.attr("data-src-mp3")
         val soundAme = document.selectFirst("span.speaker.brefile")?.attr("data-src-mp3")
+        if (ipaAme?.startsWith("$") == true){
+            ipaAme = ipaAme.substringAfter("$")
+        }
         val dictionary = Dictionary(query, content, soundBr, soundAme, ipaBr, ipaAme, url)
         return Resource.success(dictionary)
     }
