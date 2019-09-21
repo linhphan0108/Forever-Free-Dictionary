@@ -29,11 +29,11 @@
         android:label="@string/menu_my_vocabulary"
         tools:layout="@layout/fragment_tools" />
 
-    <activity
+    <fragment
         android:id="@+id/nav_about_us_feedback"
-        android:name="com.example.foreverfreedictionary.ui.screen.about_us.AboutUsActivity"
+        android:name="com.example.foreverfreedictionary.ui.screen.about_us.AboutUsFragment"
         android:label="@string/menu_about_us_feedback"
-        tools:layout="@layout/activity_about_us" />
+        tools:layout="@layout/fragment_about_us" />
 
     <activity android:id="@+id/resultActivity"
         android:name="com.example.foreverfreedictionary.ui.screen.result.ResultActivity"

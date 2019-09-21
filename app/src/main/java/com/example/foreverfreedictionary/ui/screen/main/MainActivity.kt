@@ -157,8 +157,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             R.id.nav_history,
             R.id.nav_my_vocabulary,
             R.id.nav_my_reminder,
-            R.id.nav_settings,
-            R.id.nav_about_us_feedback
+            R.id.nav_settings
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)

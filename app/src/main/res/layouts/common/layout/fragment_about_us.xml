@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screen.about_us.AboutUsActivity">
+    tools:context=".ui.screen.about_us.AboutUsFragment">
     <TextView
         android:id="@+id/txtMessage"
         android:layout_width="match_parent"
