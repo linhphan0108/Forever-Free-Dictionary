@@ -23,7 +23,7 @@ class DictionaryDataProvider @Inject constructor(
             saveCloudData = { cloudData ->
                 val rowId = local.insertDictionary(mapper.toData(cloudData))
                 Timber.d("insert dictionary into db at $rowId")
-                historyProvider.insertHistory(query)
+                historyProvider.insertHistory(cloudData)
             })){ resource ->
                 mapper.toDomain(resource)
             }

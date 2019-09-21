@@ -12,7 +12,7 @@ class DictionaryMapper {
      */
     fun toData(dictionary: DictionaryCloud): TblDictionary {
         return with(dictionary){
-            TblDictionary(word, content, soundBr, soundAme, ipaBr, ipaAme, Date(System.currentTimeMillis()))
+            TblDictionary(query, word, content, soundBr, soundAme, ipaBr, ipaAme, Date(System.currentTimeMillis()))
         }
     }
 
@@ -23,7 +23,7 @@ class DictionaryMapper {
         return when(resource.status){
             Status.LOADING -> {Resource.loading()}
             Status.ERROR -> {Resource.error(resource.message)}
-            Status.SUCCESS -> {Resource.success(resource.data!!.content)}
+            Status.SUCCESS -> {Resource.success(resource.data?.content)}
         }
     }
 
