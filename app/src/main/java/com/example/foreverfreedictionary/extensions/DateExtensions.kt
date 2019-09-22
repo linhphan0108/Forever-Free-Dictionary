@@ -22,8 +22,8 @@ fun Date.howLongTimeLapsedTilNow(): String{
             "$hours h"
         }
         minutes > 0 -> {
-            "$minutes min"
+            "$minutes m"
         }
-        else -> "recently"
+        else -> "recent"
     }
 }

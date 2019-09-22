@@ -36,7 +36,6 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="parent"
-            card_view:layout_constraintWidth_percent="0.4"
             android:maxLines="1"
             tools:text="@string/dump_word" />
 
@@ -44,13 +43,15 @@
             android:id="@+id/txtIpa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_quarter"
+            android:layout_marginLeft="@dimen/activity_margin_quarter"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:textStyle="italic"
             android:maxLines="1"
+            android:textColor="@color/textSecondary"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintStart_toEndOf="@id/txtWord"
-            card_view:layout_constraintEnd_toStartOf="@id/txtTimeElapsed"
             tools:text="@string/dump_ipaAme"/>
 
         <TextView
