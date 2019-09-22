@@ -73,7 +73,7 @@ class HomeFragment : BaseFragment() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                progressBar.visibility = View.GONE
+                progressBar?.apply { this.visibility = View.GONE}
             }
         }
     }
