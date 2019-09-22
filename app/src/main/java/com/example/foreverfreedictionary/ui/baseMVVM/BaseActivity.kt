@@ -1,8 +1,10 @@
 package com.example.foreverfreedictionary.ui.baseMVVM
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,22 +12,34 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
-import androidx.navigation.ui.R
 import com.example.foreverfreedictionary.ui.dialog.LoadingDialog
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
 import java.lang.ref.WeakReference
+import android.view.View
+import com.example.foreverfreedictionary.R
+
 
 abstract class BaseActivity : AppCompatActivity(){
     private val loadingDialog: LoadingDialog by lazy { LoadingDialog.newInstance() }
 
-    fun showLoading(){
+    protected fun showLoading(){
         loadingDialog.showLoading(supportFragmentManager)
     }
 
-    fun dismissLoading(){
+    protected fun dismissLoading(){
         loadingDialog.dismissLoading()
+    }
+
+    protected fun hideSoftKeyboard(){
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
+    protected fun hideSoftKeyboard(view: View?) {
+        if (view != null) {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     protected fun addOnDestinationChangedListener(navController: NavController,

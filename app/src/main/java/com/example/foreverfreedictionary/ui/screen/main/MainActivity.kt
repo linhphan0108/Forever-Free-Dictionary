@@ -84,8 +84,6 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                     edtSearch.setText("")
                     edtSearch.postDelayed(200) {
                         edtSearch.requestFocus()
-                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.showSoftInput(edtSearch, SHOW_IMPLICIT)
                     }
                 }
             }
@@ -233,11 +231,12 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
 
         })
 
-        edtSearch.setOnFocusChangeListener { _, hasFocus ->
+        edtSearch.setOnFocusChangeListener { view , hasFocus ->
             if (hasFocus) {
                 showAutoCompletion(listOf())
             }else{
                 hideAutoCompletion()
+                hideSoftKeyboard(view)
             }
         }
 
