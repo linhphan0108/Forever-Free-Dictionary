@@ -40,6 +40,8 @@ data class TblDictionary(
     val word: String,
     @field:SerializedName("topic")
     val topic: String?,
+    @field:SerializedName("check_spell_page")
+    val isCheckSpellPage: Boolean,
     @field:SerializedName("content")
     val content: String,
     @field:SerializedName("sound_br")

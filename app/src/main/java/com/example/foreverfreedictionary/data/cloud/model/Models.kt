@@ -8,6 +8,7 @@ data class Dictionary(
     val query: String,
     val word: String,
     val topic: String?,
+    val isCheckSpellPage: Boolean = false,
     val content: String,
     val soundBr: String?,
     val soundAme: String?,
