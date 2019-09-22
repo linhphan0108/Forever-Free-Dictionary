@@ -123,6 +123,7 @@ class ResultActivity : BaseActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+                dismissLoading()
                 invalidateOptionsMenu()
             }
         }
@@ -148,7 +149,6 @@ class ResultActivity : BaseActivity() {
                         })
                 }
                 Status.SUCCESS -> {
-                    dismissLoading()
                     showWebViewResult(resource.data.orEmpty())
                 }
             }
