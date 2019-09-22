@@ -21,6 +21,12 @@ class HistoryViewHolder(parent: ViewGroup, private val listener: OnItemListeners
                 itemView.context.getString(R.string.ipa_br_format, ipaBr)
             }else ""
             itemView.txtTimeElapsed.text = lastAccess.howLongTimeLapsedTilNow()
+            itemView.iBtnFavorite.setBackgroundColor(if (item.isFavorite) {
+                R.color.colorAccent
+            }else{
+                android.R.color.transparent
+            })
+
             itemView.setOnClickListener { listener.onItemClicked(this) }
             itemView.iBtnFavorite.setOnClickListener { listener.onFavoriteButtonClicked(this) }
         }
