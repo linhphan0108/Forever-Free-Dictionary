@@ -287,7 +287,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     }
 
     private fun hideAutoCompletion(){
-        llAutocompletionContainer.visibility = View.GONE
+        llAutocompletionContainer?.apply { this.visibility = View.GONE }
     }
 
     private fun onSearchBoxInputChanged(isEmpty: Boolean) {
@@ -301,6 +301,6 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         val vs = if (visibility) View.VISIBLE else View.GONE
         cslSearchBoxContainer.visibility = vs
         swDarkMode.visibility = vs
-        llAutocompletionContainer?.apply { this.visibility = vs }
+        hideAutoCompletion()
     }
 }
