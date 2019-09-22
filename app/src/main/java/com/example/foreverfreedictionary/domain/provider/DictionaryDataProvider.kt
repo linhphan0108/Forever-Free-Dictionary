@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.domain.provider
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.foreverfreedictionary.data.cloud.DictionaryDataCloud
 import com.example.foreverfreedictionary.data.local.room.DictionaryDao
@@ -27,5 +28,17 @@ class DictionaryDataProvider @Inject constructor(
             })){ resource ->
                 mapper.fromData(resource)
             }
+    }
+
+    fun updateFavorite(query: String, isFavorite: Boolean): LiveData<Resource<Boolean>>{
+        val id = local.insertFavoriteDictionary(query, isFavorite)
+        val resource = if (id > 0){
+            Resource.success(true)
+        }else{
+            Resource.error("Oops something went wrong.")
+        }
+        return MutableLiveData<Resource<Boolean>>().apply {
+            postValue(resource)
+        }
     }
 }

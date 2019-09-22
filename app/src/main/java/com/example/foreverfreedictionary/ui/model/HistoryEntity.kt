@@ -11,4 +11,5 @@ class HistoryEntity (val query: String,
                      /**american accent*/
                      val ipaAme: String?,
 //                     val url: String,
+                     val isFavorite: Boolean,
                      val lastAccess: Date) : Entity()

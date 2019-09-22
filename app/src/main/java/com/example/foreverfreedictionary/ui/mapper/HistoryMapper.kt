@@ -14,7 +14,7 @@ class HistoryMapper {
             Status.SUCCESS -> {
                 val mappedData = resource.data!!.map {
                     return@map with(it){
-                        HistoryEntity(query, word, ipaBr, ipaAme, lastAccess)
+                        HistoryEntity(query, word, ipaBr, ipaAme, isFavorite, lastAccess)
                     }
                 }
                 Resource.success(mappedData)

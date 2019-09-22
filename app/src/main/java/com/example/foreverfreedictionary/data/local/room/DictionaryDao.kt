@@ -12,8 +12,14 @@ interface DictionaryDao {
     @Query("SELECT * FROM dictionary WHERE `query` = :query LIMIT 1")
     fun getDictionary(query: String): LiveData<TblDictionary>
 
-//    @Query("SELECT * FROM sets WHERE themeId = :themeId ORDER BY year DESC")
-//    fun getPagedLegoSetsByTheme(themeId: Int): DataSource.Factory<Int, LegoSet>
+    @Query("SELECT * FROM dictionary WHERE isFavorite = 1")
+    fun getFavoriteDictionary(): LiveData<TblDictionary>
+
+
+    @Query("UPDATE dictionary SET isFavorite = :isFavorite WHERE `query` = :query")
+    fun insertFavoriteDictionary(query: String, isFavorite: Boolean): Int
+
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDictionary(data: TblDictionary) : Long
