@@ -3,6 +3,7 @@ package com.example.foreverfreedictionary.domain.provider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
+import com.example.foreverfreedictionary.util.ThreadUtil
 import com.example.foreverfreedictionary.vo.Resource
 import com.example.foreverfreedictionary.vo.Status.*
 
@@ -27,8 +28,10 @@ suspend fun <T, A> resultLiveData(databaseQuery: suspend () -> LiveData<T>,
     val responseStatus = cloudCall.invoke()
     if (responseStatus.status == SUCCESS) {
         saveCloudData(responseStatus.data!!)
+        ThreadUtil.checkNotMainThread()
     } else if (responseStatus.status == ERROR) {
-        mediatorLiveData.value = Resource.error(responseStatus.message!!)
+        mediatorLiveData.postValue(Resource.error(responseStatus.message!!))
+        ThreadUtil.checkNotMainThread()
     }
 
     return mediatorLiveData

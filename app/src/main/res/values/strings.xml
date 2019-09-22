@@ -49,7 +49,8 @@
         \nhttps://play.google.com/store/apps/details?id=%s</string>
 
 <!--    history screen-->
-    <string name="ipa_format">/%s/</string>
+    <string name="ipa_format">/%s$%s/</string>
+    <string name="ipa_br_format">/%s/</string>
     <string name="dump_word">water</string>
     <string name="dump_ipaAme">ˈwɒːtər</string>
     <string name="dump_time_lapsed">6 hours</string>

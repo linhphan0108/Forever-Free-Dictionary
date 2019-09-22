@@ -4,6 +4,7 @@ import com.example.foreverfreedictionary.data.cloud.model.Dictionary
 import com.example.foreverfreedictionary.domain.datasource.DictionaryDataDs
 import com.example.foreverfreedictionary.util.CHECK_SPELL_URL
 import com.example.foreverfreedictionary.util.DICTIONARY_URL
+import com.example.foreverfreedictionary.util.DOMAIN
 import com.example.foreverfreedictionary.util.SEARCH_FORM_SUBMIT_DIRECTION_URL
 import com.example.foreverfreedictionary.vo.Resource
 import org.jsoup.Jsoup
@@ -12,21 +13,23 @@ import timber.log.Timber
 class DictionaryDataCloud : DictionaryDataDs {
     override suspend fun queryDictionaryData(query: String): Resource<Dictionary> {
         try {
+            var isTopicPage = false
             val url =
-//            if (query.contains('/') || query.contains('?')){
-//                DOMAIN + query
+            if (query.contains('/') || query.contains("-topic/")){
+                isTopicPage = true
+                DOMAIN + query
 //            }else if(query.contains(' ')){//query example: "want for something"
 //                SEARCH_FORM_SUBMIT_DIRECTION_URL + query.replace(",", "").replace(" ", "-")
-//            }else {
+            }else {
                 SEARCH_FORM_SUBMIT_DIRECTION_URL + query
-//            }
+            }
             val response = Jsoup.connect(url).followRedirects(true).execute()
             val document = response.parse()
             val location = response.url().toExternalForm()
             val isDictionaryPage = location.startsWith(DICTIONARY_URL)
             val isCheckSpellPage = location.startsWith(CHECK_SPELL_URL)
 
-            return if (isDictionaryPage || isCheckSpellPage) {
+            return if (isDictionaryPage || isCheckSpellPage || isTopicPage) {
                 //remove unnecessary elements
                 document.select(".header").remove()
                 document.select("#ad_leftslot_container").remove()
@@ -40,8 +43,23 @@ class DictionaryDataCloud : DictionaryDataDs {
 
                 val entryContent = document.selectFirst("div.entry_content")
                 val content = document.html()
-                val dictionary = if (isDictionaryPage) {
-                    val word = entryContent.selectFirst(".pagetitle").text()
+                val dictionary = if (isDictionaryPage || isTopicPage) {
+                    var topic: String? = null
+                    val word = if (isTopicPage){
+                        val titleElement = entryContent.selectFirst(".topicpagetitle > span.span")
+                        val topicElement = titleElement.selectFirst("a")
+                        val title: String
+                        if (topicElement == null){
+                            title = titleElement.ownText().substringAfter("Topic:").trim()
+                            topic = title
+                        }else{
+                            title = titleElement.ownText().substringBefore(" in").trim()
+                            topic = topicElement.text().substringBefore(" topic").trim()
+                        }
+                        title
+                    }else{
+                        entryContent.selectFirst(".pagetitle").text()
+                    }
                     val ipaBr = entryContent.selectFirst("span.PRON")?.text()
                     var ipaAme = entryContent.selectFirst("span.AMEVARPRON")?.text()
                     val soundBr =
@@ -51,9 +69,9 @@ class DictionaryDataCloud : DictionaryDataDs {
                     if (ipaAme?.startsWith("$") == true) {
                         ipaAme = ipaAme.substringAfter("$")
                     }
-                    Dictionary(query, word, content, soundBr, soundAme, ipaBr, ipaAme, url)
+                    Dictionary(query, word, topic, content, soundBr, soundAme, ipaBr, ipaAme, url)
                 } else {//the check spell page
-                    Dictionary(query, query, content, null, null, null, null, location)
+                    Dictionary(query, query, null, content, null, null, null, null, location)
                 }
 
                 Resource.success(dictionary)

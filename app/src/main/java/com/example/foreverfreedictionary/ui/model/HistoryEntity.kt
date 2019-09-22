@@ -2,7 +2,8 @@ package com.example.foreverfreedictionary.ui.model
 
 import java.sql.Date
 
-class HistoryEntity (val word: String,
+class HistoryEntity (val query: String,
+                    val word: String,
 //                     val content: String,
 //                     val soundBr: String,
 //                     val soundAme: String,

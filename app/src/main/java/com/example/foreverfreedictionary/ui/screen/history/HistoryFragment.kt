@@ -40,7 +40,7 @@ class HistoryFragment : Fragment(), HistoryViewHolder.OnItemListeners {
     // event listeners
     override fun onItemClicked(item: HistoryEntity) {
         findNavController().navigate(R.id.action_nav_to_resultActivity,
-            ResultActivity.createBundle(item.word))
+            ResultActivity.createBundle(item.query))
     }
 
     override fun onFavoriteButtonClicked(item: HistoryEntity) {

@@ -7,6 +7,7 @@ data class SearchText(@SerializedName("searchtext")val suggestion: String)
 data class Dictionary(
     val query: String,
     val word: String,
+    val topic: String?,
     val content: String,
     val soundBr: String?,
     val soundAme: String?,

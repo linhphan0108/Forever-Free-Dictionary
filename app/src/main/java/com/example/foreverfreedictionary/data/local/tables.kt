@@ -38,6 +38,8 @@ data class TblDictionary(
     val query: String,
     @field:SerializedName("word")
     val word: String,
+    @field:SerializedName("topic")
+    val topic: String?,
     @field:SerializedName("content")
     val content: String,
     @field:SerializedName("sound_br")

@@ -7,6 +7,7 @@ import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
 import com.example.foreverfreedictionary.ui.model.HistoryEntity
 import com.example.foreverfreedictionary.ui.mapper.HistoryMapper
 import com.example.foreverfreedictionary.vo.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class HistoryViewModel @Inject constructor(
 
     fun getHistory(){
         uiScope.launch {
-            val deferred = async {
+            val deferred = async (Dispatchers.IO){
                 Transformations.map(historyCommand.execute()){
                     historyMapper.fromDomain(it)
                 }

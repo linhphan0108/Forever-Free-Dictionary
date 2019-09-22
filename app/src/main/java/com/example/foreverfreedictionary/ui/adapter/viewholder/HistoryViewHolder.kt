@@ -15,7 +15,11 @@ class HistoryViewHolder(parent: ViewGroup, private val listener: OnItemListeners
     fun bindView(item: HistoryEntity){
         with(item){
             itemView.txtWord.text = word
-            itemView.txtIpa.text = if (ipaAme != null) itemView.context.getString(R.string.ipa_format, ipaAme) else ""
+            itemView.txtIpa.text = if (ipaBr != null && ipaAme != null){
+                itemView.context.getString(R.string.ipa_format, ipaBr, ipaAme)
+            } else if(ipaBr != null){
+                itemView.context.getString(R.string.ipa_br_format, ipaBr)
+            }else ""
             itemView.txtTimeElapsed.text = lastAccess.howLongTimeLapsedTilNow()
             itemView.setOnClickListener { listener.onItemClicked(this) }
             itemView.iBtnFavorite.setOnClickListener { listener.onFavoriteButtonClicked(this) }

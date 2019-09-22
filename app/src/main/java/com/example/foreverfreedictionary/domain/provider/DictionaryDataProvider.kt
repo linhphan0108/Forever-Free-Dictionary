@@ -25,7 +25,7 @@ class DictionaryDataProvider @Inject constructor(
                 Timber.d("insert dictionary into db at $rowId")
                 historyProvider.insertHistory(cloudData)
             })){ resource ->
-                mapper.toDomain(resource)
+                mapper.fromData(resource)
             }
     }
 }

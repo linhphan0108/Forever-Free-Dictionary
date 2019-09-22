@@ -17,8 +17,8 @@ interface HistoryDao {
     fun getHistory(limited: Int): LiveData<List<TblHistory>>
 
 
-    @Query("SELECT dictionary.word, dictionary.ipaBr, dictionary.ipaAme, dictionary.lastAccess FROM history\n" +
-            "LEFT JOIN dictionary ON dictionary.word = history.word\n" +
+    @Query("SELECT dictionary.query, dictionary.word, dictionary.topic, dictionary.ipaBr, dictionary.ipaAme, dictionary.lastAccess FROM history\n" +
+            "LEFT JOIN dictionary ON dictionary.query = history.query\n" +
             "ORDER BY dictionary.lastAccess DESC")
     fun getDictionaryHistory() : LiveData<List<DictionaryHistory>>
 

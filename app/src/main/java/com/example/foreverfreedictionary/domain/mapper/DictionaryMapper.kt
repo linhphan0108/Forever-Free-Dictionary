@@ -12,14 +12,14 @@ class DictionaryMapper {
      */
     fun toData(dictionary: DictionaryCloud): TblDictionary {
         return with(dictionary){
-            TblDictionary(query, word, content, soundBr, soundAme, ipaBr, ipaAme, Date(System.currentTimeMillis()))
+            TblDictionary(query, word, dictionary.topic, content, soundBr, soundAme, ipaBr, ipaAme, Date(System.currentTimeMillis()))
         }
     }
 
     /**
      * convert data from data-layer into domain-layer
      */
-    fun toDomain(resource: Resource<TblDictionary>) : Resource<String>{
+    fun fromData(resource: Resource<TblDictionary>) : Resource<String>{
         return when(resource.status){
             Status.LOADING -> {Resource.loading()}
             Status.ERROR -> {Resource.error(resource.message)}
@@ -30,7 +30,7 @@ class DictionaryMapper {
     /**
      * convert data from data-layer into domain-layer
      */
-    fun toDomain(resource: TblDictionary) : Resource<String>{
+    fun fromData(resource: TblDictionary) : Resource<String>{
         return Resource.success(resource.content)
     }
 }
