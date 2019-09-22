@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import android.content.Context
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.postDelayed
 
@@ -193,6 +194,17 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
     }
 
     private fun setSearchBox(){
+        edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            when(actionId){
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    if (edtSearch.text.isNotBlank()) {
+                        openResultScreen(edtSearch.text.toString())
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
         edtSearch.addTextChangedListener(object :TextWatcher{
             private var searchFor = ""
             override fun afterTextChanged(s: Editable) {

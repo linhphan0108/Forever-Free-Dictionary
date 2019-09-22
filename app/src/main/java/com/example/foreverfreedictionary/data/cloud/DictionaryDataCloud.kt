@@ -2,10 +2,7 @@ package com.example.foreverfreedictionary.data.cloud
 
 import com.example.foreverfreedictionary.data.cloud.model.Dictionary
 import com.example.foreverfreedictionary.domain.datasource.DictionaryDataDs
-import com.example.foreverfreedictionary.util.CHECK_SPELL_URL
-import com.example.foreverfreedictionary.util.DICTIONARY_URL
-import com.example.foreverfreedictionary.util.DOMAIN
-import com.example.foreverfreedictionary.util.SEARCH_FORM_SUBMIT_DIRECTION_URL
+import com.example.foreverfreedictionary.util.*
 import com.example.foreverfreedictionary.vo.Resource
 import org.jsoup.Jsoup
 import timber.log.Timber
@@ -15,14 +12,15 @@ class DictionaryDataCloud : DictionaryDataDs {
         try {
             var isTopicPage = false
             val url =
-            if (query.contains('/') || query.contains("-topic/")){
-                isTopicPage = true
-                DOMAIN + query
-//            }else if(query.contains(' ')){//query example: "want for something"
-//                SEARCH_FORM_SUBMIT_DIRECTION_URL + query.replace(",", "").replace(" ", "-")
-            }else {
-                SEARCH_FORM_SUBMIT_DIRECTION_URL + query
-            }
+                if (query.contains("-topic/")){
+                    isTopicPage = true
+                    DOMAIN + query
+                }else if(query.startsWith(SEARCH_DIRECTION_PATH) || query.startsWith(
+                        SEARCH_ENGLISH_DIRECTION_PATH)){
+                    DOMAIN + query
+                }else {
+                    SEARCH_FORM_SUBMIT_DIRECTION_URL + query
+                }
             val response = Jsoup.connect(url).followRedirects(true).execute()
             val document = response.parse()
             val location = response.url().toExternalForm()
@@ -69,9 +67,9 @@ class DictionaryDataCloud : DictionaryDataDs {
                     if (ipaAme?.startsWith("$") == true) {
                         ipaAme = ipaAme.substringAfter("$")
                     }
-                    Dictionary(query, word, topic, content, soundBr, soundAme, ipaBr, ipaAme, url)
+                    Dictionary(query, word, topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, url)
                 } else {//the check spell page
-                    Dictionary(query, query, null, content, null, null, null, null, location)
+                    Dictionary(query, query, null, isCheckSpellPage, content, null, null, null, null, location)
                 }
 
                 Resource.success(dictionary)
