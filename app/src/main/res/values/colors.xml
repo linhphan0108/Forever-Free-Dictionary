@@ -32,6 +32,7 @@
 
     <color name="favorite_button_tint_on">@color/colorAccent</color>
     <color name="favorite_button_tint_off">@color/textPrimary</color>
+    <color name="color_recycler_view_divider">@color/textSecondary</color>
 
 <!--    search box-->
     <color name="color_search_box_background">@color/colorBackground</color>
