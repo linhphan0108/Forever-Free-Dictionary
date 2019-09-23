@@ -13,7 +13,7 @@ interface DictionaryDao {
     fun getDictionary(query: String): LiveData<TblDictionary>
 
     @Query("SELECT * FROM dictionary WHERE isFavorite = 1")
-    fun getFavoriteDictionary(): LiveData<TblDictionary>
+    fun getFavoriteDictionary(): LiveData<List<TblDictionary>>
 
 
     @Query("UPDATE dictionary SET isFavorite = :isFavorite WHERE `query` = :query")

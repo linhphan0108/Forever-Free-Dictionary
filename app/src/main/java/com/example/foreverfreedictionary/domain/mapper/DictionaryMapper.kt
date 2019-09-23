@@ -26,11 +26,4 @@ class DictionaryMapper {
             Status.SUCCESS -> {Resource.success(resource.data?.content)}
         }
     }
-
-    /**
-     * convert data from data-layer into domain-layer
-     */
-    fun fromData(resource: TblDictionary) : Resource<String>{
-        return Resource.success(resource.content)
-    }
 }

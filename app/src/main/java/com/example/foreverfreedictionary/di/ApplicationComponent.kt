@@ -6,6 +6,8 @@ import com.example.foreverfreedictionary.di.module.MapperModule
 import com.example.foreverfreedictionary.di.module.RetrofitModule
 import com.example.foreverfreedictionary.di.module.DataBaseModule
 import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialogViewModel
+import com.example.foreverfreedictionary.ui.screen.gallery.FavoriteFragment
+import com.example.foreverfreedictionary.ui.screen.gallery.FavoriteViewModel
 import com.example.foreverfreedictionary.ui.screen.history.HistoryViewModel
 import com.example.foreverfreedictionary.ui.screen.home.HomeViewModel
 import com.example.foreverfreedictionary.ui.screen.main.MainActivityViewModel
@@ -37,5 +39,6 @@ interface ApplicationComponent {
     val resultActivityViewModel: ResultActivityViewModel
     val homeViewModel: HomeViewModel
     val historyViewModel: HistoryViewModel
+    val favoriteViewModel: FavoriteViewModel
     val voiceRecognizerDialogViewModel: VoiceRecognizerDialogViewModel
 }
