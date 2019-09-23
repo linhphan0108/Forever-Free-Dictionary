@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
+import com.example.foreverfreedictionary.extensions.getDimension
 import com.example.foreverfreedictionary.ui.adapter.HistoryAdapter
 import com.example.foreverfreedictionary.ui.adapter.viewholder.HistoryViewHolder
 import com.example.foreverfreedictionary.ui.model.HistoryEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import com.example.foreverfreedictionary.util.VerticalSpaceItemDecoration
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.view_no_data.*
@@ -68,7 +70,13 @@ class HistoryFragment : Fragment(), HistoryViewHolder.OnItemListeners {
 
     private fun setupRecyclerView(){
         historyAdapter = HistoryAdapter(listOf(), this)
+        val space: Int = context?.getDimension(R.dimen.recycler_View_divider)?.toInt() ?: 0
+        val itemDecor = VerticalSpaceItemDecoration(verticalSpace = space,
+            firstItem = space,
+            dividerDrawableRes = R.drawable.recycler_view_divider,
+            context = context)
         rcvHistory.layoutManager = LinearLayoutManager(context)
+        rcvHistory.addItemDecoration(itemDecor)
         rcvHistory.adapter = historyAdapter
     }
 }

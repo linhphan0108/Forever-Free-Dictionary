@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
+import com.example.foreverfreedictionary.extensions.getDimension
 import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.adapter.FavoriteAdapter
-import com.example.foreverfreedictionary.ui.adapter.HistoryAdapter
 import com.example.foreverfreedictionary.ui.adapter.viewholder.FavoriteViewHolder
 import com.example.foreverfreedictionary.ui.model.FavoriteEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
+import com.example.foreverfreedictionary.util.VerticalSpaceItemDecoration
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.view_no_data.*
@@ -83,7 +84,13 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
 
     private fun setupRecyclerView(){
         favoriteAdapter = FavoriteAdapter(listOf(), this)
+        val space: Int = context?.getDimension(R.dimen.recycler_View_divider)?.toInt() ?: 0
+        val itemDecor = VerticalSpaceItemDecoration(verticalSpace = space,
+            firstItem = space,
+            dividerDrawableRes = R.drawable.recycler_view_divider,
+            context = context)
         rcvFavorite.layoutManager = LinearLayoutManager(context)
+        rcvFavorite.addItemDecoration(itemDecor)
         rcvFavorite.adapter = favoriteAdapter
     }
 
