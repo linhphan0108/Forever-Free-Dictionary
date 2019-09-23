@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.foreverfreedictionary.data.cloud.DictionaryDataCloud
+import com.example.foreverfreedictionary.data.local.TblDictionary
 import com.example.foreverfreedictionary.data.local.room.DictionaryDao
 import com.example.foreverfreedictionary.domain.mapper.DictionaryMapper
 import com.example.foreverfreedictionary.vo.Resource
@@ -39,6 +40,12 @@ class DictionaryDataProvider @Inject constructor(
         }
         return MutableLiveData<Resource<Boolean>>().apply {
             postValue(resource)
+        }
+    }
+
+    fun getFavorite(): LiveData<Resource<List<TblDictionary>>>{
+        return Transformations.map(local.getFavoriteDictionary()){
+            Resource.success(it)
         }
     }
 }

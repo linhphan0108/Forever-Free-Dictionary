@@ -4,6 +4,7 @@ import com.example.foreverfreedictionary.domain.mapper.DictionaryMapper
 import com.example.foreverfreedictionary.domain.mapper.HistoryMapper
 import com.example.foreverfreedictionary.domain.mapper.WordOfTheDayMapper
 import com.example.foreverfreedictionary.ui.mapper.AutoCompletionMapper
+import com.example.foreverfreedictionary.ui.mapper.FavoriteMapper as FavoriteUiMapper
 import com.example.foreverfreedictionary.ui.mapper.HistoryMapper as HistoryUiMapper
 import dagger.Module
 import dagger.Provides
@@ -30,4 +31,8 @@ object MapperModule{
     @Singleton
     @JvmStatic @Provides
     fun provideHistoryUiMapper() = HistoryUiMapper()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideFavoriteUiMapper() = FavoriteUiMapper()
 }
