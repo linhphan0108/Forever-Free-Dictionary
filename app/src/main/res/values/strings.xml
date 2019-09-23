@@ -54,6 +54,11 @@
     <string name="dump_word">water</string>
     <string name="dump_ipaAme">ˈwɒːtər</string>
     <string name="dump_time_lapsed">6 hours</string>
+
+<!--    favorite screen-->
+    <string name="ask_for_rollback_message">%s has been removed from your favorites list. do you want to hold it back?</string>
+    <string name="favorite_rollback">roll it back</string>
+
 <!--    about us-->
     <string name="about_us_message">
         Hi forks,

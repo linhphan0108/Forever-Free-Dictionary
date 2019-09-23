@@ -9,11 +9,8 @@ import com.example.foreverfreedictionary.ui.model.FavoriteEntity
 import kotlinx.android.synthetic.main.item_view_favorite.view.*
 
 class FavoriteViewHolder(parent: ViewGroup, private val listener: OnItemListeners) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context).inflate(R.layout.item_view_history, parent, false)) {
+    LayoutInflater.from(parent.context).inflate(R.layout.item_view_favorite, parent, false)) {
 
-    init {
-        itemView.iBtnFavorite.supportImageTintList = ContextCompat.getColorStateList(itemView.context, R.color.selector_btn_favorite_tint_colors)
-    }
 
     fun bindView(item: FavoriteEntity){
         with(item){
@@ -23,11 +20,9 @@ class FavoriteViewHolder(parent: ViewGroup, private val listener: OnItemListener
             } else if(ipaBr != null){
                 itemView.context.getString(R.string.ipa_br_format, ipaBr)
             }else ""
-            itemView.iBtnFavorite.supportImageTintList = ContextCompat.getColorStateList(itemView.context, R.color.selector_btn_favorite_tint_colors)
-            itemView.iBtnFavorite.isSelected = item.isFavorite
 
             itemView.setOnClickListener { listener.onItemClicked(this) }
-            itemView.iBtnFavorite.setOnClickListener { listener.onFavoriteButtonClicked(this) }
+            itemView.iBtnDelete.setOnClickListener { listener.onFavoriteButtonClicked(this) }
         }
     }
 

@@ -33,9 +33,9 @@
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="parent"
             android:maxLines="1"
             tools:text="@string/dump_word" />
 
@@ -55,7 +55,7 @@
             tools:text="@string/dump_ipaAme"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/iBtnFavorite"
+            android:id="@+id/iBtnDelete"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/padding_4dp"
@@ -63,7 +63,8 @@
             android:paddingEnd="@dimen/padding_4dp"
             android:paddingRight="@dimen/padding_4dp"
             android:background="?selectableItemBackgroundBorderless"
-            android:src="@drawable/round_star_border_black_24"
+            android:src="@drawable/baseline_delete_black_24"
+            android:tint="@color/textPrimary"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
+import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.adapter.FavoriteAdapter
 import com.example.foreverfreedictionary.ui.adapter.HistoryAdapter
 import com.example.foreverfreedictionary.ui.adapter.viewholder.FavoriteViewHolder
@@ -47,7 +48,7 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
     }
 
     override fun onFavoriteButtonClicked(item: FavoriteEntity) {
-        viewModel.updateFavorite(item.query, !item.isFavorite)
+        viewModel.updateFavorite(item, false)
     }
 
     private fun registerViewModelListeners(){
@@ -66,11 +67,33 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
                 }
             }
         })
+        viewModel.updateFavoriteResponse.observe(this, Observer {resource ->
+            when(resource.status) {
+                Status.LOADING -> { }
+                Status.ERROR -> { }
+                Status.SUCCESS -> {
+                    val data = resource.data!!
+                    if (!data.isFavorite) {
+                        confirmRollback(data)
+                    }
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView(){
         favoriteAdapter = FavoriteAdapter(listOf(), this)
         rcvFavorite.layoutManager = LinearLayoutManager(context)
         rcvFavorite.adapter = favoriteAdapter
+    }
+
+    private fun confirmRollback(item: FavoriteEntity){
+        view?.let {
+            showSnackBar(it, getString(R.string.ask_for_rollback_message, item.word),
+                action = getString(R.string.favorite_rollback),
+                listener = View.OnClickListener {
+                    viewModel.updateFavorite(item, true)
+                })
+        }
     }
 }
