@@ -1,7 +1,6 @@
 package com.example.foreverfreedictionary.ui.adapter.viewholder
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -9,11 +8,10 @@ import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.ui.model.FavoriteEntity
 import kotlinx.android.synthetic.main.item_view_favorite.view.*
 
-class FavoriteViewHolder(itemView: View, private val listener: OnItemListeners) : RecyclerView.ViewHolder(itemView) {
+class FavoriteViewHolder(parent: ViewGroup, private val listener: OnItemListeners) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.item_view_history, parent, false)) {
 
-    constructor(parent: ViewGroup, listener: OnItemListeners) :
-            this(LayoutInflater.from(parent.context).inflate(R.layout.item_view_history, parent, false)
-                , listener) {
+    init {
         itemView.iBtnFavorite.supportImageTintList = ContextCompat.getColorStateList(itemView.context, R.color.selector_btn_favorite_tint_colors)
     }
 
@@ -25,6 +23,7 @@ class FavoriteViewHolder(itemView: View, private val listener: OnItemListeners) 
             } else if(ipaBr != null){
                 itemView.context.getString(R.string.ipa_br_format, ipaBr)
             }else ""
+            itemView.iBtnFavorite.supportImageTintList = ContextCompat.getColorStateList(itemView.context, R.color.selector_btn_favorite_tint_colors)
             itemView.iBtnFavorite.isSelected = item.isFavorite
 
             itemView.setOnClickListener { listener.onItemClicked(this) }
