@@ -81,9 +81,8 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         when(requestCode){
             REQUEST_CODE_RESULT_ACTIVITY -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    edtSearch.setText("")
                     edtSearch.postDelayed(200) {
-                        edtSearch.requestFocus()
+                        showKeyboard(edtSearch)
                     }
                 }
             }

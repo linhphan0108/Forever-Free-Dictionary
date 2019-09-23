@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import java.lang.ref.WeakReference
 import android.view.View
 import com.example.foreverfreedictionary.R
+import android.widget.EditText
 
 
 abstract class BaseActivity : AppCompatActivity(){
@@ -28,6 +29,12 @@ abstract class BaseActivity : AppCompatActivity(){
 
     protected fun dismissLoading(){
         loadingDialog.dismissLoading()
+    }
+
+    protected fun showKeyboard(view: EditText){
+        view.requestFocus()
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 
     protected fun hideSoftKeyboard(){
