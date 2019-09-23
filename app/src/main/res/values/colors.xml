@@ -30,6 +30,9 @@
     <color name="textError">@color/colorError</color>
     <color name="textWarning">@color/colorError</color>
 
+    <color name="favorite_button_tint_on">@color/colorAccent</color>
+    <color name="favorite_button_tint_off">@color/textPrimary</color>
+
 <!--    search box-->
     <color name="color_search_box_background">@color/colorBackground</color>
     <color name="color_search_Box_text">@color/textPrimary</color>
