@@ -17,6 +17,7 @@ import com.example.foreverfreedictionary.ui.model.HistoryEntity
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivity
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.view_no_data.*
 
 class HistoryFragment : Fragment(), HistoryViewHolder.OnItemListeners {
     private val viewModel: HistoryViewModel by viewModel(this){injector.historyViewModel}
@@ -53,7 +54,13 @@ class HistoryFragment : Fragment(), HistoryViewHolder.OnItemListeners {
                 Status.LOADING -> {}
                 Status.ERROR -> {}
                 Status.SUCCESS -> {
-                    historyAdapter.items = resource.data
+                    val data = resource.data
+                    historyAdapter.items = data
+                    txtEmpty.visibility = if (data?.isEmpty() == true){
+                        View.VISIBLE
+                    }else{
+                        View.GONE
+                    }
                 }
             }
         })
