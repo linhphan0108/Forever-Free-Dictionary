@@ -1,6 +1,6 @@
 package com.example.foreverfreedictionary.ui
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.example.foreverfreedictionary.BuildConfig
 import com.example.foreverfreedictionary.di.ApplicationComponent
 import com.example.foreverfreedictionary.di.DaggerApplicationComponent
@@ -8,7 +8,7 @@ import com.example.foreverfreedictionary.di.DaggerComponentProvider
 import com.example.foreverfreedictionary.util.NoLoggingTree
 import timber.log.Timber
 
-class ForeverFreeDictionaryApplication : Application(), DaggerComponentProvider {
+class ForeverFreeDictionaryApplication : MultiDexApplication(), DaggerComponentProvider {
     override val component: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
             .application(this)
