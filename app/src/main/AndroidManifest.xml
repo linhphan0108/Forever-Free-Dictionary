@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".ui.ForeverFreeDictionaryApplication"
@@ -14,16 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="ocr" />
+
         <activity
             android:name=".ui.screen.result.ResultActivity"
             android:parentActivityName=".ui.screen.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.screen.main.MainActivity" />
-        </activity>
-        <activity android:name=".ui.screen.about_us.AboutUsFragment"
-            android:parentActivityName=".ui.screen.main.MainActivity"
-            android:label="@string/menu_about_us_feedback"    >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.screen.main.MainActivity" />
@@ -40,6 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.screen.ocr_text_recognizer.OcrCaptureActivity"
+            android:label="@string/ocr_activity_title"
+            android:parentActivityName=".ui.screen.main.MainActivity"/>
     </application>
 
 </manifest>
