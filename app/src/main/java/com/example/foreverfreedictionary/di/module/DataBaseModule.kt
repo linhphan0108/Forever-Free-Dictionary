@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.di.module
 
 import android.app.Application
+import android.content.Context
 import com.example.foreverfreedictionary.data.local.room.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -8,9 +9,13 @@ import javax.inject.Singleton
 
 @Module
 object DataBaseModule {
+//    @Singleton
+//    @JvmStatic @Provides
+//    fun provideDb(application: Context) = AppDatabase.getInstance(application)
+
     @Singleton
     @JvmStatic @Provides
-    fun provideDb(app: Application) = AppDatabase.getInstance(app)
+    fun provideDbWithApplicationContext(application: Application) = AppDatabase.getInstance(application)
 
     @Singleton
     @JvmStatic @Provides
@@ -23,4 +28,8 @@ object DataBaseModule {
     @Singleton
     @JvmStatic @Provides
     fun provideHistoryDao(db: AppDatabase) = db.historyDao()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideReminderDao(db: AppDatabase) = db.reminderDao()
 }

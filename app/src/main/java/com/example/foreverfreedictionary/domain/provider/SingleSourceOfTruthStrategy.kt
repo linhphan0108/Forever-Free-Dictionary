@@ -36,3 +36,24 @@ suspend fun <T, A> resultLiveData(databaseQuery: suspend () -> LiveData<T>,
 
     return mediatorLiveData
 }
+
+suspend fun <T, A> firstSource( databaseQuery: suspend () -> T,
+                                cloudCall: suspend () -> Resource<A>,
+                                mapper: suspend (Resource<A>) -> Resource<T>): Resource<T> {
+
+    var result = Resource.success(databaseQuery.invoke())
+    if (result.data == null){
+        result = mapper(cloudCall.invoke())
+    }
+    return result
+}
+
+suspend fun <T, A> pushSources( databaseQuery: suspend () -> T,
+                                cloudCall: suspend () -> Resource<A>,
+                                mapper: suspend (Resource<A>) -> Resource<T>): Resource<T> {
+    var result = Resource.success(databaseQuery.invoke())
+    if (result.data == null){
+        result = mapper(cloudCall.invoke())
+    }
+    return result
+}

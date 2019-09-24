@@ -1,22 +1,21 @@
 package com.example.foreverfreedictionary.data.local
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.Index
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import retrofit2.http.Field
 import java.sql.Date
 
 @Entity(
-    tableName = "history",
-    foreignKeys = [ForeignKey(
-        entity = TblDictionary::class,
-        parentColumns = arrayOf("query"),
-        childColumns = arrayOf("query"),
-        onDelete = CASCADE)
-        ],
-    indices = [Index("word")])
+    tableName = "history"
+//    foreignKeys = [ForeignKey(
+//        entity = TblDictionary::class,
+//        parentColumns = arrayOf("query"),
+//        childColumns = arrayOf("query"),
+//        onDelete = CASCADE)
+//        ],
+//    indices = [Index("word")]
+)
 data class TblHistory(
     @PrimaryKey
     @field:SerializedName("query")
@@ -74,3 +73,32 @@ data class TblWordOfTheDay(
         return "$date - $"
     }
 }
+
+@Entity(tableName = "reminder"
+//    foreignKeys = [ForeignKey(
+//        entity = TblDictionary::class,
+//        parentColumns = arrayOf("query"),
+//        childColumns = arrayOf("query"),
+//        onDelete = CASCADE)
+//    ]
+)
+data class TblReminder(
+    @PrimaryKey
+    @field:SerializedName("query")
+    val query: String,
+    @field:SerializedName("word")
+    val word: String,
+    @field:SerializedName("sound_br")
+    val soundBr: String?,
+    @field:SerializedName("sound_ame")
+    val soundAme: String?,
+    @field:SerializedName("ipa_br")
+    val ipaBr: String?,
+    @field:SerializedName("ipa_Ame")
+    val ipaAme: String?,
+    @field:SerializedName("reminded")
+    val isReminded: Boolean,
+    @field:SerializedName("remind")
+    @ColumnInfo(name = "time")
+    val time: Date
+)

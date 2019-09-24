@@ -39,5 +39,9 @@ object DataSourceModule {
     @JvmStatic @Provides
     fun provideHistoryCloud() = HistoryCloud()
 
+    @Singleton
+    @JvmStatic @Provides
+    fun provideReminderCloud() = ReminderCloud()
+
 
 }

@@ -34,7 +34,7 @@ class MainActivityViewModel @Inject constructor(
         uiScope.launch {
             //Working on UI thread
 
-            //Use dispatcher to switch between context
+            //Use dispatcher to switch between application
             val deferred = async(Dispatchers.IO) {
                 //Working on background thread
                 fetchAutoCompletionCommand.query = query

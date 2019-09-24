@@ -45,6 +45,17 @@
         <activity android:name=".ui.screen.ocr_text_recognizer.OcrCaptureActivity"
             android:label="@string/ocr_activity_title"
             android:parentActivityName=".ui.screen.main.MainActivity"/>
+
+
+        <receiver android:name=".ui.broadcastReceiver.OnActionReminderNotificationBroadCastReceiver"
+            android:process=":remote"
+            android:enabled="true" />
+        <receiver android:name=".ui.broadcastReceiver.OnShowRemindersNotificationBroadCastReceiver"
+            android:process=":remote" />
+        <receiver android:name=".ui.broadcastReceiver.OnAlarmReminderBroadCastReceiver"
+            android:process=":remote" />
+        <service android:name=".ui.service.ReminderService"
+            android:exported="false"/>
     </application>
 
 </manifest>

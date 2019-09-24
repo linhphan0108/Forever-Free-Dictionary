@@ -12,6 +12,7 @@ import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.extensions.getDimension
+import com.example.foreverfreedictionary.extensions.getTomorrow0Clock
 import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.adapter.FavoriteAdapter
 import com.example.foreverfreedictionary.ui.adapter.viewholder.FavoriteViewHolder
@@ -21,6 +22,7 @@ import com.example.foreverfreedictionary.util.VerticalSpaceItemDecoration
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.view_no_data.*
+import java.sql.Date
 
 class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
 
@@ -52,6 +54,11 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
         viewModel.updateFavorite(item, false)
     }
 
+    override fun onSetReminderButtonClicked(item: FavoriteEntity) {
+        val date = Date(System.currentTimeMillis()).getTomorrow0Clock()
+        viewModel.setReminder(item, date)
+    }
+
     private fun registerViewModelListeners(){
         viewModel.favoriteResponse.observe(this, Observer { resource ->
             when(resource.status){
@@ -77,6 +84,18 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
                     if (!data.isFavorite) {
                         confirmRollback(data)
                     }
+                }
+            }
+        })
+
+        viewModel.insertReminderRespnose.observe(this, Observer {resource ->
+            when(resource.status) {
+                Status.LOADING -> {
+                }
+                Status.ERROR -> {
+                }
+                Status.SUCCESS -> {
+
                 }
             }
         })

@@ -42,6 +42,11 @@ import kotlin.coroutines.CoroutineContext
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.postDelayed
 import com.example.foreverfreedictionary.ui.screen.ocr_text_recognizer.OcrCaptureActivity
+import android.app.AlarmManager
+import android.app.PendingIntent
+import com.example.foreverfreedictionary.extensions.howLongTilNext8Clock
+import com.example.foreverfreedictionary.ui.broadcastReceiver.OnAlarmReminderBroadCastReceiver
+import java.sql.Date
 
 
 const val REQUEST_CODE_RESULT_ACTIVITY = 11
@@ -74,6 +79,9 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         setupNavigator()
         registerViewModelListeners()
         registerEventListeners()
+        scheduleAlarm()
+//        val serviceIntent = Intent(this, ReminderService::class.java)
+//        startService(serviceIntent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -147,6 +155,24 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         }
     }
 
+    private fun scheduleAlarm() {
+        val intent = Intent(applicationContext, OnAlarmReminderBroadCastReceiver::class.java)
+        val alarmIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val startTime = Date(System.currentTimeMillis()).howLongTilNext8Clock()
+        val backupAlarmMgr = this.getSystemService(ALARM_SERVICE) as AlarmManager
+        backupAlarmMgr.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            startTime,
+            AlarmManager.INTERVAL_DAY, //todo this must be changed to 1 hour
+            alarmIntent
+        )//alarm will repeat after every day
+    }
+
 //    navigation section
     fun openResultScreen(query: String){
 //        findNavController(R.id.nav_host_fragment).navigate(R.id.resultActivity,
@@ -168,9 +194,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             R.id.nav_home,
             R.id.nav_favorites,
             R.id.nav_history,
-            R.id.nav_my_vocabulary,
-            R.id.nav_my_reminder,
-            R.id.nav_settings
+            R.id.nav_my_vocabulary
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)

@@ -1,16 +1,13 @@
 package com.example.foreverfreedictionary.di
 
 import android.app.Application
-import com.example.foreverfreedictionary.di.module.DataSourceModule
-import com.example.foreverfreedictionary.di.module.MapperModule
-import com.example.foreverfreedictionary.di.module.RetrofitModule
-import com.example.foreverfreedictionary.di.module.DataBaseModule
+import com.example.foreverfreedictionary.di.module.*
 import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialogViewModel
-import com.example.foreverfreedictionary.ui.screen.gallery.FavoriteFragment
 import com.example.foreverfreedictionary.ui.screen.gallery.FavoriteViewModel
 import com.example.foreverfreedictionary.ui.screen.history.HistoryViewModel
 import com.example.foreverfreedictionary.ui.screen.home.HomeViewModel
 import com.example.foreverfreedictionary.ui.screen.main.MainActivityViewModel
+import com.example.foreverfreedictionary.ui.screen.reminder.ReminderViewModel
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivityViewModel
 import dagger.BindsInstance
 import dagger.Component
@@ -40,5 +37,6 @@ interface ApplicationComponent {
     val homeViewModel: HomeViewModel
     val historyViewModel: HistoryViewModel
     val favoriteViewModel: FavoriteViewModel
+    val reminderViewModel: ReminderViewModel
     val voiceRecognizerDialogViewModel: VoiceRecognizerDialogViewModel
 }

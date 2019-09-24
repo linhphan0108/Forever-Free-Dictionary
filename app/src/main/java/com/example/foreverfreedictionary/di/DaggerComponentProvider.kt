@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.di
 
 import android.app.Activity
+import android.app.Service
 import androidx.fragment.app.Fragment
 
 /**
@@ -17,3 +18,5 @@ interface DaggerComponentProvider {
 val Activity.injector get() = (application as DaggerComponentProvider).component
 
 val Fragment.injector get() = (activity?.application as DaggerComponentProvider).component
+
+val Service.injector get() = (application as DaggerComponentProvider).component
