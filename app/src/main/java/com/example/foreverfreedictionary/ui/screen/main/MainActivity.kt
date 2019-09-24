@@ -39,14 +39,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
-import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
-import android.content.Context
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.view.postDelayed
+import com.example.foreverfreedictionary.ui.screen.ocr_text_recognizer.OcrCaptureActivity
 
 
 const val REQUEST_CODE_RESULT_ACTIVITY = 11
+const val REQUEST_CODE_OCR_ACTIVITY = 12
 class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, CoroutineScope, VoiceRecognizerDialog.Listener {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
@@ -81,6 +80,17 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         when(requestCode){
             REQUEST_CODE_RESULT_ACTIVITY -> {
                 if (resultCode == Activity.RESULT_OK) {
+                    edtSearch.postDelayed(200) {
+                        showKeyboard(edtSearch)
+                    }
+                }
+            }
+
+            REQUEST_CODE_OCR_ACTIVITY -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val word = data?.getStringExtra(OcrCaptureActivity.SELECTED_WORD) ?: ""
+                    edtSearch.setText(word)
+                    edtSearch.setSelection(word.length)
                     edtSearch.postDelayed(200) {
                         showKeyboard(edtSearch)
                     }
@@ -129,6 +139,11 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                 voiceRecognizerDialog = VoiceRecognizerDialog.newInstance()
             }
             voiceRecognizerDialog!!.show(supportFragmentManager, MainActivity::class.java.name)
+        }
+
+        iBtnCamera.setOnClickListener {
+            val intent = Intent(this, OcrCaptureActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_OCR_ACTIVITY)
         }
     }
 

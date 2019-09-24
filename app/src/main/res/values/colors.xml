@@ -38,4 +38,7 @@
     <color name="color_search_box_background">@color/colorBackground</color>
     <color name="color_search_Box_text">@color/textPrimary</color>
     <color name="color_search_Box_text_hint">@color/textSecondary</color>
+
+    <color name="color_unscannable_area">#99000000</color>
+    <color name="color_ocr_witch_text">#fff</color>
 </resources>

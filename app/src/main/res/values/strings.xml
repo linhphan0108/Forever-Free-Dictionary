@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Forever Free Dictionary</string>
+
+<!--    common-->
+    <string name="ok">OK</string>
+
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -17,7 +22,7 @@
     <string name="menu_invite_friends">Invite Friends</string>
     <string name="menu_rate_app">Rate This App</string>
     <string name="menu_about_us_feedback">About Us &amp; Feedback</string>
-    <string name="default_snack_bar_action">OK</string>
+    <string name="default_snack_bar_action">@string/ok</string>
 
     <string name="menu_pre">Pre</string>
     <string name="menu_next">Next</string>
@@ -39,6 +44,18 @@
     <string name="voice_recognizer_error_msg_permissions">Please allow us to grant the permission to access your microphone</string>
     <string name="voice_recognizer_error_msg_audio_error">Oops! something happened while recording audio.</string>
     <string name="voice_recognizer_error_msg_client_error">Oops! something happened while recording audio.</string>
+
+<!--    OCR text recognition-->
+    <string name="ocr_activity_title">Detect Your Words</string>
+    <string name="switch_Detect">Detect</string>
+    <string name="switch_auto_focus">Auto Focus</string>
+    <string name="switch_flash">Use Flash</string>
+    <string name="ocr_hint">Tap on detected text block which contains your word</string>
+    <string name="ocr_select_word_hint">Choose your word</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+
     <!--    content description-->
     <string name="des_mic_button">convert your speech to text</string>
     <string name="des_camera_button">determine text through your camera</string>
