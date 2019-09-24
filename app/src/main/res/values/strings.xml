@@ -16,7 +16,7 @@
     <string name="menu_favorite">Favorites</string>
     <string name="menu_history">History</string>
     <string name="menu_my_vocabulary">My Vocabulary</string>
-    <string name="menu_my_reminder">Reminder</string>
+    <string name="menu_reminder">Reminder</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_group_Communicate">Communicate</string>
     <string name="menu_invite_friends">Invite Friends</string>
@@ -76,6 +76,9 @@
     <string name="ask_for_rollback_message">%s has been removed from your favorites list. do you want to hold it back?</string>
     <string name="favorite_rollback">roll it back</string>
 
+<!--    reminder screen-->
+    <string name="reminder_notification_message">do you remember this word %s</string>
+    <string name="reminder_notification_message_plural">do you remember these words %s</string>
 <!--    about us-->
     <string name="about_us_message">
         Hi forks,

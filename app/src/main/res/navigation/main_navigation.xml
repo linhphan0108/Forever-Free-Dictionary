@@ -29,6 +29,11 @@
         android:label="@string/menu_my_vocabulary"
         tools:layout="@layout/fragment_tools" />
 
+    <fragment android:id="@+id/nav_reminder"
+        android:name="com.example.foreverfreedictionary.ui.screen.reminder.ReminderFragment"
+        android:label="@string/menu_reminder"
+        tools:layout="@layout/fragment_reminder" />
+
     <fragment
         android:id="@+id/nav_about_us_feedback"
         android:name="com.example.foreverfreedictionary.ui.screen.about_us.AboutUsFragment"

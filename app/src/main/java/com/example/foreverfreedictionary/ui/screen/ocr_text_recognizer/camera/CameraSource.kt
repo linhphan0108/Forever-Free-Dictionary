@@ -162,7 +162,7 @@ private constructor() {
      */
     class Builder
     /**
-     * Creates a camera source builder with the supplied context and detector.  Camera preview
+     * Creates a camera source builder with the supplied application and detector.  Camera preview
      * images will be streamed to the associated detector upon starting the camera source.
      */
         (context: Context, private val detector: Detector<*>) {
@@ -928,7 +928,7 @@ private constructor() {
     /**
      * This runnable controls access to the underlying receiver, calling it to process frames when
      * available from the camera.  This is designed to run detection on frames as fast as possible
-     * (i.e., without unnecessary context switching or waiting on the next frame).
+     * (i.e., without unnecessary application switching or waiting on the next frame).
      *
      *
      * While detection is running on a frame, new frames may be received from the camera.  As these
@@ -1009,7 +1009,7 @@ private constructor() {
          *
          *
          * If detection takes longer than the time in between new frames from the camera, this will
-         * mean that this loop will run without ever waiting on a frame, avoiding any context
+         * mean that this loop will run without ever waiting on a frame, avoiding any application
          * switching or frame acquisition time latency.
          *
          *
@@ -1084,7 +1084,7 @@ private constructor() {
 
         /**
          * The dummy surface texture must be assigned a chosen name.  Since we never use an OpenGL
-         * context, we can choose any ID we want here.
+         * application, we can choose any ID we want here.
          */
         private val DUMMY_TEXTURE_NAME = 100
 

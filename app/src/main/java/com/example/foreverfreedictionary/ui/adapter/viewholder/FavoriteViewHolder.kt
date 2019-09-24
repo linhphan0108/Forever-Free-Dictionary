@@ -2,7 +2,6 @@ package com.example.foreverfreedictionary.ui.adapter.viewholder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.ui.model.FavoriteEntity
@@ -23,11 +22,13 @@ class FavoriteViewHolder(parent: ViewGroup, private val listener: OnItemListener
 
             itemView.setOnClickListener { listener.onItemClicked(this) }
             itemView.iBtnDelete.setOnClickListener { listener.onFavoriteButtonClicked(this) }
+            itemView.iBtnSetReminder.setOnClickListener { listener.onSetReminderButtonClicked(this) }
         }
     }
 
     interface OnItemListeners{
         fun onItemClicked(item: FavoriteEntity)
         fun onFavoriteButtonClicked(item: FavoriteEntity)
+        fun onSetReminderButtonClicked(item: FavoriteEntity)
     }
 }

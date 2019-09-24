@@ -13,7 +13,7 @@ class FavoriteMapper {
             Status.SUCCESS -> {
                 val mappedData = resource.data!!.map {tblDictionary ->
                     with(tblDictionary){
-                        FavoriteEntity(query, word, ipaBr, ipaAme, isFavorite, lastAccess)
+                        FavoriteEntity(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite, lastAccess)
                     }
                 }
             Resource.success(mappedData)

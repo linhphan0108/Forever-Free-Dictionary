@@ -30,7 +30,7 @@ class ResultActivityViewModel  @Inject constructor(
         //Connect to website
         uiScope.launch {
             //Working on UI thread
-            //Use dispatcher to switch between context
+            //Use dispatcher to switch between application
             val deferred = async(Dispatchers.IO) {
                 //Working on background thread
                 fetchDictionaryDataCommand.query = query

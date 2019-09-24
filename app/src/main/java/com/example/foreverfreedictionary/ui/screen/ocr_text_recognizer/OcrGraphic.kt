@@ -53,8 +53,8 @@ class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val textBlock:
     /**
      * Checks whether a point is within the bounding box of this graphic.
      * The provided point should be relative to this graphic's containing overlay.
-     * @param x An x parameter in the relative context of the canvas.
-     * @param y A y parameter in the relative context of the canvas.
+     * @param x An x parameter in the relative application of the canvas.
+     * @param y A y parameter in the relative application of the canvas.
      * @return True if the provided point is contained within this graphic's bounding box.
      */
     override fun contains(x: Float, y: Float): Boolean {

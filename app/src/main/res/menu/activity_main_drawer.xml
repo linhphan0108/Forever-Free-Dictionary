@@ -21,9 +21,9 @@
             android:icon="@drawable/outline_font_download_black_36"
             android:title="@string/menu_my_vocabulary" />
         <item
-            android:id="@+id/nav_my_reminder"
+            android:id="@+id/nav_reminder"
             android:icon="@drawable/round_alarm_black_36"
-            android:title="@string/menu_my_reminder" />
+            android:title="@string/menu_reminder" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_36dp"
