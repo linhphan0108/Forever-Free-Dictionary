@@ -10,13 +10,21 @@ import javax.inject.Inject
 
 class AutoCompletionProvider @Inject constructor(
     private val autoCompletionLocal: AutoCompletionLocal,
-    private val autoCompletionCloud: AutoCompletionCloud) {
+    private val autoCompletionCloud: AutoCompletionCloud) : BaseProvider() {
 
     suspend fun fetchAutoCompletion(query: String): LiveData<Resource<List<String>>> {
-        val result = autoCompletionLocal.fetchAutoCompletion(query)
+        val result: Resource<List<String>?> = firstSource(
+            databaseQuery = {
+                autoCompletionLocal.fetchAutoCompletion(query)
+            }, cloudCall = {
+                autoCompletionCloud.fetchAutoCompletion(query)
+            }, mapper = {
+                it
+            }
+        )
         val liveData: MutableLiveData<Resource<List<String>>> = MutableLiveData()
             liveData.postValue(if (result.status == Status.SUCCESS && !result.data.isNullOrEmpty()){
-                result
+                Resource.success(result.data)
             }else{
                 autoCompletionCloud.fetchAutoCompletion(query)
             })

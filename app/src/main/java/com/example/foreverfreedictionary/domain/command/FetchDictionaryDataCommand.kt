@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class FetchDictionaryDataCommand @Inject constructor(
     private val dataProvider: DictionaryDataProvider
-) : BaseCommand<String>() {
+) : BaseLiveDataCommand<String>() {
 
     lateinit var query: String
 

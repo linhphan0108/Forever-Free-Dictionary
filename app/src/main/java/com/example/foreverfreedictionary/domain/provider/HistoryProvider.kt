@@ -13,9 +13,9 @@ class HistoryProvider @Inject constructor(
     private val local: HistoryDao,
     private val cloud: HistoryCloud,
     private val historyMapper: HistoryMapper
-) {
+) : BaseProvider(){
     suspend fun getHistory(): LiveData<Resource<List<DictionaryHistory>>> {
-        return resultLiveData(databaseQuery = {
+        return singleTruthSourceLiveData(databaseQuery = {
             local.getDictionaryHistory()
         }, cloudCall = {
             cloud.getHistory()

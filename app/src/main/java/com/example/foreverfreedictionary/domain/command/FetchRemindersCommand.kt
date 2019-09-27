@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class FetchRemindersCommand @Inject constructor(
     private val provider: ReminderProvider
-) : BaseCommand<List<Reminder>>() {
+) : BaseLiveDataCommand<List<Reminder>>() {
     override suspend fun execute(): LiveData<Resource<List<Reminder>>> {
         return provider.getReminders()
     }

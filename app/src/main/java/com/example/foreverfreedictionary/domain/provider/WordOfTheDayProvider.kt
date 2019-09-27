@@ -15,7 +15,7 @@ import java.util.*
 class WordOfTheDayProvider @Inject constructor(
     private val local: WordOfTheDayDao,
     private val  cloud: WordOfTheDayCloud,
-    private val mapper: WordOfTheDayMapper) {
+    private val mapper: WordOfTheDayMapper) : BaseProvider() {
 
     suspend fun fetchWordOfTheDay(): LiveData<Resource<String>> {
         val now = Calendar.getInstance()
@@ -26,7 +26,7 @@ class WordOfTheDayProvider @Inject constructor(
         val zeroHourMinutesSecond = now.timeInMillis
         val date = Date(zeroHourMinutesSecond)
         Timber.d("0h-0m-0s timestamp $zeroHourMinutesSecond")
-        return Transformations.map(resultLiveData(
+        return Transformations.map(singleTruthSourceLiveData(
             databaseQuery = {
                 local.getWordOfTheDay(date)},
             cloudCall = {cloud.fetchWordOfTheDay()},

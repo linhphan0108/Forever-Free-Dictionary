@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class FetchAutoCompletionCommand @Inject constructor(
     private val autoCompletionProvider: AutoCompletionProvider
-) : BaseCommand<List<String>>() {
+) : BaseLiveDataCommand<List<String>>() {
 
     lateinit var query: String
 

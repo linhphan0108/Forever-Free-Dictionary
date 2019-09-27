@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class WordOfTheDayCommand @Inject constructor(
     private val wordOfTheDayProvider: WordOfTheDayProvider
-) : BaseCommand<String>() {
+) : BaseLiveDataCommand<String>() {
     override suspend fun execute(): LiveData<Resource<String>> {
         return wordOfTheDayProvider.fetchWordOfTheDay()
     }

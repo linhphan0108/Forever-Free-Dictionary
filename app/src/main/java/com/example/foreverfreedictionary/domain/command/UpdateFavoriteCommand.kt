@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class UpdateFavoriteCommand @Inject constructor(
     private val historyProvider: DictionaryDataProvider
-) : BaseCommand<Boolean>() {
+) : BaseLiveDataCommand<Boolean>() {
     lateinit var query: String
     var isFavorite: Boolean = false
 

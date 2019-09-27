@@ -13,9 +13,9 @@ import javax.inject.Inject
 class ReminderProvider @Inject constructor(
     private val local: ReminderDao,
     private val cloud: ReminderCloud
-) {
+) : BaseProvider(){
     suspend fun getReminders() : LiveData<Resource<List<Reminder>>>{
-        return resultLiveData(
+        return singleTruthSourceLiveData(
             databaseQuery = {
                 local.getReminders()
             },cloudCall = {
@@ -25,7 +25,7 @@ class ReminderProvider @Inject constructor(
             })
     }
     suspend fun getRemindersInTime(timestamp: Long) : LiveData<Resource<List<Reminder>>>{
-        return resultLiveData(
+        return singleTruthSourceLiveData(
             databaseQuery = {
                 local.getRemindersInTime(timestamp)
             },cloudCall = {

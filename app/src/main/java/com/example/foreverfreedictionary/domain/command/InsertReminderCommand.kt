@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class InsertReminderCommand @Inject constructor(
     private val provider: ReminderProvider
-): BaseCommand<Long>() {
+): BaseLiveDataCommand<Long>() {
     lateinit var reminder: TblReminder
     override suspend fun execute(): LiveData<Resource<Long>> {
         return provider.insertReminder(reminder)

@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class SetRemindedRemindersCommand@Inject constructor(
     private val provider: ReminderProvider
-)  {
+): BaseResourceCommand<Int>(){
     lateinit var queryList: List<String>
-    suspend fun execute(): Resource<Int> {
+    override suspend fun execute(): Resource<Int> {
         return provider.setReminded(queryList)
     }
 }

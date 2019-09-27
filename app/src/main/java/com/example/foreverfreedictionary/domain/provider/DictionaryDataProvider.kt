@@ -15,9 +15,9 @@ class DictionaryDataProvider @Inject constructor(
     private val local: DictionaryDao,
     private val cloud: DictionaryDataCloud,
     private val mapper: DictionaryMapper,
-    private val historyProvider: HistoryProvider) {
+    private val historyProvider: HistoryProvider): BaseProvider() {
     suspend fun queryDictionaryData(query: String): LiveData<Resource<String>>{
-        return Transformations.map(resultLiveData(
+        return Transformations.map(singleTruthSourceLiveData(
             databaseQuery = {
                 local.getDictionary(query)
             },

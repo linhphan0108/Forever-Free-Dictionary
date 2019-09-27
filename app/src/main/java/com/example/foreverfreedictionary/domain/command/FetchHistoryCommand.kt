@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class FetchHistoryCommand @Inject constructor(
     private val historyProvider: HistoryProvider
-) : BaseCommand<List<DictionaryHistory>>() {
+) : BaseLiveDataCommand<List<DictionaryHistory>>() {
 
     override suspend fun execute(): LiveData<Resource<List<DictionaryHistory>>> {
         return historyProvider.getHistory()

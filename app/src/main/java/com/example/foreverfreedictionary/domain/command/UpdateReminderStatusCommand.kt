@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 class UpdateReminderStatusCommand @Inject constructor(
     private val provider: ReminderProvider
-){
+): BaseResourceCommand<Int>(){
     lateinit var query: String
     var isReminded: Boolean = false
     lateinit var time: Date
-    suspend fun execute(): Resource<Int> {
+    override suspend fun execute(): Resource<Int> {
         return provider.updateReminder(query, isReminded, time)
     }
 }
