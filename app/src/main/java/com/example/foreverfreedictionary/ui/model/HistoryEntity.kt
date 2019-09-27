@@ -11,4 +11,6 @@ class HistoryEntity (val query: String,
                      val ipaAme: String?,
 //                     val url: String,
                      val isFavorite: Boolean,
+                     val isReminded: Boolean,
+                     val remindTime: Date?,
                      val lastAccess: Date) : Entity()

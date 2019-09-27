@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.ui.model.FavoriteEntity
 import kotlinx.android.synthetic.main.item_view_favorite.view.*
+import kotlinx.android.synthetic.main.item_view_favorite.view.txtIpa
+import kotlinx.android.synthetic.main.item_view_favorite.view.txtWord
 
 class FavoriteViewHolder(parent: ViewGroup, private val listener: OnItemListeners) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_view_favorite, parent, false)) {
@@ -20,9 +22,23 @@ class FavoriteViewHolder(parent: ViewGroup, private val listener: OnItemListener
                 itemView.context.getString(R.string.ipa_br_format, ipaBr)
             }else ""
 
+            if (remindTime == null){
+                itemView.iBtnReminder.setImageResource(R.drawable.round_alarm_add_black_18)
+            }else{
+                if (isReminded){
+                    itemView.iBtnReminder.setImageResource(R.drawable.round_alarm_on_black_18)
+                }else{
+                    itemView.iBtnReminder.setImageResource(R.drawable.round_alarm_black_18)
+                }
+            }
+
             itemView.setOnClickListener { listener.onItemClicked(this) }
             itemView.iBtnDelete.setOnClickListener { listener.onFavoriteButtonClicked(this) }
-            itemView.iBtnSetReminder.setOnClickListener { listener.onSetReminderButtonClicked(this) }
+            itemView.iBtnReminder.setOnClickListener {
+                if (remindTime == null || isReminded) {
+                    listener.onSetReminderButtonClicked(this)
+                }
+            }
         }
     }
 

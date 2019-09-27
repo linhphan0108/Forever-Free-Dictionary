@@ -46,11 +46,14 @@ class ReminderProvider @Inject constructor(
             })
     }
 
-    fun insertReminder(data: TblReminder) : LiveData<Resource<Long>>{
-        val id = local.insertReminder(data)
-        return MutableLiveData<Resource<Long>>().apply {
-            Resource.success(id)
-        }
+    suspend fun insertReminder(data: TblReminder) : Resource<Long>{
+        return pushSources(databaseQuery = {
+            local.insertReminder(data)
+        }, cloudCall = {
+            cloud.insertReminder()
+        }, mapper = {
+            it
+        })
     }
 
     suspend fun setReminded(queryList: List<String>) : Resource<Int>{

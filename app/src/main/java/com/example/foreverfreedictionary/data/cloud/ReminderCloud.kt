@@ -19,4 +19,8 @@ class ReminderCloud {
     fun updateReminder(query: String, isReminded: Boolean, time: Date): Resource<Int>{
         return Resource.error("no data")
     }
+
+    fun insertReminder() : Resource<Long> {
+        return Resource.success(0L)
+    }
 }

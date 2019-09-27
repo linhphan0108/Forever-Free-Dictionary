@@ -67,6 +67,18 @@ data class TblHistory(
     val query: String,
     @field:SerializedName("word")
     val word: String,
+    @field:SerializedName("topic")
+    val topic: String?,
+    @field:SerializedName("check_spell_page")
+    val isCheckSpellPage: Boolean,
+    @field:SerializedName("sound_br")
+    val soundBr: String?,
+    @field:SerializedName("sound_ame")
+    val soundAme: String?,
+    @field:SerializedName("ipa_br")
+    val ipaBr: String?,
+    @field:SerializedName("ipa_Ame")
+    val ipaAme: String?,
     @field:SerializedName("last_access")
     val lastAccess: Date){
     override fun toString(): String {

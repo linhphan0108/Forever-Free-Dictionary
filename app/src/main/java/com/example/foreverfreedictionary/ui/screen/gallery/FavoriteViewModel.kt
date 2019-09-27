@@ -6,6 +6,7 @@ import com.example.foreverfreedictionary.domain.command.FetchFavoriteCommand
 import com.example.foreverfreedictionary.domain.command.InsertFavoriteCommand
 import com.example.foreverfreedictionary.domain.command.InsertReminderCommand
 import com.example.foreverfreedictionary.domain.command.RemoveFavoriteCommand
+import com.example.foreverfreedictionary.extensions.getTomorrow0Clock
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
 import com.example.foreverfreedictionary.ui.mapper.FavoriteMapper
 import com.example.foreverfreedictionary.ui.mapper.ReminderMapper
@@ -37,13 +38,11 @@ class FavoriteViewModel @Inject constructor(application: Application,
     private val _removeFavoriteMutableLiveData = MutableLiveData<Resource<FavoriteEntity>>()
     val removeFavoriteResponse = _removeFavoriteMutableLiveData
 
-    private val _insertReminderMediatorLiveData = MediatorLiveData<Resource<Long>>()
-    private var _insertReminderLiveData: LiveData<Resource<Long>>? = null
-    val insertReminderResponse = _insertReminderMediatorLiveData
+    private val _setReminderMutableLiveData = MutableLiveData<Resource<Long>>()
+    val setReminderResponse = _setReminderMutableLiveData
 
     override fun onCleared() {
         clearHistorySources()
-        clearInsertReminderLiveData()
         super.onCleared()
     }
 
@@ -93,24 +92,14 @@ class FavoriteViewModel @Inject constructor(application: Application,
         }
     }
 
-    fun setReminder(item: FavoriteEntity, remindTime: Date){
+    fun setReminder(item: FavoriteEntity){
+        val date = Date(System.currentTimeMillis()).getTomorrow0Clock()
         uiScope.launch {
             val deferred = async(Dispatchers.IO) {
-                insertReminderCommand.reminder = reminderMapper.toDomain(item, remindTime)
+                insertReminderCommand.reminder = reminderMapper.toDomain(item, date)
                 insertReminderCommand.execute()
             }
-
-            clearInsertReminderLiveData()
-            _insertReminderLiveData = deferred.await()
-            _insertReminderMediatorLiveData.addSource(_insertReminderLiveData!!){
-                _insertReminderMediatorLiveData.value = it
-            }
-        }
-    }
-
-    private fun clearInsertReminderLiveData(){
-        _insertReminderLiveData?.let {
-            _insertReminderLiveData = null
+            _setReminderMutableLiveData.value = deferred.await()
         }
     }
 }

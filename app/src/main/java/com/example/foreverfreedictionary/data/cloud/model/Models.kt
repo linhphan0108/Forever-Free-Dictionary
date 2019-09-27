@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.data.cloud.model
 
 import com.google.gson.annotations.SerializedName
+import java.sql.Date
 
 data class AutoCompletionResponse(@SerializedName("results") val results: List<SearchText>)
 data class SearchText(@SerializedName("searchtext")val suggestion: String)
@@ -13,7 +14,7 @@ data class Dictionary(
     val soundBr: String?,
     val soundAme: String?,
     val ipaBr: String?,
-    /**american accent*/
     val ipaAme: String? = null,
-    val url: String
+    val url: String,
+    val lastAccess: Date
 )
