@@ -18,10 +18,11 @@ interface HistoryDao {
 
 
     @Query("SELECT dictionary.query, dictionary.word, dictionary.topic, dictionary.isCheckSpellPage," +
-            " dictionary.ipaBr, dictionary.ipaAme, dictionary.isFavorite, dictionary.lastAccess FROM history\n" +
-            "            LEFT JOIN dictionary ON dictionary.query = history.query\n" +
-            "\t\t\tWHERE dictionary.isCheckSpellPage = 0\n" +
-            "            ORDER BY dictionary.lastAccess DESC")
+            " dictionary.soundBr, dictionary.soundAme, dictionary.ipaBr, dictionary.ipaAme, " +
+            "dictionary.isFavorite, dictionary.lastAccess FROM history\n" +
+            "LEFT JOIN dictionary ON dictionary.query = history.query\n" +
+            "WHERE dictionary.isCheckSpellPage = 0\n" +
+            "ORDER BY dictionary.lastAccess DESC")
     fun getDictionaryHistory() : LiveData<List<DictionaryHistory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

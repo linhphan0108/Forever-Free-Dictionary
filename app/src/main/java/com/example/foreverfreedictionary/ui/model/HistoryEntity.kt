@@ -4,9 +4,8 @@ import java.sql.Date
 
 class HistoryEntity (val query: String,
                     val word: String,
-//                     val content: String,
-//                     val soundBr: String,
-//                     val soundAme: String,
+                     val soundBr: String?,
+                     val soundAme: String?,
                      val ipaBr: String?,
                      /**american accent*/
                      val ipaAme: String?,

@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.di.module
 
 import com.example.foreverfreedictionary.domain.mapper.DictionaryMapper
+import com.example.foreverfreedictionary.domain.mapper.FavoriteMapper
 import com.example.foreverfreedictionary.domain.mapper.HistoryMapper
 import com.example.foreverfreedictionary.domain.mapper.WordOfTheDayMapper
 import com.example.foreverfreedictionary.ui.mapper.AutoCompletionMapper
@@ -32,6 +33,10 @@ object MapperModule{
     @Singleton
     @JvmStatic @Provides
     fun provideHistoryUiMapper() = HistoryUiMapper()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideFavoriteMapper() = FavoriteMapper()
 
     @Singleton
     @JvmStatic @Provides

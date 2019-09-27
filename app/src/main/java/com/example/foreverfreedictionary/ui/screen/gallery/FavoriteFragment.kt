@@ -51,7 +51,7 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
     }
 
     override fun onFavoriteButtonClicked(item: FavoriteEntity) {
-        viewModel.updateFavorite(item, false)
+        viewModel.removeFavorite(item)
     }
 
     override fun onSetReminderButtonClicked(item: FavoriteEntity) {
@@ -75,20 +75,27 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
                 }
             }
         })
-        viewModel.updateFavoriteResponse.observe(this, Observer {resource ->
+
+        viewModel.insertFavoriteResponse.observe(this, Observer {resource ->
             when(resource.status) {
                 Status.LOADING -> { }
                 Status.ERROR -> { }
                 Status.SUCCESS -> {
-                    val data = resource.data!!
-                    if (!data.isFavorite) {
-                        confirmRollback(data)
-                    }
                 }
             }
         })
 
-        viewModel.insertReminderRespnose.observe(this, Observer {resource ->
+        viewModel.removeFavoriteResponse.observe(this, Observer { resource ->
+            when(resource.status) {
+                Status.LOADING -> { }
+                Status.ERROR -> { }
+                Status.SUCCESS -> {
+                    resource.data?.let { confirmRollback(it) }
+                }
+            }
+        })
+
+        viewModel.insertReminderResponse.observe(this, Observer { resource ->
             when(resource.status) {
                 Status.LOADING -> {
                 }
@@ -118,7 +125,7 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
             showSnackBar(it, getString(R.string.ask_for_rollback_message, item.word),
                 action = getString(R.string.favorite_rollback),
                 listener = View.OnClickListener {
-                    viewModel.updateFavorite(item, true)
+                    viewModel.insertFavorite(item)
                 })
         }
     }
