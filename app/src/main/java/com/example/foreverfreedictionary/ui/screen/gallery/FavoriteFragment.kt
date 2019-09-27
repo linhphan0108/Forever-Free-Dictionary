@@ -12,7 +12,6 @@ import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.extensions.getDimension
-import com.example.foreverfreedictionary.extensions.getTomorrow0Clock
 import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.adapter.FavoriteAdapter
 import com.example.foreverfreedictionary.ui.adapter.viewholder.FavoriteViewHolder
@@ -22,7 +21,6 @@ import com.example.foreverfreedictionary.util.VerticalSpaceItemDecoration
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.view_no_data.*
-import java.sql.Date
 
 class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
 

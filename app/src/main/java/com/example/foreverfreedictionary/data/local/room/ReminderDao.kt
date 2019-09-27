@@ -28,4 +28,7 @@ interface ReminderDao {
 
     @Query("UPDATE reminder SET isReminded = :isReminded, time =:time\n WHERE `query` = :query" )
     fun updateReminder(query: String, isReminded: Boolean, time: Date): Int
+
+    @Query("DELETE FROM reminder WHERE `query` = :query")
+    fun delete(query: String): Int
 }

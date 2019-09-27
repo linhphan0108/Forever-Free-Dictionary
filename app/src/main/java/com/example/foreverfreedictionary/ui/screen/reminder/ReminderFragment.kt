@@ -12,6 +12,7 @@ import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.extensions.getDimension
 import com.example.foreverfreedictionary.extensions.getTomorrow0Clock
+import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.adapter.ReminderApdater
 import com.example.foreverfreedictionary.ui.adapter.viewholder.ReminderViewHolder
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseFragment
@@ -72,6 +73,30 @@ class ReminderFragment : BaseFragment(), ReminderViewHolder.OnItemListeners {
                 }
             }
         })
+
+        viewModel.setReminderResponse.observe(this, Observer { resource ->
+            when(resource.status) {
+                Status.LOADING -> {
+                }
+                Status.ERROR -> {
+                }
+                Status.SUCCESS -> {
+
+                }
+            }
+        })
+
+        viewModel.deleteReminderResponse.observe(this, Observer {resource ->
+            when(resource.status) {
+                Status.LOADING -> {
+                }
+                Status.ERROR -> {
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let { confirmRollback(it) }
+                }
+            }
+        })
     }
 
     override fun onItemClicked(item: ReminderEntity) {
@@ -91,7 +116,7 @@ class ReminderFragment : BaseFragment(), ReminderViewHolder.OnItemListeners {
     }
 
     override fun onDeleteButtonClicked(item: ReminderEntity) {
-
+        viewModel.deleteReminder(item)
     }
 
     private fun setupRecyclerView(){
@@ -104,5 +129,15 @@ class ReminderFragment : BaseFragment(), ReminderViewHolder.OnItemListeners {
         rcvReminder.layoutManager = LinearLayoutManager(context)
         rcvReminder.addItemDecoration(itemDecor)
         rcvReminder.adapter = reminderAdapter
+    }
+
+    private fun confirmRollback(item: ReminderEntity){
+        view?.let {
+            showSnackBar(it, getString(R.string.ask_for_rollback_message, item.word),
+                action = getString(R.string.favorite_rollback),
+                listener = View.OnClickListener {
+                    viewModel.setReminder(item)
+                })
+        }
     }
 }

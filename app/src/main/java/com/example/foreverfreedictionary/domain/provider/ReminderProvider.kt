@@ -79,4 +79,16 @@ class ReminderProvider @Inject constructor(
             }
         )
     }
+
+    suspend fun deleteReminder(query: String): Resource<Int>{
+        return pushSources(
+            databaseQuery = {
+                local.delete(query)
+            }, cloudCall = {
+                cloud.deleteReminder()
+            }, mapper = {
+                it
+            }
+        )
+    }
 }

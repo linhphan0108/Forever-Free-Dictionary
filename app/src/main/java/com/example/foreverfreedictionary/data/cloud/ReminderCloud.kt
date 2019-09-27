@@ -23,4 +23,8 @@ class ReminderCloud {
     fun insertReminder() : Resource<Long> {
         return Resource.success(0L)
     }
+
+    fun deleteReminder() : Resource<Int> {
+        return Resource.success(0)
+    }
 }
