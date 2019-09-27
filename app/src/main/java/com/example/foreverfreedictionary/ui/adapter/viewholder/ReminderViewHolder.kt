@@ -20,7 +20,7 @@ class ReminderViewHolder (parent: ViewGroup, private val listener: OnItemListene
             }else ""
             itemView.iBtnSetReminder.setImageResource(
                 if (isReminded) R.drawable.round_alarm_on_black_18
-                else R.drawable.round_alarm_black_24)
+                else R.drawable.round_alarm_black_18)
             itemView.setOnClickListener { listener.onItemClicked(this) }
             itemView.iBtnDelete.setOnClickListener { listener.onDeleteButtonClicked(this) }
             itemView.iBtnSetReminder.setOnClickListener {

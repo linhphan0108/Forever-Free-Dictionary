@@ -10,7 +10,11 @@ import com.example.foreverfreedictionary.data.local.model.FavoriteDictionary
 
 @Dao
 interface FavoriteDao {
-    @Query("SELECT * FROM favorite")
+    @Query("SELECT favorite.query, favorite.word, " +
+            "favorite.soundBr, favorite.soundAme, favorite.ipaBr, favorite.ipaAme, " +
+            "favorite.isFavorite, reminder.isReminded, reminder.time " +
+            "FROM favorite " +
+            "LEFT JOIN reminder ON reminder.query = favorite.query")
     fun getFavorite(): LiveData<List<FavoriteDictionary>>
 
 

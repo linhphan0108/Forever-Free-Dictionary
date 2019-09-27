@@ -4,7 +4,6 @@ import com.example.foreverfreedictionary.data.cloud.model.Dictionary as Dictiona
 import com.example.foreverfreedictionary.data.local.TblDictionary
 import com.example.foreverfreedictionary.vo.Resource
 import com.example.foreverfreedictionary.vo.Status
-import java.sql.Date
 
 class DictionaryMapper {
     /**
@@ -12,7 +11,7 @@ class DictionaryMapper {
      */
     fun toData(dictionary: DictionaryCloud): TblDictionary {
         return with(dictionary){
-            TblDictionary(query, word, dictionary.topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, false, Date(System.currentTimeMillis()))
+            TblDictionary(query, word, dictionary.topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, false, lastAccess)
         }
     }
 

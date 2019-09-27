@@ -50,6 +50,10 @@ class HistoryFragment : Fragment(), HistoryViewHolder.OnItemListeners {
         viewModel.addFavorite(item)
     }
 
+    override fun onAlarmButtonClicked(item: HistoryEntity) {
+        viewModel.setReminder(item)
+    }
+
     private fun registerViewModelListeners(){
         viewModel.historyResponse.observe(this, Observer { resource ->
             when(resource.status){

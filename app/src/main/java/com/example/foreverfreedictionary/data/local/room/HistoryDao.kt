@@ -17,12 +17,13 @@ interface HistoryDao {
     fun getHistory(limited: Int): LiveData<List<TblHistory>>
 
 
-    @Query("SELECT dictionary.query, dictionary.word, dictionary.topic, dictionary.isCheckSpellPage," +
-            " dictionary.soundBr, dictionary.soundAme, dictionary.ipaBr, dictionary.ipaAme, " +
-            "dictionary.isFavorite, dictionary.lastAccess FROM history\n" +
-            "LEFT JOIN dictionary ON dictionary.query = history.query\n" +
-            "WHERE dictionary.isCheckSpellPage = 0\n" +
-            "ORDER BY dictionary.lastAccess DESC")
+    @Query("SELECT history.query, history.word, history.topic, history.isCheckSpellPage," +
+            " history.soundBr, history.soundAme, history.ipaBr, history.ipaAme, " +
+            "favorite.isFavorite, reminder.isReminded, reminder.time, history.lastAccess FROM history\n" +
+            "LEFT JOIN favorite ON favorite.query = history.query\n" +
+            "LEFT JOIN reminder ON reminder.query = history.query\n" +
+            "WHERE history.isCheckSpellPage = 0\n" +
+            "ORDER BY history.lastAccess DESC")
     fun getDictionaryHistory() : LiveData<List<DictionaryHistory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

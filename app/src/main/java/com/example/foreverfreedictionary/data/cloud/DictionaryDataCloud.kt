@@ -6,6 +6,8 @@ import com.example.foreverfreedictionary.util.*
 import com.example.foreverfreedictionary.vo.Resource
 import org.jsoup.Jsoup
 import timber.log.Timber
+import java.sql.Date
+import java.util.*
 
 class DictionaryDataCloud : DictionaryDataDs {
     override suspend fun queryDictionaryData(query: String): Resource<Dictionary> {
@@ -26,6 +28,7 @@ class DictionaryDataCloud : DictionaryDataDs {
             val location = response.url().toExternalForm()
             val isDictionaryPage = location.startsWith(DICTIONARY_URL)
             val isCheckSpellPage = location.startsWith(CHECK_SPELL_URL)
+            val lastAccess = Date(Calendar.getInstance().timeInMillis)
 
             return if (isDictionaryPage || isCheckSpellPage || isTopicPage) {
                 //remove unnecessary elements
@@ -67,9 +70,9 @@ class DictionaryDataCloud : DictionaryDataDs {
                     if (ipaAme?.startsWith("$") == true) {
                         ipaAme = ipaAme.substringAfter("$")
                     }
-                    Dictionary(query, word, topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, url)
+                    Dictionary(query, word, topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, url, lastAccess)
                 } else {//the check spell page
-                    Dictionary(query, query, null, isCheckSpellPage, content, null, null, null, null, location)
+                    Dictionary(query, query, null, isCheckSpellPage, content, null, null, null, null, location, lastAccess)
                 }
 
                 Resource.success(dictionary)

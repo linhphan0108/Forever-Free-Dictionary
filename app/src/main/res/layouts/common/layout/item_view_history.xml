@@ -59,6 +59,8 @@
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin_half"
+            android:layout_marginRight="@dimen/activity_margin_half"
             android:drawableStart="@drawable/round_history_black_18"
             android:drawableLeft="@drawable/round_history_black_18"
             android:drawablePadding="@dimen/padding_4dp"
@@ -66,8 +68,26 @@
             android:maxLines="1"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintEnd_toStartOf="@id/iBtnFavorite"
+            card_view:layout_constraintEnd_toStartOf="@id/iBtnReminder"
             tools:text="@string/dump_time_lapsed" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/iBtnReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/activity_margin_half"
+            android:layout_marginRight="@dimen/activity_margin_half"
+            android:paddingStart="@dimen/padding_4dp"
+            android:paddingLeft="@dimen/padding_4dp"
+            android:paddingEnd="@dimen/padding_4dp"
+            android:paddingRight="@dimen/padding_4dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/round_alarm_black_24"
+            android:tint="@color/colorPrimary"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintEnd_toStartOf="@id/iBtnFavorite"
+            />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/iBtnFavorite"

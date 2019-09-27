@@ -7,6 +7,8 @@ import java.util.*
 
 class HistoryMapper {
     fun toData(cloudData: Dictionary): TblHistory {
-        return TblHistory(cloudData.query, cloudData.word, Date(Calendar.getInstance().timeInMillis))
+        return with(cloudData){
+            TblHistory(query, word, topic, isCheckSpellPage, soundBr, soundAme, ipaBr, ipaAme, lastAccess)
+        }
     }
 }

@@ -55,8 +55,7 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
     }
 
     override fun onSetReminderButtonClicked(item: FavoriteEntity) {
-        val date = Date(System.currentTimeMillis()).getTomorrow0Clock()
-        viewModel.setReminder(item, date)
+        viewModel.setReminder(item)
     }
 
     private fun registerViewModelListeners(){
@@ -95,7 +94,7 @@ class FavoriteFragment : Fragment(), FavoriteViewHolder.OnItemListeners {
             }
         })
 
-        viewModel.insertReminderResponse.observe(this, Observer { resource ->
+        viewModel.setReminderResponse.observe(this, Observer { resource ->
             when(resource.status) {
                 Status.LOADING -> {
                 }

@@ -14,7 +14,7 @@ class FavoriteMapper {
             Status.SUCCESS -> {
                 val mappedData = resource.data!!.map {tblDictionary ->
                     with(tblDictionary){
-                        FavoriteEntity(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite)
+                        FavoriteEntity(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite, isReminded, remindTime)
                     }
                 }
             Resource.success(mappedData)
@@ -24,13 +24,13 @@ class FavoriteMapper {
 
     fun toDomain(item: FavoriteEntity): FavoriteDictionary{
         return with(item){
-            FavoriteDictionary(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite)
+            FavoriteDictionary(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite, isReminded, remindTime)
         }
     }
 
     fun toDomain(item: HistoryEntity): FavoriteDictionary{
         return with(item){
-            FavoriteDictionary(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite)
+            FavoriteDictionary(query, word, soundBr, soundAme, ipaBr, ipaAme, true, isReminded, remindTime)
         }
     }
 }
