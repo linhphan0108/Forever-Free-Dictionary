@@ -31,5 +31,9 @@ object DataBaseModule {
 
     @Singleton
     @JvmStatic @Provides
+    fun provideFavoriteDao(db: AppDatabase) = db.favoriteDAo()
+
+    @Singleton
+    @JvmStatic @Provides
     fun provideReminderDao(db: AppDatabase) = db.reminderDao()
 }

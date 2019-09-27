@@ -41,7 +41,9 @@ object DataSourceModule {
 
     @Singleton
     @JvmStatic @Provides
+    fun provideFavoriteCloud() = FavoriteCloud()
+
+    @Singleton
+    @JvmStatic @Provides
     fun provideReminderCloud() = ReminderCloud()
-
-
 }

@@ -6,16 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.foreverfreedictionary.data.local.TblDictionary
-import com.example.foreverfreedictionary.data.local.TblHistory
-import com.example.foreverfreedictionary.data.local.TblReminder
-import com.example.foreverfreedictionary.data.local.TblWordOfTheDay
+import com.example.foreverfreedictionary.data.local.*
 
 /**
  * The Room database for this app
  */
 @Database(entities = [TblDictionary::class, TblHistory::class, TblWordOfTheDay::class,
-    TblReminder::class],
+    TblFavorite::class, TblReminder::class],
         version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -23,6 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun dictionaryDao(): DictionaryDao
     abstract fun wordOfTheDayDao(): WordOfTheDayDao
     abstract fun historyDao(): HistoryDao
+    abstract fun favoriteDAo(): FavoriteDao
     abstract fun reminderDao(): ReminderDao
 
     companion object {

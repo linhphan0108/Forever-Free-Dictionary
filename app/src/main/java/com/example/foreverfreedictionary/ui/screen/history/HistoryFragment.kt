@@ -47,7 +47,7 @@ class HistoryFragment : Fragment(), HistoryViewHolder.OnItemListeners {
     }
 
     override fun onFavoriteButtonClicked(item: HistoryEntity) {
-        viewModel.updateFavorite(item.query, !item.isFavorite)
+        viewModel.addFavorite(item)
     }
 
     private fun registerViewModelListeners(){
