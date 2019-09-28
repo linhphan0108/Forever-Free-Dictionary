@@ -34,6 +34,9 @@
     <color name="favorite_button_tint_off">@color/textPrimary</color>
     <color name="color_recycler_view_divider">@color/textSecondary</color>
 
+    <color name="color_tint_reminder_icon_on">@color/colorPrimary</color>
+    <color name="color_tint_reminder_icon_off">@color/textPrimary</color>
+
 <!--    search box-->
     <color name="color_search_box_background">@color/colorBackground</color>
     <color name="color_search_Box_text">@color/textPrimary</color>

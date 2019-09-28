@@ -20,6 +20,7 @@ class HistoryViewHolder(parent: ViewGroup, private val listener: OnItemListeners
 
     init {
         itemView.iBtnFavorite.supportImageTintList = ContextCompat.getColorStateList(itemView.context, R.color.selector_btn_favorite_tint_colors)
+        itemView.iBtnReminder.supportImageTintList = ContextCompat.getColorStateList(itemView.context, R.color.selector_btn_reminder_tint_colors)
     }
 
     fun bindView(item: HistoryEntity){
@@ -41,6 +42,7 @@ class HistoryViewHolder(parent: ViewGroup, private val listener: OnItemListeners
                     itemView.iBtnReminder.setImageResource(R.drawable.round_alarm_black_18)
                 }
             }
+            itemView.iBtnReminder.isActivated = remindTime != null && !isReminded
 
             itemView.setOnClickListener { listener.onItemClicked(this) }
             itemView.iBtnFavorite.setOnClickListener { listener.onFavoriteButtonClicked(this) }
