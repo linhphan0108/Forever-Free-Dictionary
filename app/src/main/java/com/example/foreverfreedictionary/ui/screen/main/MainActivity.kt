@@ -289,7 +289,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
                 Status.LOADING -> {  }
                 Status.ERROR -> {
                     dismissLoading()
-                    showSnackBar(rcvAutoCompletion, "Oops something went wrong", length = Snackbar.LENGTH_INDEFINITE,
+                    showSnackBar(rcvAutoCompletion, resource.message ?: getString(R.string.unknown_error_message), length = Snackbar.LENGTH_INDEFINITE,
                         listener = View.OnClickListener {
                         })
                 }
