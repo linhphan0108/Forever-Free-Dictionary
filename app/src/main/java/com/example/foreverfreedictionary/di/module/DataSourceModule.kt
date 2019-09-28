@@ -14,10 +14,10 @@ object DataSourceModule {
     @JvmStatic @Provides
     fun provideAutoCompletionLocal(): AutoCompletionLocal = AutoCompletionLocal()
 
-    @Singleton
-    @JvmStatic @Provides
-    fun provideAutoCompletionCloud(apiInterface: ApiInterface):
-            AutoCompletionCloud = AutoCompletionCloud(apiInterface)
+//    @Singleton
+//    @JvmStatic @Provides
+//    fun provideAutoCompletionCloud(apiInterface: ApiInterface):
+//            AutoCompletionCloud = AutoCompletionCloud(apiInterface)
 
 //    @Singleton
 //    @JvmStatic @Provides
