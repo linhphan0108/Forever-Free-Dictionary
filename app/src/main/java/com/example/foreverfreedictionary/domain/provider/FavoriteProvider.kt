@@ -21,7 +21,7 @@ class FavoriteProvider @Inject constructor(
             }, cloudCall = {
                 cloud.insert()
             }, mapper = {
-                it
+                Resource.success(null)
             }
         )
     }
@@ -39,7 +39,7 @@ class FavoriteProvider @Inject constructor(
             }, cloudCall = {
                 cloud.delete(query)
             }, mapper = {
-                it
+                Resource.success(null)
             }
         )
     }

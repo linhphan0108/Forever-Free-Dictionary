@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.data.cloud.retrofit
 
 import com.example.foreverfreedictionary.util.DOMAIN
+import com.example.retrofit.ErrorHandlingAdapter
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import okhttp3.OkHttpClient
@@ -22,7 +23,7 @@ object ServiceGenerator {
                 .client(okHttpClient)
                 .baseUrl(DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(LiveDataCallAdapterFactory())
+//                .addCallAdapterFactory()
                 .build()
         }
         return retrofit!!.create(serviceClass)

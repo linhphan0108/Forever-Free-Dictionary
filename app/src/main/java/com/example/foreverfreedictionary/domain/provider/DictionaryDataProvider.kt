@@ -1,8 +1,8 @@
 package com.example.foreverfreedictionary.domain.provider
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.foreverfreedictionary.data.cloud.DictionaryDataCloud
+import com.example.foreverfreedictionary.data.local.TblDictionary
 import com.example.foreverfreedictionary.data.local.room.DictionaryDao
 import com.example.foreverfreedictionary.domain.mapper.DictionaryMapper
 import com.example.foreverfreedictionary.vo.Resource
@@ -14,18 +14,16 @@ class DictionaryDataProvider @Inject constructor(
     private val cloud: DictionaryDataCloud,
     private val mapper: DictionaryMapper,
     private val historyProvider: HistoryProvider): BaseProvider() {
-    suspend fun queryDictionaryData(query: String): LiveData<Resource<String>>{
-        return Transformations.map(singleTruthSourceLiveData(
-            databaseQuery = {
+    suspend fun queryDictionaryData(query: String): LiveData<Resource<TblDictionary>>{
+        return singleTruthSourceLiveData(
+            dbCall = {
                 local.getDictionary(query)
             },
             cloudCall = {cloud.queryDictionaryData(query)},
-            saveCloudData = { cloudData ->
+            saveToDb = { cloudData ->
                 val rowId = local.insertDictionary(mapper.toData(cloudData))
                 Timber.d("insert dictionary into db at $rowId")
                 historyProvider.insertHistory(cloudData)
-            })){ resource ->
-                mapper.fromData(resource)
-            }
+            })
     }
 }

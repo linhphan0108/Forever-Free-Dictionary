@@ -1,30 +1,29 @@
 package com.example.foreverfreedictionary.data.cloud
 
-import com.example.foreverfreedictionary.vo.Resource
 import java.sql.Date
 
 class ReminderCloud {
-    fun getReminders() : Resource<List<String>>{
-        return Resource.error("no data")
+    fun getReminders() : ApiResponse<List<String>>{
+        return ApiResponse.create<List<String>>(null)
     }
 
-    fun getUnRemindedReminders() : Resource<List<String>>{
-        return Resource.error("no data")
+    fun getUnRemindedReminders() : ApiResponse<List<String>>{
+        return ApiResponse.create<List<String>>(null)
     }
 
-    fun setReminded(queryList: List<String>) : Resource<Int>{
-        return Resource.error("no data")
+    fun setReminded(queryList: List<String>) : ApiResponse<Int>{
+        return ApiResponse.create(-1)
     }
 
-    fun updateReminder(query: String, isReminded: Boolean, time: Date): Resource<Int>{
-        return Resource.error("no data")
+    fun updateReminder(query: String, isReminded: Boolean, time: Date): ApiResponse<Int>{
+        return ApiResponse.create(-1)
     }
 
-    fun insertReminder() : Resource<Long> {
-        return Resource.success(0L)
+    fun insertReminder() : ApiResponse<Long> {
+        return ApiResponse.create(-0L)
     }
 
-    fun deleteReminder() : Resource<Int> {
-        return Resource.success(0)
+    fun deleteReminder() : ApiResponse<Int> {
+        return ApiResponse.create(-1)
     }
 }

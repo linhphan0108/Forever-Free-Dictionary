@@ -1,16 +1,13 @@
 package com.example.foreverfreedictionary.data.cloud
 
 import com.example.foreverfreedictionary.data.cloud.model.Dictionary
-import com.example.foreverfreedictionary.domain.datasource.DictionaryDataDs
 import com.example.foreverfreedictionary.util.*
-import com.example.foreverfreedictionary.vo.Resource
 import org.jsoup.Jsoup
-import timber.log.Timber
 import java.sql.Date
 import java.util.*
 
-class DictionaryDataCloud : DictionaryDataDs {
-    override suspend fun queryDictionaryData(query: String): Resource<Dictionary> {
+class DictionaryDataCloud {
+    suspend fun queryDictionaryData(query: String): ApiResponse<Dictionary> {
         try {
             var isTopicPage = false
             val url =
@@ -75,13 +72,12 @@ class DictionaryDataCloud : DictionaryDataDs {
                     Dictionary(query, query, null, isCheckSpellPage, content, null, null, null, null, location, lastAccess)
                 }
 
-                Resource.success(dictionary)
+                ApiResponse.create(dictionary)
             } else {
-                Resource.error("Oops something went wrong")
+                ApiResponse.create<Dictionary>(null)
             }
         }catch (e: Exception){
-            Timber.e(e)
-            return Resource.error("Oops something went wrong")
+            return ApiResponse.create(e)
         }
     }
 }

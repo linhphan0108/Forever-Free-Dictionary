@@ -6,7 +6,6 @@ import android.content.Intent
 import com.example.foreverfreedictionary.di.DaggerServiceComponent
 import com.example.foreverfreedictionary.domain.command.CountUnRemindedReminderCommand
 import com.example.foreverfreedictionary.ui.mapper.ReminderMapper
-import com.example.foreverfreedictionary.vo.Status
 import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,16 +38,16 @@ class ReminderService @Inject constructor(
         Timber.d("ReminderService")
         intentServiceScope.launch {
             val resource = countUnRemindedReminderCommand.execute()
-            when(resource.status){
-                Status.LOADING -> {}
-                Status.ERROR -> {}
-                Status.SUCCESS ->{
-                    val count = resource.data ?: 0
-                    if(count > 0){
-                        onHasRemindersInTime()
-                    }
-                }
-            }
+//            when(resource.status){
+//                Status.LOADING -> {}
+//                Status.ERROR -> {}
+//                Status.SUCCESS ->{
+//                    val count = resource.data ?: 0
+//                    if(count > 0){
+//                        onHasRemindersInTime()
+//                    }
+//                }
+//            }
         }
     }
 

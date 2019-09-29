@@ -1,9 +1,8 @@
 package com.example.foreverfreedictionary.di.module
 
 import com.example.foreverfreedictionary.data.cloud.*
+import com.example.foreverfreedictionary.data.cloud.retrofit.ApiInterface
 import com.example.foreverfreedictionary.data.local.AutoCompletionLocal
-import com.example.foreverfreedictionary.data.local.DictionaryDataLocal
-import com.example.foreverfreedictionary.data.local.WordOfTheDayLocal
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,10 +13,10 @@ object DataSourceModule {
     @JvmStatic @Provides
     fun provideAutoCompletionLocal(): AutoCompletionLocal = AutoCompletionLocal()
 
-//    @Singleton
-//    @JvmStatic @Provides
-//    fun provideAutoCompletionCloud(apiInterface: ApiInterface):
-//            AutoCompletionCloud = AutoCompletionCloud(apiInterface)
+    @Singleton
+    @JvmStatic @Provides
+    fun provideAutoCompletionCloud(apiInterface: ApiInterface):
+            AutoCompletionCloud = AutoCompletionCloud(apiInterface)
 
 //    @Singleton
 //    @JvmStatic @Provides

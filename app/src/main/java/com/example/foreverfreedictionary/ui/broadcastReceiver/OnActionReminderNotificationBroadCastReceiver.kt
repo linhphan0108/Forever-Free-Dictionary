@@ -46,18 +46,18 @@ class OnActionReminderNotificationBroadCastReceiver: BaseBroadCastReceiver() {
                 setRemindedRemindersCommand.queryList = queryList
                 setRemindedRemindersCommand.execute()
             }
-            val resource = deferred.await()
-            when(resource.status){
-                Status.LOADING -> {
-
-                }
-                Status.ERROR -> {
-
-                }
-                Status.SUCCESS -> {
-                    Timber.d("${resource.data} reminders reminded")
-                }
-            }
+//            val resource = deferred.await()
+//            when(resource.status){
+//                Status.LOADING -> {
+//
+//                }
+//                Status.ERROR -> {
+//
+//                }
+//                Status.SUCCESS -> {
+//                    Timber.d("${resource.data} reminders reminded")
+//                }
+//            }
         }
     }
 }
