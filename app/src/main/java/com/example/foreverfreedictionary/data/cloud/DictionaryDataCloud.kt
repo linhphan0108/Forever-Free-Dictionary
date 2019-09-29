@@ -29,10 +29,11 @@ class DictionaryDataCloud {
 
             return if (isDictionaryPage || isCheckSpellPage || isTopicPage) {
                 //remove unnecessary elements
-                document.select(".header").remove()
-                document.select("#ad_leftslot_container").remove()
-                document.select(".responsive_cell2").remove()
-                document.select(".footer").remove()
+                document.select(".header")?.remove()
+                document.select("#ad_leftslot_container")?.remove()
+                document.select(".am-default")?.remove()
+                document.select(".responsive_cell2")?.remove()
+                document.select(".footer")?.remove()
                 document.select("link[href^=https://d27ucmmhxk51xv.cloudfront.net/external/fonts/font-awesome/4.2.0/css/font-awesome.min.css]")
                     ?.forEach { cssElement ->
                         cssElement.attr("href", "css/font-awesome.min.css")
