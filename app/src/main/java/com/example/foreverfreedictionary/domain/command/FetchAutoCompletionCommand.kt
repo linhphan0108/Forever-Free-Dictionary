@@ -3,13 +3,15 @@ package com.example.foreverfreedictionary.domain.command
 import androidx.lifecycle.LiveData
 import com.example.foreverfreedictionary.domain.provider.AutoCompletionProvider
 import com.example.foreverfreedictionary.vo.Resource
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class FetchAutoCompletionCommand @Inject constructor(
     private val autoCompletionProvider: AutoCompletionProvider
-) : BaseLiveDataCommand<List<String>>() {
+) : BaseLiveDataCommand<List<String>?>() {
 
     lateinit var query: String
 
-    override suspend fun execute(): LiveData<Resource<List<String>>> = autoCompletionProvider.fetchAutoCompletion(query)
+    override suspend fun execute(): LiveData<Resource<List<String>?>>
+            = autoCompletionProvider.fetchAutoCompletion(query)
 }

@@ -10,11 +10,7 @@ class WordOfTheDayMapper {
         return TblWordOfTheDay(date, content)
     }
 
-    fun fromData(resource: Resource<TblWordOfTheDay>): Resource<String>{
-        return when(resource.status){
-            Status.LOADING -> {Resource.loading()}
-            Status.ERROR -> {Resource.error(resource.message)}
-            Status.SUCCESS -> {Resource.success(resource.data!!.content)}
-        }
+    fun fromData(resource: TblWordOfTheDay): String{
+        return resource.content
     }
 }

@@ -14,11 +14,13 @@ import androidx.lifecycle.Observer
 import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
+import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseFragment
 import com.example.foreverfreedictionary.ui.screen.main.MainActivity
 import com.example.foreverfreedictionary.util.DICTIONARY_URL
 import com.example.foreverfreedictionary.util.DOMAIN
 import com.example.foreverfreedictionary.vo.Status
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
@@ -87,6 +89,11 @@ class HomeFragment : BaseFragment() {
             when(resource.status){
                 Status.LOADING -> { }
                 Status.ERROR -> {
+                    view?.let {
+                        showSnackBar(it, resource.message ?: getString(R.string.unknown_error_message), length = Snackbar.LENGTH_INDEFINITE,
+                            listener = View.OnClickListener {
+                            })
+                    }
                 }
                 Status.SUCCESS -> {
                     showWebViewResult(resource.data.orEmpty())

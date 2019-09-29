@@ -1,7 +1,6 @@
 package com.example.foreverfreedictionary.domain.provider
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.foreverfreedictionary.data.cloud.ReminderCloud
 import com.example.foreverfreedictionary.data.local.TblReminder
 import com.example.foreverfreedictionary.data.local.model.Reminder
@@ -16,28 +15,28 @@ class ReminderProvider @Inject constructor(
 ) : BaseProvider(){
     suspend fun getReminders() : LiveData<Resource<List<Reminder>>>{
         return singleTruthSourceLiveData(
-            databaseQuery = {
+            dbCall = {
                 local.getReminders()
             },cloudCall = {
                 cloud.getReminders()
-            },saveCloudData = {
+            },saveToDb = {
 
             })
     }
     suspend fun getRemindersInTime(timestamp: Long) : LiveData<Resource<List<Reminder>>>{
         return singleTruthSourceLiveData(
-            databaseQuery = {
+            dbCall = {
                 local.getRemindersInTime(timestamp)
             },cloudCall = {
                 cloud.getUnRemindedReminders()
-            },saveCloudData = {
+            },saveToDb = {
 
             })
     }
 
-    suspend fun countUnRemindedDictionaryReminder(timestamp: Long): Resource<Int>{
+    suspend fun countUnRemindedDictionaryReminder(timestamp: Long): LiveData<Resource<Int>>{
         return firstSource(
-            databaseQuery = {
+            dbCall = {
                 local.countRemindersInTime(timestamp)
             },cloudCall = {
                 cloud.getUnRemindedReminders()
@@ -52,18 +51,18 @@ class ReminderProvider @Inject constructor(
         }, cloudCall = {
             cloud.insertReminder()
         }, mapper = {
-            it
+            Resource.success(null)
         })
     }
 
-    suspend fun setReminded(queryList: List<String>) : Resource<Int>{
+    suspend fun setReminded(queryList: List<String>) : LiveData<Resource<Int>>{
         return firstSource(
-            databaseQuery = {
+            dbCall = {
                 local.setReminded(queryList)
             }, cloudCall = {
                 cloud.setReminded(queryList)
             }, mapper = {
-                it
+                Resource.success(null)
             }
         )
     }
@@ -75,7 +74,7 @@ class ReminderProvider @Inject constructor(
             }, cloudCall = {
                 cloud.updateReminder(query, isReminded, time)
             }, mapper = {
-                it
+                Resource.success(null)
             }
         )
     }
@@ -87,7 +86,7 @@ class ReminderProvider @Inject constructor(
             }, cloudCall = {
                 cloud.deleteReminder()
             }, mapper = {
-                it
+                Resource.success(null)
             }
         )
     }

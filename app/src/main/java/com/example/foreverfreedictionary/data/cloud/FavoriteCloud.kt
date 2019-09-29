@@ -1,13 +1,11 @@
 package com.example.foreverfreedictionary.data.cloud
 
-import com.example.foreverfreedictionary.vo.Resource
-
 class FavoriteCloud {
-    fun delete(query: String): Resource<Int>{
-        return Resource.success(0)
+    fun delete(query: String): ApiResponse<Int>{
+        return ApiResponse.create(-1)
     }
 
-    fun insert(): Resource<Long>{
-        return Resource.success(0)
+    fun insert(): ApiResponse<Long>{
+        return ApiResponse.create(-1)
     }
 }

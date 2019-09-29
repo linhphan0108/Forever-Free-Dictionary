@@ -15,11 +15,11 @@ class HistoryProvider @Inject constructor(
     private val historyMapper: HistoryMapper
 ) : BaseProvider(){
     suspend fun getHistory(): LiveData<Resource<List<DictionaryHistory>>> {
-        return singleTruthSourceLiveData(databaseQuery = {
+        return singleTruthSourceLiveData(dbCall = {
             local.getDictionaryHistory()
         }, cloudCall = {
             cloud.getHistory()
-        }, saveCloudData = {
+        }, saveToDb = {
 
         })
     }

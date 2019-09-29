@@ -16,8 +16,11 @@
 
 package com.example.foreverfreedictionary.data.cloud
 
+import org.jsoup.HttpStatusException
 import retrofit2.Response
 import timber.log.Timber
+import java.io.IOException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.regex.Pattern
 
@@ -29,11 +32,25 @@ import java.util.regex.Pattern
 sealed class ApiResponse<T> {
     companion object {
         fun <T> create(error: Throwable): ApiErrorResponse<T> {
-            val message = if (error is UnknownHostException){
-                "Oops! something went wrong, Check your network connection please."
-            }else{
-                error.message ?: "unknown error"
+            val message = when(error){
+                is UnknownHostException -> {
+                    "Oops! something went wrong, Check your network connection and try again."
+                }
+                is IOException -> {
+                    "Oops! something went wrong, Check your network connection and try again."
+                }
+                is HttpStatusException -> {
+                    "Oops! something went wrong, Check your network connection and try again."
+                }
+
+                is SocketTimeoutException -> {
+                    "Oops! something went wrong, Check your network connection and try again."
+                }
+                else -> {
+                    error.message ?: "unknown error"
+                }
             }
+            Timber.e(error)
             return ApiErrorResponse(message)
         }
 
@@ -44,7 +61,7 @@ sealed class ApiResponse<T> {
                     ApiEmptyResponse()
                 } else {
                     ApiSuccessResponse(
-                        body = body,
+                        data = body,
                         linkHeader = response.headers().get("link")
                     )
                 }
@@ -58,20 +75,28 @@ sealed class ApiResponse<T> {
                 ApiErrorResponse(errorMsg ?: "unknown error")
             }
         }
+
+        fun <T> create(response: T?): ApiResponse<T> {
+            return if (response != null) {
+                ApiSuccessResponse( data = response, linkHeader = null)
+            }else{
+                ApiEmptyResponse()
+            }
+        }
     }
 }
 
 /**
- * separate class for HTTP 204 responses so that we can make ApiSuccessResponse's body non-null.
+ * separate class for HTTP 204 responses so that we can make ApiSuccessResponse's data non-null.
  */
 class ApiEmptyResponse<T> : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(
-    val body: T,
+    val data: T,
     val links: Map<String, String>
 ) : ApiResponse<T>() {
-    constructor(body: T, linkHeader: String?) : this(
-        body = body,
+    constructor(data: T, linkHeader: String?) : this(
+        data = data,
         links = linkHeader?.extractLinks() ?: emptyMap()
     )
 

@@ -16,15 +16,19 @@
 
 package com.example.foreverfreedictionary.domain.provider
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.example.foreverfreedictionary.data.cloud.ApiEmptyResponse
 import com.example.foreverfreedictionary.data.cloud.ApiErrorResponse
 import com.example.foreverfreedictionary.data.cloud.ApiResponse
 import com.example.foreverfreedictionary.data.cloud.ApiSuccessResponse
 import com.example.foreverfreedictionary.vo.Resource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
@@ -35,13 +39,12 @@ import com.example.foreverfreedictionary.vo.Resource
  * @param <ResultType>
  * @param <RequestType>
 </RequestType></ResultType> */
-abstract class NetworkBoundResource<ResultType, RequestType> {
+abstract class NetworkBoundResource<ResultType, RequestType>(private val scope: CoroutineScope) {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
-    init{
+    fun execute(): NetworkBoundResource<ResultType, RequestType>{
         result.postValue(Resource.loading(null))
-        @Suppress("LeakingThis")
         if (hasOfflineMode()) {
             val dbSource = loadFromDb()
             result.addSource(dbSource) { data ->
@@ -57,6 +60,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         }else{
             fetchFromNetwork()
         }
+        return this
     }
 
     @MainThread
@@ -67,34 +71,43 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
-        val apiResponse = createCall()
-        // we re-attach dbSource as a new source, it will dispatch its latest value quickly
-        result.addSource(dbSource) { newData ->
-            setValue(Resource.loading(newData))
-        }
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            result.removeSource(dbSource)
-            when (response) {
-                is ApiSuccessResponse -> {
-                    saveCallResult(processResponse(response))
-                    // we specially request a new live data,
-                    // otherwise we will get immediately last cached value,
-                    // which may not be updated with latest results received from network.
-                    result.addSource(loadFromDb()) { newData ->
-                        setValue(Resource.success(newData))
+        scope.launch {
+            val apiResponse = withContext(Dispatchers.IO) {
+                createCall()
+            }
+
+            // we re-attach dbSource as a new source, it will dispatch its latest value quickly
+            result.addSource(dbSource) { newData ->
+                setValue(Resource.loading(newData))
+            }
+            result.addSource(apiResponse) { response ->
+                result.removeSource(apiResponse)
+                result.removeSource(dbSource)
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        scope.launch {
+                            withContext(Dispatchers.IO){
+                                saveCallResult(processResponse(response))
+                            }
+                        }
+                        // we specially request a new live data,
+                        // otherwise we will get immediately last cached value,
+                        // which may not be updated with latest results received from network.
+                        result.addSource(loadFromDb()) { newData ->
+                            setValue(Resource.success(newData))
+                        }
                     }
-                }
-                is ApiEmptyResponse -> {
-                    // reload from disk whatever we had
-                    result.addSource(loadFromDb()) { newData ->
-                        setValue(Resource.success(newData))
+                    is ApiEmptyResponse -> {
+                        // reload from disk whatever we had
+                        result.addSource(loadFromDb()) { newData ->
+                            setValue(Resource.success(newData))
+                        }
                     }
-                }
-                is ApiErrorResponse -> {
-                    onFetchFailed()
-                    result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.errorMessage, newData))
+                    is ApiErrorResponse -> {
+                        onFetchFailed()
+                        result.addSource(dbSource) { newData ->
+                            setValue(Resource.error(response.errorMessage, newData))
+                        }
                     }
                 }
             }
@@ -106,19 +119,23 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
      * means that we don't support database for this api
      */
     private fun fetchFromNetwork() {
-        val apiResponse = createCall()
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            when (response) {
-                is ApiSuccessResponse -> {
-                    setValue(Resource.success(mapRequestTypeToResultType(processResponse(response))))
-                }
-                is ApiEmptyResponse -> {
-                    setValue(Resource.success(mapRequestTypeToResultType(null)))
-                }
-                is ApiErrorResponse -> {
-                    onFetchFailed()
-                    setValue(Resource.error(response.errorMessage))
+        scope.launch {
+            val apiResponse = withContext(Dispatchers.IO){
+                createCall()
+            }
+            result.addSource(apiResponse) { response ->
+                result.removeSource(apiResponse)
+                when (response) {
+                    is ApiSuccessResponse -> {
+                        setValue(Resource.success(mapRequestTypeToResultType(processResponse(response))))
+                    }
+                    is ApiEmptyResponse -> {
+                        setValue(Resource.success(mapRequestTypeToResultType(null)))
+                    }
+                    is ApiErrorResponse -> {
+                        onFetchFailed()
+                        setValue(Resource.error(response.errorMessage))
+                    }
                 }
             }
         }
@@ -129,7 +146,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     fun asLiveData() = result as LiveData<Resource<ResultType>>
 
     @WorkerThread
-    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body
+    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.data
 
     @WorkerThread
     protected abstract fun saveCallResult(item: RequestType)
@@ -150,5 +167,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
      */
     protected open fun hasOfflineMode():Boolean = true
 
-    protected abstract fun mapRequestTypeToResultType(requestResult: RequestType?): ResultType
+    protected open fun mapRequestTypeToResultType(requestResult: RequestType?): ResultType?{
+        return null
+    }
 }

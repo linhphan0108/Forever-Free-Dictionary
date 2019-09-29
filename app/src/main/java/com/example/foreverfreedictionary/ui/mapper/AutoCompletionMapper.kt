@@ -5,7 +5,7 @@ import com.example.foreverfreedictionary.vo.Resource
 import com.example.foreverfreedictionary.vo.Status
 
 class AutoCompletionMapper {
-    fun fromDomain(resource: Resource<List<String>>) : Resource<List<AutoCompletionEntity>> {
+    fun fromDomain(resource: Resource<List<String>?>) : Resource<List<AutoCompletionEntity>> {
         return when (resource.status) {
             Status.LOADING -> {
                 Resource.loading()
