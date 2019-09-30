@@ -17,8 +17,7 @@ import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseFragment
 import com.example.foreverfreedictionary.ui.screen.main.MainActivity
-import com.example.foreverfreedictionary.util.DICTIONARY_URL
-import com.example.foreverfreedictionary.util.DOMAIN
+import com.example.foreverfreedictionary.util.WebViewUtil
 import com.example.foreverfreedictionary.vo.Status
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -45,12 +44,13 @@ class HomeFragment : BaseFragment() {
     private fun setupWebView(){
         @SuppressLint("SetJavaScriptEnabled")
         wvWotd.settings.javaScriptEnabled = true
-//        wvResult.settings.allowUniversalAccessFromFileURLs = true
-//        wvResult.settings.allowFileAccessFromFileURLs = true
         wvWotd.webViewClient = object : WebViewClient(){
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
-//                view.query(url)
+                val query = WebViewUtil.extractQuery(url)
+                if (!query.isNullOrBlank()){
+                    (activity as MainActivity).openResultScreen(query)
+                }
                 return true
             }
 
@@ -61,12 +61,8 @@ class HomeFragment : BaseFragment() {
             ): Boolean {
                 request?.url?.let {
                     val stringUri = it.toString()
-                    val query = when {
-                        stringUri.startsWith(DICTIONARY_URL) -> stringUri.substringAfterLast('/')
-                        stringUri.startsWith(DOMAIN) -> stringUri.substringAfterLast(DOMAIN)
-                        else -> ""
-                    }
-                    if (query.isNotBlank()){
+                    val query = WebViewUtil.extractQuery(stringUri)
+                    if (!query.isNullOrBlank()){
                         (activity as MainActivity).openResultScreen(query)
                     }
                 }

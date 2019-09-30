@@ -18,6 +18,7 @@ import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
 import com.example.foreverfreedictionary.util.LOCAL_DICTIONARY_URL
 import com.example.foreverfreedictionary.util.LOCAL_DOMAIN
+import com.example.foreverfreedictionary.util.WebViewUtil
 import com.example.foreverfreedictionary.vo.Status
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_result_screen.*
@@ -93,12 +94,12 @@ class ResultActivity : BaseActivity() {
     private fun setupWebView(){
         @SuppressLint("SetJavaScriptEnabled")
         wvResult.settings.javaScriptEnabled = true
-//        wvResult.settings.allowUniversalAccessFromFileURLs = true
-//        wvResult.settings.allowFileAccessFromFileURLs = true
         wvResult.webViewClient = object : WebViewClient(){
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
-                viewModel.query(url)
+                WebViewUtil.extractQuery(url)?.let { query ->
+                    viewModel.query(query)
+                }
                 return true
             }
 
@@ -109,12 +110,7 @@ class ResultActivity : BaseActivity() {
             ): Boolean {
                 request?.url?.let {
                     val stringUri = it.toString()
-                    val query = when {
-                        stringUri.startsWith(LOCAL_DICTIONARY_URL) -> stringUri.substringAfterLast('/')
-                        stringUri.startsWith(LOCAL_DOMAIN) -> stringUri.substringAfterLast(LOCAL_DOMAIN)
-                        else -> ""
-                    }
-                    if (query.isNotBlank()){
+                    WebViewUtil.extractQuery(stringUri)?.let{ query ->
                         viewModel.query(query)
                     }
                 }
