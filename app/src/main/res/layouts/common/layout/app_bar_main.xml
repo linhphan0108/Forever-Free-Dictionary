@@ -37,7 +37,8 @@
             android:paddingStart="@dimen/search_box_padding_start"
             android:paddingLeft="@dimen/search_box_padding_start"
             android:paddingEnd="@dimen/search_box_padding_end"
-            android:paddingRight="@dimen/search_box_padding_end">
+            android:paddingRight="@dimen/search_box_padding_end"
+            android:focusableInTouchMode="true">
             <EditText
                 android:id="@+id/edtSearch"
                 android:layout_width="0dp"
