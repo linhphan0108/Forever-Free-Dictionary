@@ -2,7 +2,8 @@ package com.example.foreverfreedictionary.di
 
 import android.app.Application
 import com.example.foreverfreedictionary.di.module.*
-import com.example.foreverfreedictionary.ui.service.ReminderService
+import com.example.foreverfreedictionary.ui.service.CheckingReminderService
+import com.example.foreverfreedictionary.ui.service.ReminderJobService
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -18,5 +19,6 @@ interface ServiceComponent {
         fun build(): ServiceComponent
     }
 
-    fun inject(service: ReminderService)
+    fun inject(service: CheckingReminderService)
+    fun inject(service: ReminderJobService)
 }

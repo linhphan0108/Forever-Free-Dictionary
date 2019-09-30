@@ -34,10 +34,10 @@ fun Date.howLongTimeLapsedTilNow(): String{
 fun Date.howLongTilNext8Clock(): Long{
     val calendar = Calendar.getInstance()
     calendar.time = this
-    if (calendar.get(Calendar.HOUR) > 8){
+    if (calendar.get(Calendar.HOUR_OF_DAY) > 8){
         calendar.add(Calendar.DAY_OF_MONTH, 1)
     }
-    calendar.set(Calendar.HOUR, 8)
+    calendar.set(Calendar.HOUR_OF_DAY, 8)
     calendar.set(Calendar.MINUTE, 0)
     calendar.set(Calendar.SECOND, 0)
     calendar.set(Calendar.MILLISECOND, 0)
@@ -48,7 +48,7 @@ fun Date.getTomorrow0Clock(): Date{
     val calendar = Calendar.getInstance()
     calendar.time = this
     calendar.add(Calendar.DAY_OF_MONTH, 1)
-    calendar.set(Calendar.HOUR, 0)
+    calendar.set(Calendar.HOUR_OF_DAY, 0)
     calendar.set(Calendar.MINUTE, 0)
     calendar.set(Calendar.SECOND, 0)
     calendar.set(Calendar.MILLISECOND, 0)

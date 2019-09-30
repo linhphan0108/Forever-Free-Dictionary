@@ -21,6 +21,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.StringBuilder
 import javax.inject.Inject
+import android.os.PowerManager
+
+
 
 /**
  * this class will try to fetch all eligible reminders from database, and show a notification
@@ -38,8 +41,7 @@ class OnShowRemindersNotificationBroadCastReceiver : BaseBroadCastReceiver() {
         Timber.d("OnShowRemindersNotificationBroadCastReceiver")
         val resultCode = intent.getIntExtra("resultCode", RESULT_CANCELED)
         if (resultCode == RESULT_OK) {
-//            fetchReminders(context)
-            showReminderNotification(context, "linh phan", listOf("clear"))
+            fetchReminders(context)
         }
     }
 
@@ -57,7 +59,7 @@ class OnShowRemindersNotificationBroadCastReceiver : BaseBroadCastReceiver() {
                     when(resource.status){
                         Status.LOADING -> {}
                         Status.ERROR -> {
-//                            liveData.removeObserver(this)
+                            liveData.removeObserver(this)
                         }
                         Status.SUCCESS -> {
                             resource.data?.let {reminders ->
@@ -89,5 +91,12 @@ class OnShowRemindersNotificationBroadCastReceiver : BaseBroadCastReceiver() {
             val builder = it.createReminderNotification(title, content, listQuery)
             it.mManager.notify(NotificationUtil.REMINDER_NOTIFICATION_ID, builder.build())
         }
+
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager?
+        val wakeLock = powerManager!!.newWakeLock(
+            PowerManager.FULL_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+            OnShowRemindersNotificationBroadCastReceiver::class.java.name
+        )
+        wakeLock.acquire(3000)
     }
 }

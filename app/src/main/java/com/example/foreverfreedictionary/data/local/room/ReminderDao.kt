@@ -14,10 +14,10 @@ interface ReminderDao {
             "ORDER BY isReminded ASC, time DESC")
     fun getReminders() : LiveData<List<Reminder>>
 
-    @Query("SELECT * FROM reminder WHERE time <= :time")
+    @Query("SELECT * FROM reminder WHERE isReminded = 0 AND time <= :time")
     fun getRemindersInTime(time: Long) : LiveData<List<Reminder>>
 
-    @Query("SELECT count(*) FROM reminder WHERE time <= :time")
+    @Query("SELECT count(*) FROM reminder WHERE isReminded = 0 AND time <= :time")
     fun countRemindersInTime(time: Long) : Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
