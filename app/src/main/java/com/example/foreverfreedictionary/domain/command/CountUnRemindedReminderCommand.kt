@@ -1,17 +1,16 @@
 package com.example.foreverfreedictionary.domain.command
 
-import androidx.lifecycle.LiveData
 import com.example.foreverfreedictionary.domain.provider.ReminderProvider
 import com.example.foreverfreedictionary.vo.Resource
 import javax.inject.Inject
 
-const val ONE_HOUR = 1000*60*60L
+const val ONE_DAY = 1000L*60*60*24
 class CountUnRemindedReminderCommand @Inject constructor(
     private val provider: ReminderProvider
 ) {
 
-    suspend fun execute(): LiveData<Resource<Int>> {
-        val time = System.currentTimeMillis() + ONE_HOUR
+    suspend fun execute(): Resource<Int>{
+        val time = System.currentTimeMillis() + ONE_DAY
         return provider.countUnRemindedDictionaryReminder(time)
     }
 }

@@ -38,7 +38,8 @@ class OnShowRemindersNotificationBroadCastReceiver : BaseBroadCastReceiver() {
         Timber.d("OnShowRemindersNotificationBroadCastReceiver")
         val resultCode = intent.getIntExtra("resultCode", RESULT_CANCELED)
         if (resultCode == RESULT_OK) {
-            fetchReminders(context)
+//            fetchReminders(context)
+            showReminderNotification(context, "linh phan", listOf("clear"))
         }
     }
 
@@ -67,7 +68,7 @@ class OnShowRemindersNotificationBroadCastReceiver : BaseBroadCastReceiver() {
                                     words.append("\n${reminder.word} ${reminder.combineIpa(context)}")
                                     listQuery.add(reminder.query)
                                 }
-                                showReminderNotification(context, words, listQuery)
+                                showReminderNotification(context, words.toString(), listQuery)
                             }
                         }
                     }
@@ -77,7 +78,7 @@ class OnShowRemindersNotificationBroadCastReceiver : BaseBroadCastReceiver() {
         }
     }
 
-    private fun showReminderNotification(context: Context, words: StringBuilder, listQuery: MutableList<String>) {
+    private fun showReminderNotification(context: Context, words: String, listQuery: List<String>) {
         NotificationUtil(context).let {
             val title = context.getString(R.string.menu_reminder)
             val content = context.getString(if (listQuery.size > 1){

@@ -10,6 +10,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
 import com.example.foreverfreedictionary.ui.broadcastReceiver.OnShowRemindersNotificationBroadCastReceiver
+import com.example.foreverfreedictionary.vo.Status
 
 
 class ReminderService @Inject constructor(
@@ -36,8 +37,9 @@ class ReminderService @Inject constructor(
 
     override fun onHandleIntent(intent: Intent?) {
         Timber.d("ReminderService")
-        intentServiceScope.launch {
-            val resource = countUnRemindedReminderCommand.execute()
+        onHasRemindersInTime()
+//        intentServiceScope.launch {
+//            val resource = countUnRemindedReminderCommand.execute()
 //            when(resource.status){
 //                Status.LOADING -> {}
 //                Status.ERROR -> {}
@@ -48,7 +50,7 @@ class ReminderService @Inject constructor(
 //                    }
 //                }
 //            }
-        }
+//        }
     }
 
     override fun onDestroy() {

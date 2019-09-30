@@ -1,6 +1,5 @@
 package com.example.foreverfreedictionary.util
 
-import android.R
 import android.app.*
 import android.content.Context
 import android.content.ContextWrapper
@@ -10,6 +9,7 @@ import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.example.foreverfreedictionary.R
 import com.example.foreverfreedictionary.ui.broadcastReceiver.OnActionReminderNotificationBroadCastReceiver
 
 
@@ -59,18 +59,18 @@ class NotificationUtil(context: Context) : ContextWrapper(context) {
     fun createReminderNotification(
         title: String,
         content: String,
-        listQuery: MutableList<String>
+        listQuery: List<String>
     ): NotificationCompat.Builder {
         //Notification Channel ID passed as a parameter here will be ignored for all the Android versions below 8.0
         val builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
         builder.setContentTitle(title)
         builder.setContentText(content)
-        builder.setSmallIcon(R.drawable.ic_lock_idle_alarm)
+        builder.setSmallIcon(R.drawable.round_alarm_black_18)
         builder.priority = NotificationCompat.PRIORITY_DEFAULT
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
         builder.setVibrate(longArrayOf(500, 500, 500, 500))
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)//Lock Screen Visibility
-        builder.setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_lock_idle_alarm))
+        builder.setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.round_alarm_black_36))
 
         //This intent will be fired when the notification is tapped
         val intent = Intent(this, OnActionReminderNotificationBroadCastReceiver::class.java)

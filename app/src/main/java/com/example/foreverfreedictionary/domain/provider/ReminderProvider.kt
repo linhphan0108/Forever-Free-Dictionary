@@ -34,7 +34,7 @@ class ReminderProvider @Inject constructor(
             })
     }
 
-    suspend fun countUnRemindedDictionaryReminder(timestamp: Long): LiveData<Resource<Int>>{
+    suspend fun countUnRemindedDictionaryReminder(timestamp: Long): Resource<Int>{
         return firstSource(
             dbCall = {
                 local.countRemindersInTime(timestamp)
@@ -56,7 +56,7 @@ class ReminderProvider @Inject constructor(
     }
 
     suspend fun setReminded(queryList: List<String>) : LiveData<Resource<Int>>{
-        return firstSource(
+        return firstSourceLiveData(
             dbCall = {
                 local.setReminded(queryList)
             }, cloudCall = {

@@ -3,15 +3,17 @@ package com.example.foreverfreedictionary.ui.broadcastReceiver
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.Observer
 import com.example.foreverfreedictionary.di.DaggerBroadCastReceiverComponent
 import com.example.foreverfreedictionary.domain.command.SetRemindedRemindersCommand
 import com.example.foreverfreedictionary.ui.mapper.ReminderMapper
 import com.example.foreverfreedictionary.ui.screen.main.MainActivity
 import com.example.foreverfreedictionary.util.NotificationUtil
+import com.example.foreverfreedictionary.vo.Resource
 import com.example.foreverfreedictionary.vo.Status
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,22 +44,27 @@ class OnActionReminderNotificationBroadCastReceiver: BaseBroadCastReceiver() {
 
     private fun setReminded(queryList: List<String>) {
         uiScope.launch {
-            val deferred = async(Dispatchers.IO){
+            val liveData = withContext(Dispatchers.IO){
                 setRemindedRemindersCommand.queryList = queryList
                 setRemindedRemindersCommand.execute()
             }
-//            val resource = deferred.await()
-//            when(resource.status){
-//                Status.LOADING -> {
-//
-//                }
-//                Status.ERROR -> {
-//
-//                }
-//                Status.SUCCESS -> {
-//                    Timber.d("${resource.data} reminders reminded")
-//                }
-//            }
+            liveData.observeForever(object : Observer<Resource<Int>> {
+                override fun onChanged(resource: Resource<Int>) {
+                    liveData.removeObserver(this)
+                    when(resource.status){
+                        Status.LOADING -> {
+
+                        }
+                        Status.ERROR -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            Timber.d("${resource.data} reminders reminded")
+                        }
+                    }
+                }
+
+            })
         }
     }
 }

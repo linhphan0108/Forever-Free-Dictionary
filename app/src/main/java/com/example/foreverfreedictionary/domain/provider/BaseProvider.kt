@@ -48,9 +48,9 @@ abstract class BaseProvider {
         return mediatorLiveData
     }
 
-    suspend fun <T, A> firstSource(dbCall: suspend () -> T,
-                                   cloudCall: suspend () -> ApiResponse<A>,
-                                   mapper: suspend (ApiResponse<A>) -> Resource<T>
+    suspend fun <T, A> firstSourceLiveData(dbCall: suspend () -> T,
+                                           cloudCall: suspend () -> ApiResponse<A>,
+                                           mapper: suspend (ApiResponse<A>) -> Resource<T>
     ): LiveData<Resource<T>> {
         val local = dbCall.invoke()
         val resource: Resource<T> = if (local != null){
@@ -60,6 +60,18 @@ abstract class BaseProvider {
         }
         return MutableLiveData<Resource<T>>().apply {
             postValue(resource)
+        }
+    }
+
+    suspend fun <T, A> firstSource(dbCall: suspend () -> T,
+                                           cloudCall: suspend () -> ApiResponse<A>,
+                                           mapper: suspend (ApiResponse<A>) -> Resource<T>
+    ): Resource<T> {
+        val local = dbCall.invoke()
+        return if (local != null){
+            Resource.success(local)
+        }else{
+            mapper(cloudCall.invoke())
         }
     }
 

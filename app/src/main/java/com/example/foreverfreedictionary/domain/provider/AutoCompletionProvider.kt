@@ -14,7 +14,7 @@ class AutoCompletionProvider @Inject constructor(
 ) : BaseProvider() {
 
     suspend fun fetchAutoCompletion(query: String): LiveData<Resource<List<String>?>> {
-        return firstSource(dbCall = {
+        return firstSourceLiveData(dbCall = {
             autoCompletionLocal.fetchAutoCompletion(query)
         }, cloudCall = {
             cloud.fetchAutoCompletion(query)
