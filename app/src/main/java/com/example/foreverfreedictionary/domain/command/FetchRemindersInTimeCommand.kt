@@ -10,7 +10,7 @@ class FetchRemindersInTimeCommand @Inject constructor(
     private val provider: ReminderProvider
 ) : BaseLiveDataCommand<List<Reminder>>() {
     override suspend fun execute(): LiveData<Resource<List<Reminder>>> {
-        val time = System.currentTimeMillis() + ONE_DAY
+        val time = System.currentTimeMillis()
         return provider.getRemindersInTime(time)
     }
 }

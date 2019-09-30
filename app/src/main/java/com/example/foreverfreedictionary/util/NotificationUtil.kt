@@ -39,7 +39,7 @@ class NotificationUtil(context: Context) : ContextWrapper(context) {
     private fun createChannels(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel =
-                NotificationChannel(NOTIFICATION_CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel(NOTIFICATION_CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             //Boolean value to set if lights are enabled for Notifications from this Channel
             notificationChannel.enableLights(true)
             //Boolean value to set if vibration are enabled for Notifications from this Channel
@@ -70,7 +70,7 @@ class NotificationUtil(context: Context) : ContextWrapper(context) {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
         builder.setVibrate(longArrayOf(500, 500, 500, 500))
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)//Lock Screen Visibility
-        builder.setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.round_alarm_black_36))
+        builder.setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.round_alarm_black_48))
 
         //This intent will be fired when the notification is tapped
         val intent = Intent(this, OnActionReminderNotificationBroadCastReceiver::class.java)
@@ -85,8 +85,8 @@ class NotificationUtil(context: Context) : ContextWrapper(context) {
 //        val buttonPendingIntent = PendingIntent.getBroadcast(this, 1002, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 //        builder.addAction( R.drawable.ic_lock_idle_alarm, resources.getString(R.string.ok), buttonPendingIntent)
 
-//        builder.setStyle(NotificationCompat.BigTextStyle()
-//                .bigText(content))
+        builder.setStyle(NotificationCompat.BigTextStyle()
+                .bigText(content))
 
 //        builder.setStyle(NotificationCompat.BigPictureStyle()
 //            .bigPicture(BitmapFactory.decodeResource(application.resources, R.drawable.icon)))

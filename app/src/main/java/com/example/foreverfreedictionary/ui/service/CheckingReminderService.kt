@@ -13,8 +13,8 @@ import com.example.foreverfreedictionary.ui.broadcastReceiver.OnShowRemindersNot
 import com.example.foreverfreedictionary.vo.Status
 
 
-class ReminderService @Inject constructor(
-) : IntentService(ReminderService::javaClass.name){
+class CheckingReminderService @Inject constructor(
+) : IntentService(CheckingReminderService::javaClass.name){
 
     companion object{
         const val ARG_REMINDERS_IN_TIME = "ARG_REMINDERS_IN_TIME"
@@ -36,21 +36,20 @@ class ReminderService @Inject constructor(
     }
 
     override fun onHandleIntent(intent: Intent?) {
-        Timber.d("ReminderService")
-        onHasRemindersInTime()
-//        intentServiceScope.launch {
-//            val resource = countUnRemindedReminderCommand.execute()
-//            when(resource.status){
-//                Status.LOADING -> {}
-//                Status.ERROR -> {}
-//                Status.SUCCESS ->{
-//                    val count = resource.data ?: 0
-//                    if(count > 0){
-//                        onHasRemindersInTime()
-//                    }
-//                }
-//            }
-//        }
+        Timber.d("CheckingReminderService")
+        intentServiceScope.launch {
+            val resource = countUnRemindedReminderCommand.execute()
+            when(resource.status){
+                Status.LOADING -> {}
+                Status.ERROR -> {}
+                Status.SUCCESS ->{
+                    val count = resource.data ?: 0
+                    if(count > 0){
+                        onHasRemindersInTime()
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

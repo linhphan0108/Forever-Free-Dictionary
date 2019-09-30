@@ -42,12 +42,7 @@ import kotlin.coroutines.CoroutineContext
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.postDelayed
 import com.example.foreverfreedictionary.ui.screen.ocr_text_recognizer.OcrCaptureActivity
-import android.app.AlarmManager
-import android.app.PendingIntent
-import com.example.foreverfreedictionary.extensions.howLongTilNext8Clock
-import com.example.foreverfreedictionary.ui.broadcastReceiver.OnAlarmReminderBroadCastReceiver
-import java.sql.Date
-
+import com.example.foreverfreedictionary.ui.broadcastReceiver.ScheduleReminderBroadCastReceiver
 
 const val REQUEST_CODE_RESULT_ACTIVITY = 11
 const val REQUEST_CODE_OCR_ACTIVITY = 12
@@ -79,9 +74,7 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         setupNavigator()
         registerViewModelListeners()
         registerEventListeners()
-        scheduleAlarm()
-//        val serviceIntent = Intent(this, ReminderService::class.java)
-//        startService(serviceIntent)
+        sendReminderBroadcast()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -153,24 +146,6 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
             val intent = Intent(this, OcrCaptureActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_OCR_ACTIVITY)
         }
-    }
-
-    private fun scheduleAlarm() {
-        val intent = Intent(applicationContext, OnAlarmReminderBroadCastReceiver::class.java)
-        val alarmIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val startTime = Date(System.currentTimeMillis()).howLongTilNext8Clock()
-        val backupAlarmMgr = this.getSystemService(ALARM_SERVICE) as AlarmManager
-        backupAlarmMgr.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            startTime,
-            AlarmManager.INTERVAL_DAY, //todo this must be changed to 1 hour
-            alarmIntent
-        )//alarm will repeat after every day
     }
 
 //    navigation section
@@ -339,5 +314,10 @@ class MainActivity : BaseActivity(), AutoCompletionViewHolder.OnItemListeners, C
         cslSearchBoxContainer.visibility = vs
         swDarkMode.visibility = vs
         hideAutoCompletion()
+    }
+
+    private fun sendReminderBroadcast(){
+        val scheduleBroadcastIntent = Intent(this, ScheduleReminderBroadCastReceiver::class.java)
+        sendBroadcast(scheduleBroadcastIntent)
     }
 }
