@@ -73,7 +73,7 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:src="@drawable/outline_mic_black_24"
                 android:tint="@color/colorPrimary"
-                android:theme="@style/AppTheme.GreenRipple"
+                android:theme="@style/AppTheme.colorPrimaryRipple"
                 android:background="?selectableItemBackgroundBorderless"
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@string/des_mic_button"/>
@@ -87,7 +87,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/baseline_photo_camera_black_24"
                 android:tint="@color/colorPrimary"
-                android:theme="@style/AppTheme.GreenRipple"
+                android:theme="@style/AppTheme.colorPrimaryRipple"
                 android:background="?selectableItemBackgroundBorderless"
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@string/des_camera_button"/>
@@ -104,7 +104,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/outline_close_black_24"
                 android:tint="@color/colorPrimary"
-                android:theme="@style/AppTheme.GreenRipple"
+                android:theme="@style/AppTheme.colorPrimaryRipple"
                 android:background="?selectableItemBackgroundBorderless"
                 android:layout_gravity="center_vertical|end"
                 android:visibility="invisible"

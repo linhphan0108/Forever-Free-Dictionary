@@ -36,6 +36,8 @@
 
     <color name="color_tint_reminder_icon_on">@color/colorPrimary</color>
     <color name="color_tint_reminder_icon_off">@color/textPrimary</color>
+    <color name="color_tint_speaker_br">#FA6360</color>
+    <color name="color_tint_speaker_ame">#6ED3FA</color>
 
 <!--    search box-->
     <color name="color_search_box_background">@color/colorBackground</color>
