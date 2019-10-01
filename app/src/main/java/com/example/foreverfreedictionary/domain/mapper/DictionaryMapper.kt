@@ -11,7 +11,7 @@ class DictionaryMapper {
      */
     fun toData(dictionary: DictionaryCloud): TblDictionary {
         return with(dictionary){
-            TblDictionary(query, word, dictionary.topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, false, lastAccess)
+            TblDictionary(query, word, dictionary.topic, isCheckSpellPage, content, soundBr, soundAme, ipaBr, ipaAme, lastAccess)
         }
     }
 

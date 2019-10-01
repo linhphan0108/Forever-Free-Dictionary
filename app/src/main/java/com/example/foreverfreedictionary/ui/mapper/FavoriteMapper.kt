@@ -1,6 +1,7 @@
 package com.example.foreverfreedictionary.ui.mapper
 
 import com.example.foreverfreedictionary.data.local.model.FavoriteDictionary
+import com.example.foreverfreedictionary.ui.model.DictionaryEntity
 import com.example.foreverfreedictionary.ui.model.FavoriteEntity
 import com.example.foreverfreedictionary.ui.model.HistoryEntity
 import com.example.foreverfreedictionary.vo.Resource
@@ -31,6 +32,11 @@ class FavoriteMapper {
     fun toDomain(item: HistoryEntity): FavoriteDictionary{
         return with(item){
             FavoriteDictionary(query, word, soundBr, soundAme, ipaBr, ipaAme, true, isReminded, remindTime)
+        }
+    }
+    fun toDomain(item: DictionaryEntity, isFavorite: Boolean): FavoriteDictionary{
+        return with(item){
+            FavoriteDictionary(query, word, soundBr, soundAme, ipaBr, ipaAme, isFavorite, isReminded, remindTime)
         }
     }
 }

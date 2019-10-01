@@ -16,12 +16,13 @@ import com.example.foreverfreedictionary.di.injector
 import com.example.foreverfreedictionary.di.viewModel
 import com.example.foreverfreedictionary.extensions.showSnackBar
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseActivity
-import com.example.foreverfreedictionary.util.LOCAL_DICTIONARY_URL
-import com.example.foreverfreedictionary.util.LOCAL_DOMAIN
+import com.example.foreverfreedictionary.ui.model.ReminderStates
 import com.example.foreverfreedictionary.util.WebViewUtil
 import com.example.foreverfreedictionary.vo.Status
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_result_screen.*
+import kotlinx.android.synthetic.main.actions_bar_result.*
+import kotlinx.android.synthetic.main.app_bar_result.*
+import kotlinx.android.synthetic.main.content_result.*
 
 
 class ResultActivity : BaseActivity() {
@@ -39,9 +40,10 @@ class ResultActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result_screen)
+        setContentView(R.layout.app_bar_result)
         setupToolbar()
         setupWebView()
+        registerEventListeners()
         registerViewModelListeners()
 
         intent.extras?.getString(ARG_QUERY)?.let {
@@ -127,11 +129,17 @@ class ResultActivity : BaseActivity() {
 
     private fun setupToolbar(){
         title = ""
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun showWebViewResult(data: String){
         wvResult.loadDataWithBaseURL("file:///android_asset/", data, "text/html", "UTF-8", null)
+    }
+
+    private fun registerEventListeners(){
+        iBtnFavorite.setOnClickListener { viewModel.onFavoriteButtonClicked() }
+        iBtnReminder.setOnClickListener { viewModel.onReminderButtonClicked() }
     }
 
     private fun registerViewModelListeners(){
@@ -145,9 +153,27 @@ class ResultActivity : BaseActivity() {
                         })
                 }
                 Status.SUCCESS -> {
-                    showWebViewResult(resource.data.orEmpty())
+                    showWebViewResult(resource.data?.content ?: "")
                 }
             }
+        })
+        viewModel.favoriteStatus.observe(this, Observer {status ->
+            iBtnFavorite.isSelected = status
+        })
+
+        viewModel.reminderStatus.observe(this, Observer {reminderState ->
+            iBtnReminder.isActivated = when(reminderState){
+                ReminderStates.NOT_YET -> {true}
+                ReminderStates.ON_GOING -> {true}
+                ReminderStates.REMINDED -> {false}
+                else -> {false}
+            }
+            iBtnReminder.setImageResource(when(reminderState){
+                ReminderStates.NOT_YET -> {R.drawable.round_alarm_add_black_24}
+                ReminderStates.ON_GOING -> {R.drawable.round_alarm_black_24}
+                ReminderStates.REMINDED -> {R.drawable.round_alarm_on_black_24}
+                else -> {R.drawable.round_alarm_add_black_24}
+            })
         })
     }
 }

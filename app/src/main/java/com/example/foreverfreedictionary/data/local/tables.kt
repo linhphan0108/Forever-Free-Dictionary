@@ -28,8 +28,6 @@ data class TblDictionary(
     val ipaBr: String?,
     @field:SerializedName("ipa_Ame")
     val ipaAme: String?,
-    @field:SerializedName("favorite")
-    val isFavorite: Boolean,
     @field:SerializedName("last_access")
     val lastAccess: Date ){
 
