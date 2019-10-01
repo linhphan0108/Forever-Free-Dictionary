@@ -62,9 +62,9 @@ class DictionaryDataCloud {
                     val ipaBr = entryContent.selectFirst("span.PRON")?.text()
                     var ipaAme = entryContent.selectFirst("span.AMEVARPRON")?.text()
                     val soundBr =
-                        entryContent.selectFirst("span.speaker.amefile")?.attr("data-src-mp3")
-                    val soundAme =
                         entryContent.selectFirst("span.speaker.brefile")?.attr("data-src-mp3")
+                    val soundAme =
+                        entryContent.selectFirst("span.speaker.amefile")?.attr("data-src-mp3")
                     if (ipaAme?.startsWith("$") == true) {
                         ipaAme = ipaAme.substringAfter("$")
                     }

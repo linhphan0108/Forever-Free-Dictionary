@@ -2,6 +2,9 @@ package com.example.foreverfreedictionary.ui.screen.result
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -23,11 +26,24 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.actions_bar_result.*
 import kotlinx.android.synthetic.main.app_bar_result.*
 import kotlinx.android.synthetic.main.content_result.*
+import timber.log.Timber
+import java.lang.Exception
 
 
 class ResultActivity : BaseActivity() {
 
     private val viewModel: ResultActivityViewModel by viewModel(this){injector.resultActivityViewModel}
+    private val mediaPlayer: MediaPlayer by lazy { MediaPlayer().apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build())
+        }else{
+            @Suppress("DEPRECATION")
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
+        }
+    } }
 
     companion object{
         const val ARG_QUERY = "ARG_QUERY"
@@ -140,6 +156,16 @@ class ResultActivity : BaseActivity() {
     private fun registerEventListeners(){
         iBtnFavorite.setOnClickListener { viewModel.onFavoriteButtonClicked() }
         iBtnReminder.setOnClickListener { viewModel.onReminderButtonClicked() }
+        iBtnBrSound.setOnClickListener {
+            viewModel.dictionary.value?.data?.soundBr?.let {soundUrl ->
+                playSound(soundUrl)
+            }
+        }
+        iBtnAmeSound.setOnClickListener {
+            viewModel.dictionary.value?.data?.soundAme?.let {soundUrl ->
+                playSound(soundUrl)
+            }
+        }
     }
 
     private fun registerViewModelListeners(){
@@ -175,5 +201,22 @@ class ResultActivity : BaseActivity() {
                 else -> {R.drawable.round_alarm_add_black_24}
             })
         })
+    }
+
+    private fun playSound(url: String){
+        try {
+            mediaPlayer.reset()
+            mediaPlayer.setDataSource(url)
+            mediaPlayer.prepareAsync()
+            mediaPlayer.setOnPreparedListener {
+                mediaPlayer.start()
+            }
+            mediaPlayer.setOnErrorListener { _: MediaPlayer, _: Int, _: Int ->
+                false
+            }
+            mediaPlayer.start()
+        }catch (e: Exception){
+            Timber.e(e)
+        }
     }
 }
