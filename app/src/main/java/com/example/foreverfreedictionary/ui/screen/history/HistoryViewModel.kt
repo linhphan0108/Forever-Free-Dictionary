@@ -75,10 +75,9 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun setReminder(item: HistoryEntity){
-        val date = Date(System.currentTimeMillis()).getTomorrow0Clock()
         uiScope.launch {
             val deferred = async(Dispatchers.IO) {
-                insertReminderCommand.reminder = reminderMapper.toDomain(item, date)
+                insertReminderCommand.reminder = reminderMapper.toDomain(item)
                 insertReminderCommand.execute()
             }
             _setReminderMutableLiveData.value = deferred.await()
