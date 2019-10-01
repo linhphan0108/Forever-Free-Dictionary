@@ -4,7 +4,8 @@
 <!--    common-->
     <string name="ok">OK</string>
     <string name="unknown_error_message">Oops! something went wrong, please try late on.</string>
-
+    <string name="clipboard_label_text_copied">Copied Text</string>
+    <string name="toast_message_text_copied">%s copied </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

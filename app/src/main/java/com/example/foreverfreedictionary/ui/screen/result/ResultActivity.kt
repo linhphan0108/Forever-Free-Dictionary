@@ -28,11 +28,15 @@ import kotlinx.android.synthetic.main.app_bar_result.*
 import kotlinx.android.synthetic.main.content_result.*
 import timber.log.Timber
 import java.lang.Exception
+import android.content.ClipData
+import android.content.ClipboardManager
+import com.example.foreverfreedictionary.extensions.toast
 
 
 class ResultActivity : BaseActivity() {
 
     private val viewModel: ResultActivityViewModel by viewModel(this){injector.resultActivityViewModel}
+    private val clipboard: ClipboardManager by lazy { getSystemService(CLIPBOARD_SERVICE) as ClipboardManager}
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer().apply {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.setAudioAttributes(
@@ -164,6 +168,13 @@ class ResultActivity : BaseActivity() {
         iBtnAmeSound.setOnClickListener {
             viewModel.dictionary.value?.data?.soundAme?.let {soundUrl ->
                 playSound(soundUrl)
+            }
+        }
+        iBtnCopy.setOnClickListener {
+            viewModel.dictionary.value?.data?.word?.let { word ->
+                val clip = ClipData.newPlainText(getString(R.string.clipboard_label_text_copied), word)
+                clipboard.setPrimaryClip(clip)
+                toast(getString(R.string.toast_message_text_copied, word))
             }
         }
     }
