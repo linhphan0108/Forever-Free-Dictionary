@@ -15,7 +15,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- styles.xml -->
-    <style name="AppTheme.GreenRipple">
+    <style name="AppTheme.colorPrimaryRipple">
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 

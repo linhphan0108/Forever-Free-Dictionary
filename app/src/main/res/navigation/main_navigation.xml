@@ -42,7 +42,7 @@
 
     <activity android:id="@+id/resultActivity"
         android:name="com.example.foreverfreedictionary.ui.screen.result.ResultActivity"
-        tools:layout="@layout/activity_result_screen"/>
+        tools:layout="@layout/app_bar_result"/>
 
     <action
         android:id="@+id/action_nav_to_resultActivity"
