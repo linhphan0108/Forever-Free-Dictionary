@@ -12,4 +12,11 @@
             <enum name="fill_and_stroke" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="RoundedBubbleBox">
+        <attr name="fillColor" format="color"/>
+        <attr name="arrow_height" format="dimension" />
+        <attr name="arrow_width" format="dimension" />
+        <attr name="square_box_radius" format="dimension" />
+    </declare-styleable>
 </resources>

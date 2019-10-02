@@ -31,6 +31,7 @@ import java.lang.Exception
 import android.content.ClipData
 import android.content.ClipboardManager
 import com.example.foreverfreedictionary.extensions.toast
+import com.example.foreverfreedictionary.ui.dialog.ChangeTextSizeDialog
 
 
 class ResultActivity : BaseActivity() {
@@ -48,6 +49,8 @@ class ResultActivity : BaseActivity() {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
     } }
+
+    private val changeTextSizeDialog: ChangeTextSizeDialog by lazy { ChangeTextSizeDialog() }
 
     companion object{
         const val ARG_QUERY = "ARG_QUERY"
@@ -176,6 +179,16 @@ class ResultActivity : BaseActivity() {
                 clipboard.setPrimaryClip(clip)
                 toast(getString(R.string.toast_message_text_copied, word))
             }
+        }
+        iBtnChangeTextSize.setOnClickListener {
+            changeTextSizeDialog.listener = object : ChangeTextSizeDialog.OnListener{
+                override fun onNewTextSize(value: Int) {
+                    wvResult.settings.textZoom = value
+                }
+            }
+            changeTextSizeDialog.currentSize = wvResult.settings.textZoom
+            changeTextSizeDialog.anchorView = iBtnChangeTextSize
+            changeTextSizeDialog.show(supportFragmentManager, ChangeTextSizeDialog::class.java.name)
         }
     }
 
