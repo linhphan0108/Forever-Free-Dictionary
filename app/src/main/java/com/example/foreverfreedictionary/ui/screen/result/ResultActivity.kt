@@ -238,7 +238,6 @@ class ResultActivity : BaseActivity() {
             mediaPlayer.setOnErrorListener { _: MediaPlayer, _: Int, _: Int ->
                 false
             }
-            mediaPlayer.start()
         }catch (e: Exception){
             Timber.e(e)
         }
