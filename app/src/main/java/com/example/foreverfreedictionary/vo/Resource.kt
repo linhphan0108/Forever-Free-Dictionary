@@ -20,4 +20,28 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             return Resource(LOADING, data, null)
         }
     }
+
+    /**
+     * transform from current list data into expected list data with the passed function
+     */
+    inline fun <reified E, R> map(mapper: (item: E) -> R): Resource<List<R>>{
+        return when(status){
+            LOADING -> {
+                loading()
+            }
+            ERROR -> {
+                error(message)
+            }
+            SUCCESS -> {
+                val mappedData: List<R>? = if (data is List<*>){
+                    data.map {
+                        mapper.invoke(it as E)
+                    }
+                }else{
+                    null
+                }
+                success(mappedData)
+            }
+        }
+    }
 }

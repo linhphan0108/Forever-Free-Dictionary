@@ -17,7 +17,7 @@
             android:icon="@drawable/round_history_black_36"
             android:title="@string/menu_history" />
         <item
-            android:id="@+id/nav_my_vocabulary"
+            android:id="@+id/nav_my_vocabulary_group"
             android:icon="@drawable/outline_font_download_black_36"
             android:title="@string/menu_my_vocabulary" />
         <item

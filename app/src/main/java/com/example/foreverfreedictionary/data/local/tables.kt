@@ -138,3 +138,28 @@ data class TblReminder(
     @ColumnInfo(name = "time")
     val time: Date
 )
+
+@Entity(tableName = "my_vocabulary_group")
+data class TblMyVocabularyGroup(
+    @PrimaryKey
+    val name: String
+)
+
+@Entity(tableName = "my_vocabulary",
+    primaryKeys = ["query", "groupName"],
+    foreignKeys = [ForeignKey(
+        entity = TblMyVocabularyGroup::class,
+        parentColumns = arrayOf("name"),
+        childColumns = arrayOf("groupName"),
+        onDelete = CASCADE
+    )],
+    indices = [Index("groupName")])
+data class TblMyVocabulary(
+    val query: String,
+    val word: String,
+    val groupName: String,
+    val soundBr: String?,
+    val soundAme: String?,
+    val ipaBr: String?,
+    val ipaAme: String?
+)

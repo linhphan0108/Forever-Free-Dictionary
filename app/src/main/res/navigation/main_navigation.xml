@@ -24,10 +24,23 @@
         tools:layout="@layout/fragment_history" />
 
     <fragment
-        android:id="@+id/nav_my_vocabulary"
-        android:name="com.example.foreverfreedictionary.ui.screen.tools.ToolsFragment"
+        android:id="@+id/nav_my_vocabulary_group"
+        android:name="com.example.foreverfreedictionary.ui.screen.my_vocabulary.MyVocabularyGroupFragment"
         android:label="@string/menu_my_vocabulary"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_my_vocabulary_group" >
+        <action
+            android:id="@+id/action_nav_my_vocabulary_group_to_nav_my_vocabulary"
+            app:destination="@id/nav_my_vocabulary" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_my_vocabulary"
+        android:name="com.example.foreverfreedictionary.ui.screen.my_vocabulary.MyVocabularyFragment"
+        android:label="@string/menu_my_vocabulary"
+        tools:layout="@layout/fragment_my_vocabulary">
+        <argument android:name="groupName"
+            app:argType="string"/>
+    </fragment>
 
     <fragment android:id="@+id/nav_reminder"
         android:name="com.example.foreverfreedictionary.ui.screen.reminder.ReminderFragment"

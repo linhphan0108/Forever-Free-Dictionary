@@ -1,6 +1,8 @@
 package com.example.foreverfreedictionary.di.module
 
 import com.example.foreverfreedictionary.domain.mapper.*
+import com.example.foreverfreedictionary.ui.mapper.MyVocabularyGroupMapper
+import com.example.foreverfreedictionary.ui.mapper.MyVocabularyMapper as MyVocabularyUiMapper
 import com.example.foreverfreedictionary.ui.mapper.DictionaryMapper as DictionaryUiMapper
 import com.example.foreverfreedictionary.ui.mapper.WordOfTheDayMapper as WordOfTheDayUiMapper
 import com.example.foreverfreedictionary.ui.mapper.ReminderMapper as ReminderUiMapper
@@ -56,4 +58,12 @@ object MapperModule{
     @Singleton
     @JvmStatic @Provides
     fun provideAutoCompletionUiMapper() = AutoCompletionUiMapper()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideMyVocabularyGroupMapper() = MyVocabularyGroupMapper()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideMyVocabularyUiMapper() = MyVocabularyUiMapper()
 }

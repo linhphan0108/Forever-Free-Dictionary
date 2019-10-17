@@ -43,6 +43,21 @@
             card_view:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/iBtnAddToMyVocabularyGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_add"
+            android:tint="@color/colorPrimary"
+            android:theme="@style/AppTheme.colorPrimaryRipple"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintStart_toEndOf="@id/iBtnCopy"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/iBtnReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +69,7 @@
             android:theme="@style/AppTheme.colorPrimaryRipple"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintStart_toEndOf="@id/iBtnCopy"
+            card_view:layout_constraintStart_toEndOf="@id/iBtnAddToMyVocabularyGroup"
             />
 
         <androidx.appcompat.widget.AppCompatImageButton

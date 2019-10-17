@@ -82,6 +82,13 @@
 <!--    reminder screen-->
     <string name="reminder_notification_message">do you remember this word %s</string>
     <string name="reminder_notification_message_plural">do you remember these words %s</string>
+
+<!--    my vocabulary screen-->
+    <string name="add_vocabulary_group">New Group</string>
+    <string name="add_vocabulary_hint">Enter Your Group Name</string>
+    <string name="my_vocabulary_group_dialog_picker_title">Choose one or More</string>
+    <string name="new_vocabulary_group">New Group</string>
+
 <!--    about us-->
     <string name="about_us_message">
         Hi forks,
