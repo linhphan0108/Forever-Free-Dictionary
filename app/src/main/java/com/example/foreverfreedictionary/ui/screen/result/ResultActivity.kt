@@ -32,6 +32,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import com.example.foreverfreedictionary.extensions.toast
 import com.example.foreverfreedictionary.ui.dialog.ChangeTextSizeDialog
+import com.example.foreverfreedictionary.ui.dialog.MyVocabularyGroupPicker
 
 
 class ResultActivity : BaseActivity() {
@@ -162,6 +163,7 @@ class ResultActivity : BaseActivity() {
 
     private fun registerEventListeners(){
         iBtnFavorite.setOnClickListener { viewModel.onFavoriteButtonClicked() }
+        iBtnAddToMyVocabularyGroup.setOnClickListener { openMyVocabularyGroupPicker()}
         iBtnReminder.setOnClickListener { viewModel.onReminderButtonClicked() }
         iBtnBrSound.setOnClickListener {
             viewModel.dictionary.value?.data?.soundBr?.let {soundUrl ->
@@ -240,6 +242,12 @@ class ResultActivity : BaseActivity() {
             }
         }catch (e: Exception){
             Timber.e(e)
+        }
+    }
+
+    private fun openMyVocabularyGroupPicker(){
+        viewModel.dictionary.value?.data?.let{
+            MyVocabularyGroupPicker.newInstance(it).show(supportFragmentManager, MyVocabularyGroupPicker::javaClass.name)
         }
     }
 }

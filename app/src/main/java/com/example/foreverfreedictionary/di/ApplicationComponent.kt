@@ -2,11 +2,15 @@ package com.example.foreverfreedictionary.di
 
 import android.app.Application
 import com.example.foreverfreedictionary.di.module.*
+import com.example.foreverfreedictionary.ui.dialog.MyVocabularyGroupPickerViewModel
+import com.example.foreverfreedictionary.ui.dialog.NewMyVocabularyGroupDialogViewModel
 import com.example.foreverfreedictionary.ui.dialog.VoiceRecognizerDialogViewModel
 import com.example.foreverfreedictionary.ui.screen.gallery.FavoriteViewModel
 import com.example.foreverfreedictionary.ui.screen.history.HistoryViewModel
 import com.example.foreverfreedictionary.ui.screen.home.HomeViewModel
 import com.example.foreverfreedictionary.ui.screen.main.MainActivityViewModel
+import com.example.foreverfreedictionary.ui.screen.my_vocabulary.MyVocabularyGroupViewModel
+import com.example.foreverfreedictionary.ui.screen.my_vocabulary.MyVocabularyViewModel
 import com.example.foreverfreedictionary.ui.screen.reminder.ReminderViewModel
 import com.example.foreverfreedictionary.ui.screen.result.ResultActivityViewModel
 import dagger.BindsInstance
@@ -38,5 +42,9 @@ interface ApplicationComponent {
     val historyViewModel: HistoryViewModel
     val favoriteViewModel: FavoriteViewModel
     val reminderViewModel: ReminderViewModel
+    val myVocabularyGroupViewModel: MyVocabularyGroupViewModel
     val voiceRecognizerDialogViewModel: VoiceRecognizerDialogViewModel
+    val myVocabularyViewModel: MyVocabularyViewModel
+    val myVocabularyGroupPickerViewModel: MyVocabularyGroupPickerViewModel
+    val newMyVocabularyGroupDialogViewModel: NewMyVocabularyGroupDialogViewModel
 }

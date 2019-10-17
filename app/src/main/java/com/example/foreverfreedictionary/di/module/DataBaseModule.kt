@@ -36,4 +36,12 @@ object DataBaseModule {
     @Singleton
     @JvmStatic @Provides
     fun provideReminderDao(db: AppDatabase) = db.reminderDao()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideMyVocabularyGroupDao(db: AppDatabase) = db.myVocabularyGroupDao()
+
+    @Singleton
+    @JvmStatic @Provides
+    fun provideMyVocabularyDao(db: AppDatabase) = db.myVocabularyDao()
 }

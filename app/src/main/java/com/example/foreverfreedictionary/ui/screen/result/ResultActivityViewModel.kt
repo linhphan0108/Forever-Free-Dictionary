@@ -102,6 +102,10 @@ class ResultActivityViewModel  @Inject constructor(
         }
     }
 
+    fun onAddToMyVocabularyGroupClicked(){
+
+    }
+
     private fun addFavorite(dictionaryEntity: DictionaryEntity) {
         uiScope.launch {
             insertFavoriteCommand.favorite = favoriteMapper.toDomain(dictionaryEntity, true)

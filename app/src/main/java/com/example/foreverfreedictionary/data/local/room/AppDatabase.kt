@@ -12,7 +12,7 @@ import com.example.foreverfreedictionary.data.local.*
  * The Room database for this app
  */
 @Database(entities = [TblDictionary::class, TblHistory::class, TblWordOfTheDay::class,
-    TblFavorite::class, TblReminder::class],
+    TblFavorite::class, TblReminder::class, TblMyVocabularyGroup::class, TblMyVocabulary::class],
         version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -22,6 +22,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
     abstract fun favoriteDAo(): FavoriteDao
     abstract fun reminderDao(): ReminderDao
+    abstract fun myVocabularyGroupDao(): MyVocabularyGroupDao
+    abstract fun myVocabularyDao(): MyVocabularyDao
 
     companion object {
 
