@@ -1,10 +1,7 @@
 package com.example.foreverfreedictionary.ui.screen.result
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.example.foreverfreedictionary.domain.command.*
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
 import com.example.foreverfreedictionary.ui.mapper.DictionaryMapper
@@ -51,7 +48,7 @@ class ResultActivityViewModel  @Inject constructor(
     fun query(query: String){
         _dictionaryMediatorLiveData.value = Resource.loading()
         //Connect to website
-        uiScope.launch {
+        viewModelScope.launch {
             //Working on UI thread
             //Use dispatcher to switch between application
             dictionaryResponse = withContext(Dispatchers.IO) {
@@ -107,7 +104,7 @@ class ResultActivityViewModel  @Inject constructor(
     }
 
     private fun addFavorite(dictionaryEntity: DictionaryEntity) {
-        uiScope.launch {
+        viewModelScope.launch {
             insertFavoriteCommand.favorite = favoriteMapper.toDomain(dictionaryEntity, true)
             val deferred = async(Dispatchers.IO) {
                 insertFavoriteCommand.execute()
@@ -118,7 +115,7 @@ class ResultActivityViewModel  @Inject constructor(
     }
 
     private fun removeFavorite(item: DictionaryEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             removeFavoriteCommand.query = item.query
             withContext(Dispatchers.IO) {
                 removeFavoriteCommand.execute()
@@ -146,7 +143,7 @@ class ResultActivityViewModel  @Inject constructor(
     }
 
     private fun setReminder(item: DictionaryEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 insertReminderCommand.reminder = reminderMapper.toDomain(item)
                 insertReminderCommand.execute()
@@ -155,7 +152,7 @@ class ResultActivityViewModel  @Inject constructor(
     }
 
     private fun deleteReminder(entity: DictionaryEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO){
                 deleteReminderCommand.query = entity.query
                 deleteReminderCommand.execute()

@@ -1,10 +1,7 @@
 package com.example.foreverfreedictionary.ui.screen.reminder
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.example.foreverfreedictionary.domain.command.DeleteReminderCommand
 import com.example.foreverfreedictionary.domain.command.FetchRemindersCommand
 import com.example.foreverfreedictionary.domain.command.InsertReminderCommand
@@ -48,7 +45,7 @@ class ReminderViewModel @Inject constructor(
     }
 
     fun getReminders(){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 Transformations.map(fetchReminderInTimeCommand.execute()){
                     reminderMapper.fromDomain(it)
@@ -70,7 +67,7 @@ class ReminderViewModel @Inject constructor(
     }
 
     fun updateReminderStatus(query: String, isReminded: Boolean, time: Date){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 updateReminderStatusCommand.query = query
                 updateReminderStatusCommand.isReminded = isReminded
@@ -84,7 +81,7 @@ class ReminderViewModel @Inject constructor(
     }
 
     fun deleteReminder(entity: ReminderEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async (Dispatchers.IO){
                 deleteReminderCommand.query = entity.query
                 val resource = deleteReminderCommand.execute()
@@ -101,7 +98,7 @@ class ReminderViewModel @Inject constructor(
     }
 
     fun setReminder(item: ReminderEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 insertReminderCommand.reminder = reminderMapper.toDomain(item, item.remindTime)
                 insertReminderCommand.execute()

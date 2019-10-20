@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import com.example.foreverfreedictionary.domain.command.FetchAutoCompletionCommand
 import com.example.foreverfreedictionary.ui.baseMVVM.BaseViewModel
 import com.example.foreverfreedictionary.ui.model.AutoCompletionEntity
@@ -31,7 +32,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun autocompleteQuery(query: String){
-        uiScope.launch {
+        viewModelScope.launch {
             //Working on UI thread
 
             //Use dispatcher to switch between application

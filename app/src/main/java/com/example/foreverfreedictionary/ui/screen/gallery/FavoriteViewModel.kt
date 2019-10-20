@@ -47,7 +47,7 @@ class FavoriteViewModel @Inject constructor(application: Application,
     }
 
     fun getFavorites(){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async (Dispatchers.IO){
                 return@async Transformations.map(favoriteCommand.execute()){
                     favoriteMapper.fromDomain(it)
@@ -66,7 +66,7 @@ class FavoriteViewModel @Inject constructor(application: Application,
     }
 
     fun removeFavorite(item: FavoriteEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             removeFavoriteCommand.query = item.query
             val deferred = async(Dispatchers.IO) {
                 val resource = removeFavoriteCommand.execute()
@@ -83,7 +83,7 @@ class FavoriteViewModel @Inject constructor(application: Application,
     }
 
     fun insertFavorite(item: FavoriteEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async (Dispatchers.IO) {
                 insertFavoriteCommand.favorite = favoriteMapper.toDomain(item)
                 insertFavoriteCommand.execute()
@@ -94,7 +94,7 @@ class FavoriteViewModel @Inject constructor(application: Application,
 
     fun setReminder(item: FavoriteEntity){
         val date = Date(System.currentTimeMillis()).getTomorrow0Clock()
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 insertReminderCommand.reminder = reminderMapper.toDomain(item, date)
                 insertReminderCommand.execute()

@@ -44,7 +44,7 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun getHistory(){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async (Dispatchers.IO){
                 Transformations.map(historyCommand.execute()){
                     historyMapper.fromDomain(it)
@@ -63,7 +63,7 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun addFavorite(item: HistoryEntity) {
-        uiScope.launch {
+        viewModelScope.launch {
             insertFavoriteCommand.favorite = favoriteMapper.toDomain(item)
             val deferred = async(Dispatchers.IO) {
                 insertFavoriteCommand.execute()
@@ -75,7 +75,7 @@ class HistoryViewModel @Inject constructor(
     }
 
     fun setReminder(item: HistoryEntity){
-        uiScope.launch {
+        viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 insertReminderCommand.reminder = reminderMapper.toDomain(item)
                 insertReminderCommand.execute()
