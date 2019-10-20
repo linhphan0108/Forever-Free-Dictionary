@@ -54,7 +54,7 @@
             card_view:layout_constraintStart_toEndOf="@id/txtWord"
             tools:text="@string/dump_ipaAme"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtTimeElapsed"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="wrap_content"
@@ -63,6 +63,7 @@
             android:layout_marginRight="@dimen/activity_margin_half"
             android:drawableStart="@drawable/round_history_black_18"
             android:drawableLeft="@drawable/round_history_black_18"
+            card_view:drawableTint="@color/textPrimary"
             android:drawablePadding="@dimen/padding_4dp"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -75,7 +76,7 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/iBtnReminder"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_margin_half"
             android:layout_marginRight="@dimen/activity_margin_half"
             android:paddingStart="@dimen/padding_4dp"
@@ -93,13 +94,13 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/iBtnFavorite"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_4dp"
             android:paddingLeft="@dimen/padding_4dp"
             android:paddingEnd="@dimen/padding_4dp"
             android:paddingRight="@dimen/padding_4dp"
             android:background="?selectableItemBackgroundBorderless"
-            android:src="@drawable/round_star_border_black_22"
+            android:src="@drawable/round_star_border_black_18"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
