@@ -9,7 +9,7 @@ class CountUnRemindedReminderCommand @Inject constructor(
 ) {
 
     suspend fun execute(): Resource<Int>{
-        val time = System.currentTimeMillis()
+        val time = System.currentTimeMillis() + 1000*60*60*24
         return provider.countUnRemindedDictionaryReminder(time)
     }
 }

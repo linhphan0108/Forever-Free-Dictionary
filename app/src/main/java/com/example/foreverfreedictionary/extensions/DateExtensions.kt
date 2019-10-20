@@ -7,6 +7,7 @@ const val SECOND: Long = 1000
 const val MINUTE = 60*1000
 const val HOUR = 60*60*1000
 const val DAY = 24*60*60*1000
+
 fun Date.howLongTimeLapsedTilNow(): String{
     val currentMillis = System.currentTimeMillis()
     var timeLapsedMillis = currentMillis - time
@@ -32,9 +33,16 @@ fun Date.howLongTimeLapsedTilNow(): String{
 
 
 fun Date.howLongTilNext8Clock(): Long{
+    val todayAt8OClock = Calendar.getInstance().apply {
+        time = this@howLongTilNext8Clock
+        set(Calendar.HOUR_OF_DAY, 8)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }
     val calendar = Calendar.getInstance()
     calendar.time = this
-    if (calendar.get(Calendar.HOUR_OF_DAY) > 8){
+    if (calendar.timeInMillis > todayAt8OClock.timeInMillis){
         calendar.add(Calendar.DAY_OF_MONTH, 1)
     }
     calendar.set(Calendar.HOUR_OF_DAY, 8)

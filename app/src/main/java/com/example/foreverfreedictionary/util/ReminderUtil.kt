@@ -32,7 +32,7 @@ object ReminderUtil {
     private fun scheduleJob(context: Context) {
         val serviceComponent = ComponentName(context, ReminderJobService::class.java)
         val builder = JobInfo.Builder(REMINDER_JOB_ID, serviceComponent)
-        val timeToStart = Date(System.currentTimeMillis()).howLongTilNext8Clock()
+        val timeToStart = CalendarUtil.howLongTilNext8Clock()
         Timber.d("job is set in $timeToStart")
         builder.setMinimumLatency(timeToStart) // wait at least
         builder.setOverrideDeadline(timeToStart + 60000) // maximum delay
@@ -53,7 +53,7 @@ object ReminderUtil {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val startTime = Date(System.currentTimeMillis()).howLongTilNext8Clock()
+        val startTime = CalendarUtil.howLongTilNext8Clock()
         val backupAlarmMgr = context.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
         backupAlarmMgr.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
