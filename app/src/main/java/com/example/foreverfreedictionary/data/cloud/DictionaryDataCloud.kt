@@ -34,12 +34,14 @@ class DictionaryDataCloud {
                 document.select(".am-default")?.remove()
                 document.select(".responsive_cell2")?.remove()
                 document.select(".footer")?.remove()
-                document.select("link[href^=https://d27ucmmhxk51xv.cloudfront.net/external/fonts/font-awesome/4.2.0/css/font-awesome.min.css]")
-                    ?.forEach { cssElement ->
-                        cssElement.attr("href", "css/font-awesome.min.css")
-                    }
-
-
+                document.select("noscript").remove()
+                val headElement = document.select("head").first()
+                headElement.empty()
+                headElement.after("<link rel=\"stylesheet\" href=\"https://d27ucmmhxk51xv.cloudfront.net/common.css?version=1.1.94\"> " +
+                        "<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">" +
+                        "<script type=\"text/javascript\" src=\"https://d27ucmmhxk51xv.cloudfront.net/external/js/jquery-2.1.1.min.js?version=1.1.94\"></script>" +
+                        "<script type=\"text/javascript\" src=\"https://d27ucmmhxk51xv.cloudfront.net/common.js?version=1.1.94\"></script> "
+                )
                 val entryContent = document.selectFirst("div.entry_content")
                 val content = document.html()
                 val dictionary = if (isDictionaryPage || isTopicPage) {
